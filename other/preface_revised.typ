@@ -11,3 +11,7 @@ These standard libraries are now available in the form of a zero-dependency Hask
 
 
 #heading(level: 2, numbering: none)[Changes to the  Report]
+
+#heading(level: 3, numbering: none)[Forall as a keyword]
+
+The definition of the nonterminal $nonterminal("reservedid")$ has been changed to also include the terminal $terminal("forall")$ as a reserved identifier.

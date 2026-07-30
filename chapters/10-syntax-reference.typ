@@ -131,7 +131,7 @@ lambda abstractions extend to the right as far as possible.
   $nonterminaldef("conid")$, $->$, $nonterminal("large") {nonterminal("small") | nonterminal("large") | nonterminal("digit") | terminal("'") med }$,
   // reservedid
   $nonterminaldef("reservedid")$, $->$, $terminal("case") | terminal("class") | terminal("data") | terminal("default") | terminal("deriving") | terminal("do") | terminal("else")$,
-  [], $|$, $terminal("foreign") | terminal("if") | terminal("import") | terminal("in") | terminal("infix") | terminal("infixl")$,
+  [], $|$, $terminal("forall") | terminal("foreign") | terminal("if") | terminal("import") | terminal("in") | terminal("infix") | terminal("infixl")$,
   [], $|$, $terminal("infixr") | terminal("instance") | terminal("let") | terminal("module") | terminal("newtype") | terminal("of")$,
   [], $|$, $terminal("then") | terminal("type") | terminal("where") | terminal("_")$,
 )
