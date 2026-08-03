@@ -187,7 +187,7 @@ Similarly, a floating point literal stands for an application of `fromRational` 
   The integer literal $i$ is equivalent to $mono("fromInteger") i$,
   where `fromInteger` is a method in class `Num` (see @sec:numeric-literals).
 
-  The floating point literal $f$ is equivalent to $mono("fromRational") (n mono("Ratio.%") d)$, where `fromRational` is a method in class `Fractional` `Ratio.%` constructs a rational from two integers, as defined in
+  The floating point literal $f$ is equivalent to $mono("fromRational") (n mono("Ratio.%") d)$, where `fromRational` is a method in class `Fractional` and `Ratio.%` constructs a rational from two integers, as defined in
 the `Ratio` library.
 The integers $n$ and $d$ are chosen so that $n \/ d = f$.
 ])
@@ -209,7 +209,7 @@ parentheses may be omitted in `(f x) y`.
 Because $e_1$ could be a data constructor, partial applications of data constructors are allowed.
 
 _Lambda abstractions_ are written
-$dots$, where the $p_i$ are _patterns_.
+$mono("\\") p_1 dots p_n mono("->") e$, where the $p_i$ are _patterns_.
 An expression such as `\x:xs->x` is syntactically incorrect;
 it may legally be written as `\(x:xs)->x`.
 
@@ -1146,7 +1146,7 @@ by `case` are monomorphically typed (@sec:type-semantics).
 #figure(
   caption: "Semantics of Case Expressions, Part 1"
 )[
-  / (a): $caseof(e, italic("alts")) = (mono("\\")v mono("->") caseof(v, italic("alts"))) space$\
+  / (a): $caseof(e, italic("alts")) = (mono("\\")v mono("->") caseof(v, italic("alts"))) space e$\
     where $v$ is a new variable
   / (b): $mono("case") v mono("of") {space p_1 space italic("match")_1 mono(";") dots mono(";") p_n space italic("match")_n space }$ \
     $= mono("case") v mono("of") { space p_1 space italic("match")_1 ;$ \
