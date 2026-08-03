@@ -20,12 +20,6 @@
 // Chapter Headings
 #show heading.where(level: 1): set text(24pt)
 #show heading.where(level: 1): set heading(supplement: [Chapter])
-#show heading.where(level: 1): it => {
-  if it.body == [Preface] or it.body == [Preface to the Revised Report] or it.body == [Contents] or it.body == [Bibliography] {it}
-  else {
-    [Chapter #counter(heading).display("1") #it.body]
-  }
-}
 
 // Section Headings
 #show heading.where(level: 2): set text(18pt)
