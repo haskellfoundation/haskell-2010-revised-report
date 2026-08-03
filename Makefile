@@ -4,4 +4,4 @@ pdf:
 
 .PHONY: html
 html:
-	typst compile --format html --features html haskell-2010-revised.typ
+	typst compile --format bundle --features bundle --features html haskell-2010-revised-html.typ
