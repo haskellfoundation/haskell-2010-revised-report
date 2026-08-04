@@ -47,6 +47,10 @@ instance Ord Word32
 
 instance Ord Word64
 
+instance Ord Float
+
+instance Ord Double
+
 -- 2
 instance (Ord a, Ord b) => Ord (a, b)
 

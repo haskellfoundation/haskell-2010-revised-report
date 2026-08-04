@@ -173,56 +173,11 @@ f $! x = x `seq` f x
 
 -- Character type
 
-instance Enum Char
-
-instance Bounded Char
-
 -- Ordering type
 
 -- Standard numeric types.  The data declarations for these types cannot
 -- be expressed directly in Haskell since the constructor lists would be
 -- far too large.
-
-
-instance Num Integer
-
-instance Real Integer
-
-instance Integral Integer
-
-instance Enum Integer
-
-instance Eq Float
-
-instance Ord Float
-
-instance Num Float
-
-instance Real Float
-
-instance Fractional Float
-
-instance Floating Float
-
-instance RealFrac Float
-
-instance RealFloat Float
-
-instance Eq Double
-
-instance Ord Double
-
-instance Num Double
-
-instance Real Double
-
-instance Fractional Double
-
-instance Floating Double
-
-instance RealFrac Double
-
-instance RealFloat Double
 
 -- The Enum instances for Floats and Doubles are slightly unusual.
 -- The ‘toEnum' function truncates numbers to Int.  The definitions
@@ -230,10 +185,6 @@ instance RealFloat Double
 -- series: [0,0.1 .. 0.95].  However, roundoff errors make these somewhat
 -- dubious.  This example may have either 10 or 11 elements, depending on
 -- how 0.1 is represented.
-
-instance Enum Float
-
-instance Enum Double
 
 numericEnumFrom :: (Fractional a) => a -> [a]
 numericEnumFrom = numericEnumFrom
