@@ -32,86 +32,111 @@
 
 #show title: set align(center)
 
+// The PDF report is marked as a draft on its titlepage.
+// But the HTML version has no draft mark.
+// So, add draft mark at the top of each page instead.
+#let draft-banner = html.elem(
+  "div",
+  attrs: (
+    style: "margin-bottom: 2em; padding: 0.5em 1em; border: 2px solid #a00; "
+      + "color: #a00; text-align: center;",
+  ),
+)[
+  #html.elem(
+    "div",
+    attrs: (style: "font-size: 1.5em; font-weight: bold; letter-spacing: 0.2em;"),
+  )[DRAFT]
+  #html.elem("div", attrs: (style: "font-size: 0.9em;"))[
+    This is a work in progress, not an official release of the Haskell 2010
+    Revised Language Report.
+  ]
+]
+
+#let report-page(path, title: none, body) = document(path, title: title)[
+  #draft-banner
+  #body
+]
+
 
 //
 // CONTENT
 //
 
 
-#document("index.html", title: [Home])[
+#report-page("index.html", title: [Home])[
   #outline()
 ]
 
-#document("preface.html", title: [Preface])[
+#report-page("preface.html", title: [Preface])[
   #heading(level: 1, numbering: none)[Preface]
   #include "other/preface.typ"
 ]
 
-#document("preface-revised.html", title: [Preface to the Revised Report])[
+#report-page("preface-revised.html", title: [Preface to the Revised Report])[
   #heading(level: 1, numbering: none)[Preface to the Revised Report]
   #include "other/preface_revised.typ"
 ]
 
-#document("introduction.html", title: [Introduction])[
+#report-page("introduction.html", title: [Introduction])[
   = Introduction <chapter:intro>
   #include "chapters/01-intro.typ"
 ]
 
-#document("lexical-structure.html", title: [Lexical Structure])[
+#report-page("lexical-structure.html", title: [Lexical Structure])[
   = Lexical Structure <chapter:lexical-structure>
   #include "chapters/02-lexical-structure.typ"
 ]
 
-#document("expressions.html", title: [Expressions])[
+#report-page("expressions.html", title: [Expressions])[
   = Expressions <chapter:expressions>
   #include "chapters/03-expressions.typ"
 ]
 
-#document("declarations.html", title: [Declarations])[
+#report-page("declarations.html", title: [Declarations])[
   = Declarations and Bindings <chapter:declarations>
   #include "chapters/04-declarations.typ"
 ]
 
-#document("modules.html", title: [Modules])[
+#report-page("modules.html", title: [Modules])[
   = Modules <chapter:modules>
   #include "chapters/05-modules.typ"
 ]
 
-#document("predefined-types.html", title: [Predefined Types])[
+#report-page("predefined-types.html", title: [Predefined Types])[
   = Predefined Types and Classes <chapter:predefined-types>
   #include "chapters/06-predefined-types.typ"
 ]
 
-#document("basic-io.html", title: [Basic Input/Output])[
+#report-page("basic-io.html", title: [Basic Input/Output])[
   = Basic Input/Output <chapter:basic-input-output>
   #include "chapters/07-basic-input-output.typ"
 ]
 
-#document("ffi.html", title: [Foreign Function Interface])[
+#report-page("ffi.html", title: [Foreign Function Interface])[
   = Foreign Function Interface <chapter:ffi>
   #include "chapters/08-ffi.typ"
 ]
 
-#document("prelude.html", title: [Standard Prelude])[
+#report-page("prelude.html", title: [Standard Prelude])[
   = Standard Prelude <chapter:standard-prelude>
   #include "chapters/09-standard-prelude.typ"
 ]
 
-#document("syntax-reference.html", title: [Syntax Reference])[
+#report-page("syntax-reference.html", title: [Syntax Reference])[
   = Syntax Reference <chapter:syntax-reference>
   #include "chapters/10-syntax-reference.typ"
 ]
 
-#document("derived-instances.html", title: [Derived Instances])[
+#report-page("derived-instances.html", title: [Derived Instances])[
   = Specification of Derived Instances <chapter:derived-instances>
   #include "chapters/11-derived-instances.typ"
 ]
-#document("pragmas.html", title: [Compiler Pragmas])[
+#report-page("pragmas.html", title: [Compiler Pragmas])[
   = Compiler Pragmas <chapter:compiler-pragmas>
   #include "chapters/12-compiler-pragmas.typ"
 ]
 
-#document("bibliography.html", title: [Bibliography])[
+#report-page("bibliography.html", title: [Bibliography])[
   #bibliography("bibliography.bib")
 ]
 
