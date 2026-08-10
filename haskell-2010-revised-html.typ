@@ -53,13 +53,23 @@
 ]
 
 #let report-page(path: none, title: none, toc: false, prev: none, next: none, body) = document(path, title: title)[
-  #draft-banner
-  #if not toc {
-    [#if prev != none {link(prev)[prev] } #link(<page:toc>)[Contents] #if next != none {link(next)[next]}]
-  }
-  #body
+  #html.html[
+    #html.head[
+      #html.meta(charset: "utf-8")
+      #html.meta(name: "viewport", content: "width=device-width,  initial-scale=1")
+      #html.link(rel: "stylesheet", href: "styles.css")
+    ]
+    #html.body[
+      #draft-banner
+      #if not toc {
+         [#if prev != none {link(prev)[prev] } #link(<page:toc>)[Contents] #if next != none {link(next)[next]}]
+      }
+      #body
+    ]
+  ]
 ]
 
+#show footnote: none
 
 //
 // CONTENT
@@ -188,3 +198,5 @@
   #bibliography("bibliography.bib")
 ]<page:bibliography>
 
+// Copy the file `styles.css` into the bundle.
+#asset("styles.css", read("styles.css"))
