@@ -305,8 +305,8 @@ and constructor classes, respectively, in more detail.)
 
 The Haskell type system attributes a _type_ to each
 expression in the program.  In general, a type is of the form
-$forall overline(u). italic("cx") => t$,
-where $overline(u)$ is a set of type variables $u_1, dots, u_n$.
+$forall safeoverline(u). italic("cx") => t$,
+where $safeoverline(u)$ is a set of type variables $u_1, dots, u_n$.
 In any such type, any of the universally-quantified type variables $u_i$
 that are free in $italic("cx")$ must also be free in $t$.
 Furthermore, the context $italic("cx")$ must be of the form given above in
@@ -341,16 +341,16 @@ described in @sec:default-decls).  Therefore, explicit typings (called
 _type signatures_)
 are usually optional (see @sec:expression-type-sigs and @sec:type-signatures).
 
-The type $forall overline(u).italic("cx")_1 => t_1$ _more general than_ the 
-type $forall overline(w). italic("cx")_2 => t_2$ if and only if there is 
-a substitution $S$ whose domain is $overline(u)$ such that:
+The type $forall safeoverline(u).italic("cx")_1 => t_1$ _more general than_ the 
+type $forall safeoverline(w). italic("cx")_2 => t_2$ if and only if there is 
+a substitution $S$ whose domain is $safeoverline(u)$ such that:
 
 - $t_2$ is identical to $S(t_1)$.
 - Whenever $italic("cx")_2$ holds in the class environment, $S(italic("cx")_1)$ also holds.
 
-A value of type $forall overline(u).italic("cx") => t$,
-may be instantiated at types $overline(s)$ if and only if
-the context $italic("cx")[overline(s)/overline(u)]$ holds.
+A value of type $forall safeoverline(u).italic("cx") => t$,
+may be instantiated at types $safeoverline(s)$ if and only if
+the context $italic("cx")[safeoverline(s)/safeoverline(u)]$ holds.
 For example, consider the function `double`:
 ```haskell
 double x = x + x
@@ -700,12 +700,12 @@ of declarations:
 
   The type of the top-level class method $v_i$ is:
   $
-    v_i mono("::") forall u, overline(w). (C u, italic("cx")_i) mono("=>") t_i
+    v_i mono("::") forall u, safeoverline(w). (C u, italic("cx")_i) mono("=>") t_i
   $
   The $t_i$ must mention $u$; it may mention type variables
-  $overline(w)$ other than $u$, in which case the type of $v_i$ is
-  polymorphic in both $u$ and $overline(w)$.
-  The $italic("cx")_i$ may constrain only $overline(w)$; in particular,
+  $safeoverline(w)$ other than $u$, in which case the type of $v_i$ is
+  polymorphic in both $u$ and $safeoverline(w)$.
+  The $italic("cx")_i$ may constrain only $safeoverline(w)$; in particular,
   the $italic("cx")_i$ may not constrain $u$.
   For example:
   ```haskell
@@ -940,8 +940,8 @@ in both cases, or `Bool`.  Such expressions
 are considered ill-typed, a static error.
 
 We say that an expression `e` has an _ambiguous type_
-if, in its type $forall overline(u).italic("cx") => t$, 
-there is a type variable $u$ in $overline(u)$ that occurs in $italic("cx")$ 
+if, in its type $forall safeoverline(u).italic("cx") => t$, 
+there is a type variable $u$ in $safeoverline(u)$ that occurs in $italic("cx")$ 
 but not in $t$.  Such types are invalid.
 
 For example, the earlier expression involving `show` and `read` has
@@ -1477,10 +1477,10 @@ for it to be
 ```haskell
   (g True, g 'c')
 ```
-In general, a type $forall overline(u).italic("cx") => t$
+In general, a type $forall safeoverline(u).italic("cx") => t$
 is said to be _monomorphic_
 in the type variable $a$ if $a$ is free in
-$forall overline(u).italic("cx") => t$.
+$forall safeoverline(u).italic("cx") => t$.
 
 It is worth noting that the explicit type signatures provided by Haskell
 are not powerful enough to express types that include monomorphic type

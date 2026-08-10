@@ -252,7 +252,10 @@ Sisal; and Turner's series of languages culminating in
 Miranda #footnote("Miranda is a trademark of Research Software Ltd."). Without these forerunners Haskell would not have
 been possible.
 
-#v(1in)
+#context {if target() == "paged" {
+  v(1in)
+  }
+}
 
 Simon Marlow \
 Cambridge, April 2010
