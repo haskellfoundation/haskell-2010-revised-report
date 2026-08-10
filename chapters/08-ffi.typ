@@ -526,7 +526,7 @@ foreign import ccall "wrapper"
 A C header specified in an import declaration is always included by
 $mono("#include \"") italic("chname") mono("\"")$.  There is no explicit support for
 $mono("#include <") italic("chname") mono(">")$ style inclusion.
-The ISO C99~\cite{C99} standard guarantees that any search path that would be used for a
+The ISO C99~@C99 standard guarantees that any search path that would be used for a
 $mono("#include <") italic("chname") mono(">")$ is also used for $mono("#include \"") italic("chname") mono("\"")$ and it is guaranteed that these paths are searched after
 all paths that are unique to $mono("#include \"") italic("chname") mono("\"")$.  Furthermore,
 we require that $italic("chname")$ ends in `.h` to make parsing of the

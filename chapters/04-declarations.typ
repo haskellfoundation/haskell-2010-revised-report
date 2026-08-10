@@ -1660,7 +1660,7 @@ which would be included in the same dependency group:
 ```
 The kinds of variables, constructors, and classes within each group
 are determined using standard techniques of type inference and
-kind-preserving unification \cite{jones:cclasses}.  For example, in the
+kind-preserving unification @jones:cclasses.  For example, in the
 definitions above, the parameter `a` appears as an argument of the
 function constructor `(->)` in the type of `bar` and hence must
 have kind $ast$.  It follows that both `D` and `S` must have
