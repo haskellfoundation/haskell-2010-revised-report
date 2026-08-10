@@ -11,3 +11,9 @@ These standard libraries are now available in the form of a zero-dependency Hask
 
 
 #heading(level: 2, numbering: none)[Changes to the  Report]
+
+#heading(level: 3, numbering: none)[Syntax for Kinds]
+
+Haskell 2010 does not have a concrete syntax for kinds, and kinds cannot appear anywhere in Haskell programs.
+However, the language report uses kinds to explain which types and type applications are valid.
+In these explanations we have changed the kind of inhabitated types from "$ast$" to "$mono("Type")$".
