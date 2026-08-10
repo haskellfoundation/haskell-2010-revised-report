@@ -36,7 +36,7 @@
      align(center)[#body]
   } else {
     // Code for HTML output
-     html.elem("div", attrs: (style: "text-align: center;"))[#body]
+     html.elem("div", attrs: (style: "text-align: center;", class: "center-box"))[#body]
   }
 }
 

@@ -1,3 +1,22 @@
 body {
-    background-color: #FFAAFA;
+    background-color: #FFFFFF;
+}
+blockquote {
+    width: 1000px
+}
+
+p {
+    width: 1000px
+}
+
+.center-box {
+    width: 1000px
+}
+
+math {
+    width: 1000px
+}
+
+li {
+    width: 1000px
 }
