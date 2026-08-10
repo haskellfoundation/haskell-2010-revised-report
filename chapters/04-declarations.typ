@@ -427,15 +427,14 @@ For example, the declaration
 data Eq a => Set a = NilSet | ConsSet a (Set a)
 ```
 introduces a type constructor `Set` of kind $ast -> ast$, and constructors `NilSet` and `ConsSet` with types
-#align(center)[
-  #table(
+#table(
     columns: 3,
     align: (left, center, left),
     stroke: none,
     [`NilSet`], [`::`], $forall a. mono("Set") a$,
     [`ConsSet`], [`::`], $forall a. mono("Eq") a => a -> mono("Set") a -> mono("Set") a$,
-  )
-]
+)
+
 In the example given, the overloaded
 type for `ConsSet` ensures that `ConsSet` can only be applied to values whose
 type is an instance of the class `Eq`.
@@ -1212,32 +1211,31 @@ within a `where` or `let` construct.
 
 A function binding binds a variable to a function value.  The general
 form of a function binding for variable $x$ is:
-#align(center)[
-  #table(
-    columns: 3,
-    align: (left, left, left),
-    stroke: none,
-    $x$, $p_(11) space dots space p_(1 k)$, $italic("match")_1$,
-    $dots$,$$,$$,
-    $x$, $p_(n 1) space dots space p_(n k)$, $italic("match")_n$
-  )
-]
+#table(
+  columns: 3,
+  align: (left, left, left),
+  stroke: none,
+  $x$, $p_(11) space dots space p_(1 k)$, $italic("match")_1$,
+  $dots$,$$,$$,
+  $x$, $p_(n 1) space dots space p_(n k)$, $italic("match")_n$
+)
+
 where each $p_(i j)$ is a pattern, and where each $italic("match")_i$ is of the general form:
 $
   = e_i mono("where") { space italic("decls")_i space }
 $
 or
-#align(center)[
-  #table(
-    columns: 2,
-    align: (left, left),
-    stroke: none,
-    $| italic("gs")_(i 1)$, $= e_(i 1)$,
-    $dots$, $$,
-    $| italic("gs")_(i m_i)$, $= e_(i m_i)$,
-    $$, $mono("where") { space italic("decls")_i space }$
-  )
-]
+
+#table(
+  columns: 2,
+  align: (left, left),
+  stroke: none,
+  $| italic("gs")_(i 1)$, $= e_(i 1)$,
+  $dots$, $$,
+  $| italic("gs")_(i m_i)$, $= e_(i m_i)$,
+  $$, $mono("where") { space italic("decls")_i space }$
+)
+
 and where $n >= 1$, $1 <= i <= n$, $m_i >= 1$.  The former is treated
 as shorthand for a particular case of the latter, namely:
 $
@@ -1298,36 +1296,34 @@ The _general_ form of a pattern binding is $p italic("match")$, where a
 $italic("match")$ is the same structure as for function bindings above; in other
 words, a pattern binding is:
 
-#align(center)[
-  #table(
-    columns: 2,
-    stroke: none,
-    align: (right, left),
-    $p$, $| italic("gs")_1 = e_1$,
-    $$, $| italic("gs")_2 = e_2$,
-    $$, $dots$,
-    $$, $| italic("gs")_m = e_m$,
-    $$, $mono("where") { space italic("decls") space }$
-  )
-]
+#table(
+  columns: 2,
+  stroke: none,
+  align: (right, left),
+  $p$, $| italic("gs")_1 = e_1$,
+  $$, $| italic("gs")_2 = e_2$,
+  $$, $dots$,
+  $$, $| italic("gs")_m = e_m$,
+  $$, $mono("where") { space italic("decls") space }$
+)
+
 
 #translation-box[
   The pattern binding above is semantically equivalent to this simple pattern binding:
-  #align(center)[
-    #table(
-      columns: 2,
-      align: (right, left),
-      stroke: none,
-      $p space =$, $mono("let") italic("decls") mono("in")$,
-      $$, $mono("case") () mono("of")$,
-      $$, $quad () | italic("gs")_1 -> e_1$,
-      $$, $quad quad | italic("gs")_2 -> e_2 $,
-      $$, $quad quad quad dots$,
-      $$, $quad quad | italic("gs")_m -> e_m$,
-      $$, $mono("_") -> mono("error \"Unmatched pattern\"")$
-    )
-  ]
+  #table(
+    columns: 2,
+    align: (right, left),
+    stroke: none,
+    $p space =$, $mono("let") italic("decls") mono("in")$,
+    $$, $mono("case") () mono("of")$,
+    $$, $quad () | italic("gs")_1 -> e_1$,
+    $$, $quad quad | italic("gs")_2 -> e_2 $,
+    $$, $quad quad quad dots$,
+    $$, $quad quad | italic("gs")_m -> e_m$,
+    $$, $mono("_") -> mono("error \"Unmatched pattern\"")$
+  )
 ]
+
 
 == Static Semantics of Function and Pattern Bindings
 

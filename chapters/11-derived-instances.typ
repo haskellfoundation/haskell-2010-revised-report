@@ -1,3 +1,5 @@
+#import "../macros.typ" : *
+
 A _derived instance_ is an instance declaration that is generated
 automatically in conjunction with a `data` or `newtype` declaration.
 The body of a derived instance declaration is derived syntactically from
@@ -171,9 +173,10 @@ Parsing of an un-parenthesised infix operator application succeeds only
 if the precedence of the operator is greater than or equal to `d`.
 
 It should be the case that
-#align(center,
-  [`(x,"")` is an element of `(readsPrec d (showsPrec d x ""))`]
-)
+#center-box[
+  `(x,"")` is an element of `(readsPrec d (showsPrec d x ""))`
+]
+
 That is, `readsPrec` should be able to parse the string produced by `showsPrec`, and should deliver the value that `showsPrec` started with.
 
 `showList` and `readList` allow lists of objects to be represented

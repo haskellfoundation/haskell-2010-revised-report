@@ -290,25 +290,24 @@ Since a qualified name is a lexeme, no spaces are
 allowed between the qualifier and the name.
 Sample lexical analyses are shown below.
 
-#align(center,
-  table(
-    columns: 2,
-    align: (left, left),
-    stroke: none,
-    table.vline(x: 0),
-    table.vline(x: 1),
-    table.vline(x: 2),
-    table.hline(),
-    table.header([This], [Lexes as this]),
-    table.hline(),
-    [`f.g`],[`f . g` (three tokens)],
-    [`F.g`],[`F.g` (qualified '`g`')],
-    [`f..`],[`f ..` (two tokens)],
-    [`F..`],[`F..` (qualified '`.`')],
-    [`F.`],[`F .` (two tokens)],
-    table.hline(),
-  )
+#table(
+  columns: 2,
+  align: (left, left),
+  stroke: none,
+  table.vline(x: 0),
+  table.vline(x: 1),
+  table.vline(x: 2),
+  table.hline(),
+  table.header([This], [Lexes as this]),
+  table.hline(),
+  [`f.g`],[`f . g` (three tokens)],
+  [`F.g`],[`F.g` (qualified '`g`')],
+  [`f..`],[`f ..` (two tokens)],
+  [`F..`],[`F..` (qualified '`.`')],
+  [`F.`],[`F .` (two tokens)],
+  table.hline(),
 )
+
 
 The qualifier does not change the syntactic treatment of a name;
 for example, `Prelude.+` is an infix operator with the same fixity as the
