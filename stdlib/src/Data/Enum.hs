@@ -4,6 +4,7 @@ module Data.Enum where
 
 import Data.Int
 import Data.Word
+import Prim
 
 class Enum a where
   succ, pred :: a -> a
@@ -13,6 +14,8 @@ class Enum a where
   enumFromThen :: a -> a -> [a]
   enumFromTo :: a -> a -> [a]
   enumFromThenTo :: a -> a -> a -> [a]
+
+instance Enum Char
 
 instance Enum Word
 
@@ -24,6 +27,8 @@ instance Enum Word32
 
 instance Enum Word64
 
+instance Enum Integer
+
 instance Enum Int
 
 instance Enum Int8
@@ -34,9 +39,15 @@ instance Enum Int32
 
 instance Enum Int64
 
+instance Enum Float
+
+instance Enum Double
+
 class Bounded a where
   minBound :: a
   maxBound :: a
+
+instance Bounded Char
 
 instance Bounded Word
 

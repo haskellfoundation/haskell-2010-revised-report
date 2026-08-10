@@ -39,6 +39,10 @@ instance Eq Word32
 
 instance Eq Word64
 
+instance Eq Float
+
+instance Eq Double
+
 -- 2
 instance (Eq a, Eq b) => Eq (a, b)
 

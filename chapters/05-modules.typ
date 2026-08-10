@@ -361,8 +361,7 @@ This declaration brings into scope `f` and `A.f`.
 To clarify the above import rules, suppose the module `A` exports `x` and `y`.
 Then this table shows what names are brought into scope by the specified import statement:
 
-#align(center)[
-  #table(
+#table(
     columns: 2,
     align: (left, left),
     stroke: none,
@@ -385,8 +384,8 @@ Then this table shows what names are brought into scope by the specified import 
     [`import A as B(x)`], [`x`,`B.x`],
     [`import qualified A as B`], [`B.x`, `B.y`],
     table.hline(),
-  )
-]
+)
+
 
 In all cases, all instance declarations in scope in module `A` are imported
 (@sec:import-instances).

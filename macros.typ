@@ -29,3 +29,27 @@
   inset: 10pt,
   [*The monomorphism restriction*\ #x]
 )
+
+#let center-box(body) = context {
+  if target() == "paged" {
+     // Code for PDF output
+     align(center)[#body]
+  } else {
+    // Code for HTML output
+     html.elem("div", attrs: (style: "text-align: center;"))[#body]
+  }
+}
+
+// See https://github.com/typst/typst/issues/8509
+#let safeoverline(body) = context {
+  if target() == "paged" {
+    // Code for PDF output
+    math.overline(body)
+  } else {
+    // Code for HTML output
+    html.elem("mover", attrs: (accent: "true"))[
+      #body
+      #html.elem("mo", "_")
+    ]
+  }
+}

@@ -65,26 +65,23 @@ The ambiguity is resolved by the meta-rule that each of these constructs extends
 
 Sample parses are shown below.
 
-#align(center,
-  table(
-    columns: 2,
-    align: (left, left),
-    stroke: none,
-    table.vline(x: 0),
-    table.vline(x: 1),
-    table.vline(x: 2),
-    table.hline(),
-    table.header([This], [Parses as]),
-    table.hline(),
-    [`f x + g y`],[`(f x) + (g y)`],
-    [`- f x + y`],[`(- (f x)) + y`],
-    [`let {...} in x + y`],[`let {...} in (x + y)`],
-    [`z + let {...} in x + y`],[`z + (let {...} in (x + y))`],
-    [`f x y :: Int`],[`(f x y) :: Int`],
-    [`\ x -> a+b :: Int`],[`\x -> ((a+b) :: Int)`],
-    table.hline(),
-  )
-
+#table(
+  columns: 2,
+  align: (left, left),
+  stroke: none,
+  table.vline(x: 0),
+  table.vline(x: 1),
+  table.vline(x: 2),
+  table.hline(),
+  table.header([This], [Parses as]),
+  table.hline(),
+  [`f x + g y`],[`(f x) + (g y)`],
+  [`- f x + y`],[`(- (f x)) + y`],
+  [`let {...} in x + y`],[`let {...} in (x + y)`],
+  [`z + let {...} in x + y`],[`z + (let {...} in (x + y))`],
+  [`f x y :: Int`],[`(f x y) :: Int`],
+  [`\ x -> a+b :: Int`],[`\x -> ((a+b) :: Int)`],
+  table.hline(),
 )
 
 For the sake of clarity, the rest of this section will assume that expressions involving infix operators have been resolved according to the fixities of the operators.
@@ -443,17 +440,16 @@ The _arithmetic sequence_ $[e_1, e_2 .. e_3]$ denotes a list of values of type $
 
 #translation-box([
   Arithmetic sequences satisfy these identities:
-  #align(center)[
-    #table(
-      columns: 3,
-      align: (left, center, left),
-      stroke: none,
-      [`[` $e_1$ `..]`], $=$, [`enumFrom` $e_1$],
-      [`[` $e_1$, $e_2$ `..]`], $=$, [`enumFromThen` $e_1$ $e_2$],
-      [`[` $e_1$ `..` $e_2$ `]`], $=$, [`enumFromTo` $e_1$ $e_2$],
-      [`[` $e_1$, $e_2$ `..` $e_3$ `]`], $=$, [`enumFromThenTo` $e_1$ $e_2$ $e_3$],
-    )
-  ]
+  #table(
+    columns: 3,
+    align: (left, center, left),
+    stroke: none,
+    [`[` $e_1$ `..]`], $=$, [`enumFrom` $e_1$],
+    [`[` $e_1$, $e_2$ `..]`], $=$, [`enumFromThen` $e_1$ $e_2$],
+    [`[` $e_1$ `..` $e_2$ `]`], $=$, [`enumFromTo` $e_1$ $e_2$],
+    [`[` $e_1$, $e_2$ `..` $e_3$ `]`], $=$, [`enumFromThenTo` $e_1$ $e_2$ $e_3$],
+  )
+
   where `enumFrom`, `enumFromThen`, `enumFromTo`, and `enumFromThenTo` are class methods in the class `Enum` as defined in the Prelude (see @fig:standard-classes).
 ])
 
@@ -502,20 +498,19 @@ $
 $
 #translation-box([
   List comprehensions satisfy these identities, which may be used as a translation into the kernel:
-  #align(center)[
-    #table(
-      columns: 3,
-      align: (left, center, left),
-      stroke: none,
-      $[e | mono("True")]$,$=$, $[e]$,
-      $[e | q]$,$=$,$[e | q, mono("True")]$,
-      $[e | b, Q]$, $=$, $mono("if") b mono("then") [e, Q] mono("else") []$,
-      $[e | p mono("<-") l, Q]$, $=$, $mono("let ok") = [e | Q]$,
-      $$, $$, $mono("      ok") \_ = []$,
-      $$, $$, $mono("in concatMap ok") l$,
-      $[e | mono("let") italic("decls"), Q]$, $=$, $mono("let") italic("decls") mono("in") [e | Q]$
-    )
-  ]
+  #table(
+    columns: 3,
+    align: (left, center, left),
+    stroke: none,
+    $[e | mono("True")]$,$=$, $[e]$,
+    $[e | q]$,$=$,$[e | q, mono("True")]$,
+    $[e | b, Q]$, $=$, $mono("if") b mono("then") [e, Q] mono("else") []$,
+    $[e | p mono("<-") l, Q]$, $=$, $mono("let ok") = [e | Q]$,
+    $$, $$, $mono("      ok") \_ = []$,
+    $$, $$, $mono("in concatMap ok") l$,
+    $[e | mono("let") italic("decls"), Q]$, $=$, $mono("let") italic("decls") mono("in") [e | Q]$
+  )
+
   where $e$ ranges over expressions, $p$ over
   patterns, $l$ over list-valued expressions, $b$ over
   boolean expressions, $italic("decls")$ over declaration lists, $q$ over qualifiers, and $Q$ over sequences of qualifiers.  `ok` is a fresh variable.
@@ -557,24 +552,23 @@ does not cause an execution-time error until `x` or `y` is evaluated.
   respectively, using the translation in
   @subsec:function-and-pattern-bindings.  Once done, these identities
   hold, which may be used as a translation into the kernel:
-  #align(center)[
-    #table(
-      columns: 3,
-      align: (left, center, left),
-      stroke: none,
-      $mono("let") { p_1 = e_1 ; dots ; p_n = e_n} mono("in") e_0$, $=$, $mono("let")(~p_1, dots,~p_n) = (e_1, dots, e_n) mono("in") e_0$,
-      $mono("let") p = e_1 mono("in") e_0$, $=$, $mono("case") e_1 mono("of") ~p mono("->") e_0$,
-      $$, $$, [where no variable in $p$ appears free in $e_1$],
-      $mono("let") p = e_1 mono("in") e_0$, $=$, $mono("let") p = mono("fix") (\\ ~p mono("->") e_1) mono("in") e_0$
-    )
-  ]
+  #table(
+    columns: 3,
+    align: (left, center, left),
+    stroke: none,
+    $mono("let") { p_1 = e_1 ; dots ; p_n = e_n} mono("in") e_0$, $=$, $mono("let")(~p_1, dots,~p_n) = (e_1, dots, e_n) mono("in") e_0$,
+    $mono("let") p = e_1 mono("in") e_0$, $=$, $mono("case") e_1 mono("of") ~p mono("->") e_0$,
+    $$, $$, [where no variable in $p$ appears free in $e_1$],
+    $mono("let") p = e_1 mono("in") e_0$, $=$, $mono("let") p = mono("fix") (\\ ~p mono("->") e_1) mono("in") e_0$
+  )
+
   where `fix` is the least fixpoint operator.  Note the use of the irrefutable patterns `~p`.
   This translation
   does not preserve the static semantics because the use of `case` precludes a fully polymorphic typing of the bound variables.
   The static semantics of the bindings in a `let` expression are described in
   @subsec:function-and-pattern-bindings.
 ])
- 
+
 == Case Expressions <sec:case>
 
 #table(
@@ -705,19 +699,18 @@ to be written in a more traditional way as:
 #translation-box([
   Do expressions satisfy these identities, which may be
   used as a translation into the kernel, after eliminating empty $italic("stmts")$:
-  #align(center)[
-    #table(
-      columns: 3,
-      align: (left, center, left),
-      stroke: none,
-      $mono("do") {e}$, $=$, $e$,
-      $mono("do") {e ; italic("stmts")}$, $=$, $e mono(">>") mono("do") {italic("stmts")}$,
-      $mono("do") {p mono("<-") e; italic("stmts")}$, $=$,$mono("let ok") p = mono("do") { italic("stmts")}$,
-      $$,$$,$mono("      ok") \_ = mono("fail \"...\"")$,
-      $$,$$,$mono("in") e mono(">>=") mono("ok")$,
-      $mono("do") {mono("let") italic("decls"); italic("stmts")}$, $=$,$mono("let") italic("decls") mono("in do") { italic("stmts")}$
-    )
-  ]
+  #table(
+    columns: 3,
+    align: (left, center, left),
+    stroke: none,
+    $mono("do") {e}$, $=$, $e$,
+    $mono("do") {e ; italic("stmts")}$, $=$, $e mono(">>") mono("do") {italic("stmts")}$,
+    $mono("do") {p mono("<-") e; italic("stmts")}$, $=$,$mono("let ok") p = mono("do") { italic("stmts")}$,
+    $$,$$,$mono("      ok") \_ = mono("fail \"...\"")$,
+    $$,$$,$mono("in") e mono(">>=") mono("ok")$,
+    $mono("do") {mono("let") italic("decls"); italic("stmts")}$, $=$,$mono("let") italic("decls") mono("in do") { italic("stmts")}$
+  )
+
   The ellipsis "`...`" stands for a compiler-generated error message,
   passed to `fail`, preferably giving some indication of the location
   of the pattern-match failure;
@@ -785,34 +778,32 @@ cannot be confused with ordinary variables.
   $italic("fbind")$, $->$, $nonterminal("qvar") terminal("=") nonterminal("exp")$,[],
 )
 
-A constructor with labeled fields may be used to construct a value 
+A constructor with labeled fields may be used to construct a value
 in which the components are specified by name rather than by position.
 Unlike the braces used in declaration lists, these are not subject to
-layout; the `{` and `}` characters must be explicit. 
+layout; the `{` and `}` characters must be explicit.
 (This is also true of field updates and field patterns.)
 Construction using field labels is subject to the following constraints:
 
-- Only field labels declared with the specified constructor may be mentioned. 
+- Only field labels declared with the specified constructor may be mentioned.
 - A field label may not be mentioned more than once.
 - Fields not mentioned are initialized to $bot$.
 - A compile-time error occurs when any strict fields (fields
   whose declared types are prefixed by `!`) are omitted during
   construction.  Strict fields are discused in @sec:datatype-decls.
 
-The expression `F {}`, where `F` is a data constructor, is legal 
-_whether or not `F` was declared with record syntax_ (provided `F` has no strict fields --- see the fourth bullet above); 
+The expression `F {}`, where `F` is a data constructor, is legal
+_whether or not `F` was declared with record syntax_ (provided `F` has no strict fields --- see the fourth bullet above);
 it denotes $F bot_1 dots bot_n$, where $n$ is the arity of `F`.
 
 #translation-box([
   In the binding $f = v$, the field $f$ labels $v$.
-  #align(center)[
-    #table(
-      columns: 3,
-      align: (left, center, left),
-      stroke: none,
-      $C { italic("bs") }$, $=$, $C (italic("pick")^C_1 italic("bs") mono("undefined")) dots (italic("pick")^C_k italic("bs") mono("undefined"))$,
-    )
-  ]
+  #table(
+    columns: 3,
+    align: (left, center, left),
+    stroke: none,
+    $C { italic("bs") }$, $=$, $C (italic("pick")^C_1 italic("bs") mono("undefined")) dots (italic("pick")^C_k italic("bs") mono("undefined"))$,
+  )
   where $k$ is the arity of $C$.
 
   The auxiliary function $italic("pick")^C_i italic("bs") d$ is defined as follows:
@@ -834,7 +825,7 @@ it denotes $F bot_1 dots bot_n$, where $n$ is the arity of `F`.
 
 Values belonging to a datatype with field labels may be
 non-destructively updated.  This creates a new value in which the
-specified field values replace those in the existing value.  
+specified field values replace those in the existing value.
 Updates are restricted in the following ways:
 
 - All labels must be taken from the same datatype.
@@ -846,18 +837,16 @@ Updates are restricted in the following ways:
 
 #translation-box([
   Using the prior definition of $italic("pick")$,
-  #align(center)[
-    #table(
-      columns: 3,
-      align: (left, center, left),
-      stroke: none,
-      $e {italic("bs")}$, $=$, $mono("case") e mono("of")$,
-      $$, $$,$quad C_1 v_1 dots v_(k_1) mono("->") C_1 (italic("pick")^(C_1)_1 italic("bs") v_1) dots (italic("pick")^(C_1)_(k_1) italic("bs") v_(k_1))$,
-      $$, $$, $quad quad dots$,
-      $$, $$,$quad C_j v_1 dots v_(k_j) mono("->") C_j (italic("pick")^(C_j)_1 italic("bs") v_1) dots (italic("pick")^(C_j)_(k_j) italic("bs") v_(k_j))$,
-      $$, $$,$quad mono("_ -> error \"Update error\"")$
-    )
-  ]
+  #table(
+    columns: 3,
+    align: (left, center, left),
+    stroke: none,
+    $e {italic("bs")}$, $=$, $mono("case") e mono("of")$,
+    $$, $$,$quad C_1 v_1 dots v_(k_1) mono("->") C_1 (italic("pick")^(C_1)_1 italic("bs") v_1) dots (italic("pick")^(C_1)_(k_1) italic("bs") v_(k_1))$,
+    $$, $$, $quad quad dots$,
+    $$, $$,$quad C_j v_1 dots v_(k_j) mono("->") C_j (italic("pick")^(C_j)_1 italic("bs") v_1) dots (italic("pick")^(C_j)_(k_j) italic("bs") v_(k_j))$,
+    $$, $$,$quad mono("_ -> error \"Update error\"")$
+  )
   where ${ C_1, dots, C_j}$ is the set of constructors containing all labels in $italic("bs")$, and $k_i$ is the arity of $C_i$.
 
 ])
@@ -889,7 +878,7 @@ data T    = C1 {f1,f2 :: Int}
 The field `f1` is common to both constructors in T.  This
 example translates expressions using constructors in field-label
 notation into equivalent expressions using the same constructors
-without field labels. 
+without field labels.
 A compile-time error will result if no single constructor
 defines the set of field labels used in an update, such as `x {f2 = 1, f3 = 'x'}`.
 
@@ -904,18 +893,14 @@ $italic("exp")$.  As with normal type signatures (see
 @sec:type-signatures), the declared type may be more specific than
 the principal type derivable from $italic("exp")$, but it is an error to give a type that is more general than, or not comparable to, the principal type.
 
-#translation-box([
-  #align(center)[
-    #table(
-      columns: 3,
-      align: (left, center, left),
-      stroke: none,
-      $e mono("::") t$, $=$, $mono("let") { v mono("::") t; v = e} mono("in") v$
-    )
-  ]
-])
-
-
+#translation-box[
+  #table(
+    columns: 3,
+    align: (left, center, left),
+    stroke: none,
+    $e mono("::") t$, $=$, $mono("let") { v mono("::") t; v = e} mono("in") v$
+  )
+]
 
 == Pattern Matching <sec:pattern-matching>
 
@@ -1035,7 +1020,7 @@ may _diverge_ (i.e.~return $bot$).  Pattern matching proceeds from left to right
 
 Aside from the obvious static type constraints (for
 example, it is a static error to match a character against a
-boolean), the following static class constraints hold: 
+boolean), the following static class constraints hold:
 
 - An integer literal pattern can only be matched against a value in the class `Num`.
 - A floating literal pattern can only be matched against a value
@@ -1049,7 +1034,7 @@ Matching a _refutable_ pattern is strict: if the value to be matched
 is $bot$ the match diverges.
 The irrefutable patterns are as follows:
 a variable, a wildcard, $N italic("apat")$ where $N$ is a constructor
-defined by `newtype` and $italic("apat")$ is irrefutable (see @sec:datatype-renamings), 
+defined by `newtype` and $italic("apat")$ is irrefutable (see @sec:datatype-renamings),
 $italic("var")mono("@")italic("apat")$ where $italic("apat")$ is irrefutable,
 or of the form $~italic("apat")$ (whether or not $italic("apat")$ is irrefutable).
 All other patterns are _refutable_.
@@ -1114,16 +1099,16 @@ both `a` and `y` will be evaluated by `==` in the guard.
 The semantics of all pattern matching constructs other than `case`
 expressions are defined by giving identities that relate those
 constructs to `case` expressions.
-The semantics of `case` expressions themselves are in turn given as a series of identities, in @fig:simple-case-expr-1 -- @fig:simple-case-expr-3. 
-Any implementation should behave so that these identities hold; it is 
-not expected that it will use them directly, since that 
+The semantics of `case` expressions themselves are in turn given as a series of identities, in @fig:simple-case-expr-1 -- @fig:simple-case-expr-3.
+Any implementation should behave so that these identities hold; it is
+not expected that it will use them directly, since that
 would generate rather inefficient code.
 
 In @fig:simple-case-expr-1 -- @fig:simple-case-expr-3:
-$e$, $e'$ and $e_i$ are expressions; 
+$e$, $e'$ and $e_i$ are expressions;
 $g_i$ and $italic("gs")_i$ are guards and sequences of guards respectively;
-$p$ and $p_i$ are patterns; 
-$v$, $x$, and $x_i$ are variables; 
+$p$ and $p_i$ are patterns;
+$v$, $x$, and $x_i$ are variables;
 $K$ and $K'$ are algebraic datatype (`data`) constructors (including
 tuple constructors);  and $N$ is a `newtype` constructor.
 

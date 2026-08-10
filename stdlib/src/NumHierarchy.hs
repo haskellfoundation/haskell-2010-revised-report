@@ -77,6 +77,8 @@ class (Eq a, Show a) => Num a where
   abs, signum :: a -> a
   fromInteger :: Integer -> a
 
+instance Num Integer
+
 instance Num Int
 
 instance Num Int8
@@ -97,6 +99,10 @@ instance Num Word32
 
 instance Num Word64
 
+instance Num Float
+
+instance Num Double
+
 class (Num a, Ord a) => Real a where
   toRational :: a -> Rational
 
@@ -110,6 +116,8 @@ instance Real Word32
 
 instance Real Word64
 
+instance Real Integer
+
 instance Real Int
 
 instance Real Int8
@@ -119,6 +127,10 @@ instance Real Int16
 instance Real Int32
 
 instance Real Int64
+
+instance Real Float
+
+instance Real Double
 
 class (Real a, Enum a) => Integral a where
   quot, rem :: a -> a -> a
@@ -135,6 +147,8 @@ instance Integral Word16
 instance Integral Word32
 
 instance Integral Word64
+
+instance Integral Integer
 
 instance Integral Int
 
@@ -153,6 +167,10 @@ class (Num a) => Fractional a where
   recip :: a -> a
   fromRational :: Rational -> a
 
+instance Fractional Float
+
+instance Fractional Double
+
 infixr 8 ⋆⋆
 
 class (Fractional a) => Floating a where
@@ -164,10 +182,18 @@ class (Fractional a) => Floating a where
   sinh, cosh, tanh :: a -> a
   asinh, acosh, atanh :: a -> a
 
+instance Floating Float
+
+instance Floating Double
+
 class (Real a, Fractional a) => RealFrac a where
   properFraction :: (Integral b) => a -> (b, a)
   truncate, round :: (Integral b) => a -> b
   ceiling, floor :: (Integral b) => a -> b
+
+instance RealFrac Float
+
+instance RealFrac Double
 
 class (RealFrac a, Floating a) => RealFloat a where
   floatRadix :: a -> Integer
@@ -184,3 +210,7 @@ class (RealFrac a, Floating a) => RealFloat a where
   isNegativeZero :: a -> Bool
   isIEEE :: a -> Bool
   atan2 :: a -> a -> a
+
+instance RealFloat Float
+
+instance RealFloat Double

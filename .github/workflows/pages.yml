@@ -1,0 +1,50 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions: {}
+
+# Only one deployment at a time; do not cancel a running one, so that a
+# deployment always finishes in a consistent state.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build site
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: typst-community/setup-typst@v5
+      # The bundle has to be built first: it creates the _site directory, and
+      # typst does not create the parent directory of the PDF output on its own.
+      - run: typst compile --format bundle --features bundle --features html haskell-2010-revised-html.typ _site
+      - run: typst compile haskell-2010-revised.typ _site/haskell-2010-revised.pdf
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+  deploy:
+    name: Deploy site
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,3 +1,5 @@
+#import "../macros.typ" : *
+
 #quote(attribution: [Haskell B. Curry and Robert Feys\
 in the Preface to _Combinatory Logic_ @CurryFeys1958, May 31, 1956], block: true)[
   _Some half dozen persons have written technically on combinatory logic, and most of these,
@@ -70,7 +72,7 @@ served on the Language and Library committees, in particular, devoted
 a huge amount of time and energy to the language.  Here they are, with
 their affiliation(s) for the relevant period:
 
-#align(center)[
+#center-box[
 Arvind (MIT) \
 Lennart Augustsson (Chalmers University) \
 Dave Barton (Mitre Corp) \
@@ -250,7 +252,10 @@ Sisal; and Turner's series of languages culminating in
 Miranda #footnote("Miranda is a trademark of Research Software Ltd."). Without these forerunners Haskell would not have
 been possible.
 
-#v(1in)
+#context {if target() == "paged" {
+  v(1in)
+  }
+}
 
 Simon Marlow \
 Cambridge, April 2010

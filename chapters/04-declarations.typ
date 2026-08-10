@@ -305,8 +305,8 @@ and constructor classes, respectively, in more detail.)
 
 The Haskell type system attributes a _type_ to each
 expression in the program.  In general, a type is of the form
-$forall overline(u). italic("cx") => t$,
-where $overline(u)$ is a set of type variables $u_1, dots, u_n$.
+$forall safeoverline(u). italic("cx") => t$,
+where $safeoverline(u)$ is a set of type variables $u_1, dots, u_n$.
 In any such type, any of the universally-quantified type variables $u_i$
 that are free in $italic("cx")$ must also be free in $t$.
 Furthermore, the context $italic("cx")$ must be of the form given above in
@@ -341,16 +341,16 @@ described in @sec:default-decls).  Therefore, explicit typings (called
 _type signatures_)
 are usually optional (see @sec:expression-type-sigs and @sec:type-signatures).
 
-The type $forall overline(u).italic("cx")_1 => t_1$ _more general than_ the 
-type $forall overline(w). italic("cx")_2 => t_2$ if and only if there is 
-a substitution $S$ whose domain is $overline(u)$ such that:
+The type $forall safeoverline(u).italic("cx")_1 => t_1$ _more general than_ the 
+type $forall safeoverline(w). italic("cx")_2 => t_2$ if and only if there is 
+a substitution $S$ whose domain is $safeoverline(u)$ such that:
 
 - $t_2$ is identical to $S(t_1)$.
 - Whenever $italic("cx")_2$ holds in the class environment, $S(italic("cx")_1)$ also holds.
 
-A value of type $forall overline(u).italic("cx") => t$,
-may be instantiated at types $overline(s)$ if and only if
-the context $italic("cx")[overline(s)/overline(u)]$ holds.
+A value of type $forall safeoverline(u).italic("cx") => t$,
+may be instantiated at types $safeoverline(s)$ if and only if
+the context $italic("cx")[safeoverline(s)/safeoverline(u)]$ holds.
 For example, consider the function `double`:
 ```haskell
 double x = x + x
@@ -427,15 +427,14 @@ For example, the declaration
 data Eq a => Set a = NilSet | ConsSet a (Set a)
 ```
 introduces a type constructor `Set` of kind $ast -> ast$, and constructors `NilSet` and `ConsSet` with types
-#align(center)[
-  #table(
+#table(
     columns: 3,
     align: (left, center, left),
     stroke: none,
     [`NilSet`], [`::`], $forall a. mono("Set") a$,
     [`ConsSet`], [`::`], $forall a. mono("Eq") a => a -> mono("Set") a -> mono("Set") a$,
-  )
-]
+)
+
 In the example given, the overloaded
 type for `ConsSet` ensures that `ConsSet` can only be applied to values whose
 type is an instance of the class `Eq`.
@@ -701,12 +700,12 @@ of declarations:
 
   The type of the top-level class method $v_i$ is:
   $
-    v_i mono("::") forall u, overline(w). (C u, italic("cx")_i) mono("=>") t_i
+    v_i mono("::") forall u, safeoverline(w). (C u, italic("cx")_i) mono("=>") t_i
   $
   The $t_i$ must mention $u$; it may mention type variables
-  $overline(w)$ other than $u$, in which case the type of $v_i$ is
-  polymorphic in both $u$ and $overline(w)$.
-  The $italic("cx")_i$ may constrain only $overline(w)$; in particular,
+  $safeoverline(w)$ other than $u$, in which case the type of $v_i$ is
+  polymorphic in both $u$ and $safeoverline(w)$.
+  The $italic("cx")_i$ may constrain only $safeoverline(w)$; in particular,
   the $italic("cx")_i$ may not constrain $u$.
   For example:
   ```haskell
@@ -941,8 +940,8 @@ in both cases, or `Bool`.  Such expressions
 are considered ill-typed, a static error.
 
 We say that an expression `e` has an _ambiguous type_
-if, in its type $forall overline(u).italic("cx") => t$, 
-there is a type variable $u$ in $overline(u)$ that occurs in $italic("cx")$ 
+if, in its type $forall safeoverline(u).italic("cx") => t$, 
+there is a type variable $u$ in $safeoverline(u)$ that occurs in $italic("cx")$ 
 but not in $t$.  Such types are invalid.
 
 For example, the earlier expression involving `show` and `read` has
@@ -1212,32 +1211,31 @@ within a `where` or `let` construct.
 
 A function binding binds a variable to a function value.  The general
 form of a function binding for variable $x$ is:
-#align(center)[
-  #table(
-    columns: 3,
-    align: (left, left, left),
-    stroke: none,
-    $x$, $p_(11) space dots space p_(1 k)$, $italic("match")_1$,
-    $dots$,$$,$$,
-    $x$, $p_(n 1) space dots space p_(n k)$, $italic("match")_n$
-  )
-]
+#table(
+  columns: 3,
+  align: (left, left, left),
+  stroke: none,
+  $x$, $p_(11) space dots space p_(1 k)$, $italic("match")_1$,
+  $dots$,$$,$$,
+  $x$, $p_(n 1) space dots space p_(n k)$, $italic("match")_n$
+)
+
 where each $p_(i j)$ is a pattern, and where each $italic("match")_i$ is of the general form:
 $
   = e_i mono("where") { space italic("decls")_i space }
 $
 or
-#align(center)[
-  #table(
-    columns: 2,
-    align: (left, left),
-    stroke: none,
-    $| italic("gs")_(i 1)$, $= e_(i 1)$,
-    $dots$, $$,
-    $| italic("gs")_(i m_i)$, $= e_(i m_i)$,
-    $$, $mono("where") { space italic("decls")_i space }$
-  )
-]
+
+#table(
+  columns: 2,
+  align: (left, left),
+  stroke: none,
+  $| italic("gs")_(i 1)$, $= e_(i 1)$,
+  $dots$, $$,
+  $| italic("gs")_(i m_i)$, $= e_(i m_i)$,
+  $$, $mono("where") { space italic("decls")_i space }$
+)
+
 and where $n >= 1$, $1 <= i <= n$, $m_i >= 1$.  The former is treated
 as shorthand for a particular case of the latter, namely:
 $
@@ -1298,36 +1296,34 @@ The _general_ form of a pattern binding is $p italic("match")$, where a
 $italic("match")$ is the same structure as for function bindings above; in other
 words, a pattern binding is:
 
-#align(center)[
-  #table(
-    columns: 2,
-    stroke: none,
-    align: (right, left),
-    $p$, $| italic("gs")_1 = e_1$,
-    $$, $| italic("gs")_2 = e_2$,
-    $$, $dots$,
-    $$, $| italic("gs")_m = e_m$,
-    $$, $mono("where") { space italic("decls") space }$
-  )
-]
+#table(
+  columns: 2,
+  stroke: none,
+  align: (right, left),
+  $p$, $| italic("gs")_1 = e_1$,
+  $$, $| italic("gs")_2 = e_2$,
+  $$, $dots$,
+  $$, $| italic("gs")_m = e_m$,
+  $$, $mono("where") { space italic("decls") space }$
+)
+
 
 #translation-box[
   The pattern binding above is semantically equivalent to this simple pattern binding:
-  #align(center)[
-    #table(
-      columns: 2,
-      align: (right, left),
-      stroke: none,
-      $p space =$, $mono("let") italic("decls") mono("in")$,
-      $$, $mono("case") () mono("of")$,
-      $$, $quad () | italic("gs")_1 -> e_1$,
-      $$, $quad quad | italic("gs")_2 -> e_2 $,
-      $$, $quad quad quad dots$,
-      $$, $quad quad | italic("gs")_m -> e_m$,
-      $$, $mono("_") -> mono("error \"Unmatched pattern\"")$
-    )
-  ]
+  #table(
+    columns: 2,
+    align: (right, left),
+    stroke: none,
+    $p space =$, $mono("let") italic("decls") mono("in")$,
+    $$, $mono("case") () mono("of")$,
+    $$, $quad () | italic("gs")_1 -> e_1$,
+    $$, $quad quad | italic("gs")_2 -> e_2 $,
+    $$, $quad quad quad dots$,
+    $$, $quad quad | italic("gs")_m -> e_m$,
+    $$, $mono("_") -> mono("error \"Unmatched pattern\"")$
+  )
 ]
+
 
 == Static Semantics of Function and Pattern Bindings
 
@@ -1481,10 +1477,10 @@ for it to be
 ```haskell
   (g True, g 'c')
 ```
-In general, a type $forall overline(u).italic("cx") => t$
+In general, a type $forall safeoverline(u).italic("cx") => t$
 is said to be _monomorphic_
 in the type variable $a$ if $a$ is free in
-$forall overline(u).italic("cx") => t$.
+$forall safeoverline(u).italic("cx") => t$.
 
 It is worth noting that the explicit type signatures provided by Haskell
 are not powerful enough to express types that include monomorphic type
