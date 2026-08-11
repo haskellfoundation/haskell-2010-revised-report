@@ -9,10 +9,7 @@
 }
 
 #let nonterminaldef(x) = {
-  [#figure(kind: "xxx",
-         supplement: "",
-         [#text(fill: maroon, $italic(#x)$)])
-   #label(x)]
+  [$italic(#x)$#raw("")#label(x)]
 }
 
 /// A box used in defining the meaning of syntactic entities by translation.
