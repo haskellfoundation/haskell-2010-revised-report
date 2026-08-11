@@ -64,7 +64,9 @@
       #if not toc {
          [#if prev != none {link(prev)[prev] } #link(<page:toc>)[Contents] #if next != none {link(next)[next]}]
       }
-      #body
+      #html.elem("div", attrs: (class: "main"))[
+        #body
+      ]
     ]
   ]
 ]
