@@ -16,19 +16,39 @@
 }
 
 /// A box used in defining the meaning of syntactic entities by translation.
-#let translation-box(x) = box(
-  stroke: black,
-  width: 1fr,
-  inset: 10pt,
-  [*Translation:* #x]
-)
+#let translation-box(x) = context{
+  if target() == "paged" {
+    // Code for PDF output
+    box(
+      stroke: black,
+      width: 1fr,
+      inset: 10pt,
+      [*Translation:* #x]
+    )
+  } else {
+    // Code for HTML output
+    html.elem("div", attrs: (class: "translation-box"))[
+      *Translation:* #x
+    ]
+  }
+}
 
-#let monomorphism-box(x) = box(
-  stroke: black,
-  width: 1fr,
-  inset: 10pt,
-  [*The monomorphism restriction*\ #x]
-)
+#let monomorphism-box(x) = context {
+  if target() == "paged" {
+    // Code for PDF output
+    box(
+      stroke: black,
+      width: 1fr,
+      inset: 10pt,
+      [*The monomorphism restriction*\ #x]
+    )
+  } else {
+    // Code for HTML output
+    html.elem("div", attrs: (class: "monomorphism-box"))[
+      *The monomorphism restriction*\ #x
+    ]
+  }
+}
 
 #let center-box(body) = context {
   if target() == "paged" {
