@@ -895,7 +895,7 @@ programmer from the need to define them.
 The only classes in the Prelude for
 which derived instances are allowed are
 `Eq`, `Ord`, `Enum`, `Bounded`, `Show`,
-and `Read`, all mentioned in @fig:standard-classes.
+and `Read`, all mentioned in @sec:standard-haskell-classes.
 The precise details of how the derived instances are generated for each of
 these classes are provided in @chapter:derived-instances, including
 a specification of when such derived instances are possible. 
@@ -984,7 +984,7 @@ In situations where an ambiguous type is discovered, an ambiguous type variable,
 - all of these classes are defined in the Prelude or a standard library
   (@fig:basic-numeric-1 -- @fig:basic-numeric-2
   show the numeric classes, and
-  @fig:standard-classes shows the classes defined in the Prelude.)
+  @fig:numeric-classes shows the classes defined in the Prelude.)
 
 Each defaultable variable is replaced by the first type in the
 default list that is an instance of all the ambiguous variable's classes.

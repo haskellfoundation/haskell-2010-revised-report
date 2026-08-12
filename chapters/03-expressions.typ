@@ -450,7 +450,7 @@ The _arithmetic sequence_ $[e_1, e_2 .. e_3]$ denotes a list of values of type $
     [`[` $e_1$, $e_2$ `..` $e_3$ `]`], $=$, [`enumFromThenTo` $e_1$ $e_2$ $e_3$],
   )
 
-  where `enumFrom`, `enumFromThen`, `enumFromTo`, and `enumFromThenTo` are class methods in the class `Enum` as defined in the Prelude (see @fig:standard-classes).
+  where `enumFrom`, `enumFromThen`, `enumFromTo`, and `enumFromThenTo` are class methods in the class `Enum` as defined in the Prelude (see @subsec:enum-class).
 ])
 
 The semantics of arithmetic sequences therefore depends entirely on the instance declaration for the type `t`.

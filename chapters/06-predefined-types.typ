@@ -183,11 +183,12 @@ f $ g $ h x  =  f (g (h x))
 It is also useful in higher-order situations, such as `map ($ 0) xs`,
 or `zipWith ($) fs xs`.
 
-== Standard Haskell Classes
+== Standard Haskell Classes <sec:standard-haskell-classes>
 
-@fig:standard-classes shows the hierarchy of
+@fig:numeric-classes shows the hierarchy of numeric
 Haskell classes defined in the Prelude and the Prelude types that
 are instances of these classes.
+@fig:functor-monad-classes shows classes belonging to the Functor--Monad hierarchy.
 
 // Cf. https://forum.typst.app/t/how-to-export-cetz-diagrams-in-html/3034/5
 #let drawing(..args) = {
@@ -200,70 +201,56 @@ are instances of these classes.
 }
 
 #figure(
-  caption: "Standard Haskell Classes",
+  caption: "Numeric Haskell Classes",
   drawing({    
     import cetz.draw: *
-      let ellipse_size = (60pt, 40pt)
+      let draw_rect(pos, name) = {
+        rect(cetz.vector.add(pos, (-2,-1.5)), (rel: (4,3)), name: name)
+      }
       // Eq
       let eq_pos = (0,0)
-      circle(eq_pos, radius: ellipse_size, name: "eq")
+      draw_rect(eq_pos, "eq")
       content(eq_pos, [#set align(center); *Eq*\ All except IO, (->)])
       // Show
       let show_pos = (5,0)
-      circle(show_pos, radius: ellipse_size, name: "show")
+      draw_rect(show_pos, "show")
       content(show_pos, [#set align(center);*Show*\ All except IO, (->)])
-      // Read
-      let read_pos = (10,0)
-      circle(read_pos, radius: ellipse_size, name: "read")
-      content(read_pos, [#set align(center);*Read*\ All except IO, (->)])
       // Ord
       let ord_pos = (0,-4)
-      circle(ord_pos, radius: ellipse_size, name: "ord")
+      draw_rect(ord_pos, "ord")
       content(ord_pos, [#set align(center);*Ord*\ All except (->)\ IO, IOError])
       // Num
       let num_pos = (5,-4)
-      circle(num_pos, radius: ellipse_size, name: "num")
+      draw_rect(num_pos, "num")
       content(num_pos, [#set align(center);*Num*\ Int, Integer\ Float, Double])
-      // Bounded
-      let bounded_pos = (10,-4)
-      circle(bounded_pos, radius: ellipse_size, name: "bounded")
-      content(bounded_pos, [#set align(center);*Bounded*\ Int, Char, Bool, ()\ Ordering, tuples])
       // Enum
       let enum_pos = (0,-8)
-      circle(enum_pos, radius: ellipse_size, name: "enum")
+      draw_rect(enum_pos, "enum")
       content(enum_pos, [#set align(center);*Enum*\ (), Bool, Char, Ordering,\ Int, Integer, Float,\ Double])
       // Real
       let real_pos = (5,-8)
-      circle(real_pos, radius: ellipse_size, name: "real")
+      draw_rect(real_pos, "real")
       content(real_pos, [#set align(center);*Real*\ Int, Integer\ Float, Double])
       // Fractional
       let fractional_pos = (10,-8)
-      circle(fractional_pos, radius: ellipse_size, name: "fractional")
+      draw_rect(fractional_pos, "fractional")
       content(fractional_pos, [#set align(center);*Fractional*\ Float, Double])
       // Integral
       let integral_pos = (0,-12)
-      circle(integral_pos, radius: ellipse_size, name: "integral")
+      draw_rect(integral_pos, "integral")
       content(integral_pos, [#set align(center);*Integral*\ Int, Integer])
       // RealFrac
       let realfrac_pos = (5,-12)
-      circle(realfrac_pos, radius: ellipse_size, name: "realfrac")
+      draw_rect(realfrac_pos, "realfrac")
       content(realfrac_pos, [#set align(center);*RealFrac*\ Float, Double])
       // Floating
       let floating_pos = (10,-12)
-      circle(floating_pos, radius: ellipse_size, name: "floating")
+      draw_rect(floating_pos, "floating")
       content(floating_pos, [#set align(center);*Floating*\ Float, Double])
       // RealFloat
       let realfloat_pos = (7.5,-16)
-      circle(realfloat_pos, radius: ellipse_size, name: "realfloat")
+      draw_rect(realfloat_pos, "realfloat")
       content(realfloat_pos, [#set align(center);*RealFloat*\ Float, Double])
-      // Monad
-      let monad_pos = (2.5,-20)
-      circle(monad_pos, radius: ellipse_size, name: "monad")
-      content(monad_pos, [#set align(center);*Monad*\ IO,`[]`,Maybe])
-      // Functor
-      let functor_pos = (7.5,-20)
-      circle(functor_pos, radius: ellipse_size, name: "functor")
-      content(functor_pos, [#set align(center);*Functor*\ IO,`[]`,Maybe])
 
       // Superclasses
       set-style(mark: (end: ">", fill: black))
@@ -282,7 +269,26 @@ are instances of these classes.
       line("floating", "realfloat")
     }
   )
-)<fig:standard-classes>
+)<fig:numeric-classes>
+
+#figure(
+  caption: "Haskell Classes of the Monadic Hierarchy",
+  drawing({    
+    import cetz.draw: *
+      let draw_rect(pos, name) = {
+        rect(cetz.vector.add(pos, (-2,-1.5)), (rel: (4,3)), name: name)
+      }
+      // Functor
+      let functor_pos = (2.5,0)
+      draw_rect(functor_pos, "functor")
+      content(functor_pos, [#set align(center);*Functor*\ IO,`[]`,Maybe])
+      // Monad
+      let monad_pos = (2.5,-4)
+      draw_rect(monad_pos, "monad")
+      content(monad_pos, [#set align(center);*Monad*\ IO,`[]`,Maybe])
+    }
+  )
+)<fig:functor-monad-classes>
 
 Default class method declarations (@sec:type-classes) are provided
 for many of the methods in standard classes.  A comment with each
@@ -599,7 +605,7 @@ types are in `Bounded`.
 Haskell provides several kinds of numbers; the numeric
 types and the operations upon them have been heavily influenced by Common Lisp and Scheme.
 Numeric function names and operators are usually overloaded, using
-several type classes with an inclusion relation shown in @fig:standard-classes.
+several type classes with an inclusion relation shown in @fig:numeric-classes.
 The class `Num` of numeric
 types is a subclass of `Eq`, since all numbers may be compared for equality; its subclass `Real` is also a subclass of `Ord`, since the other comparison operations
 apply to all but complex numbers (defined in the `Complex` library).
@@ -664,7 +670,7 @@ infinity, indefinite, etc.
 The standard numeric classes and other numeric functions defined in
 the Prelude are shown
 in @fig:basic-numeric-1 @fig:basic-numeric-2.
-@fig:standard-classes shows the class dependencies and
+@fig:numeric-classes shows the class dependencies and
 built-in types that are instances of the numeric classes.
 
 #figure(
