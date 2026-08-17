@@ -46,11 +46,6 @@ Haskell compilers are expected to make use of new versions of Unicode as they ar
   columns: 3,
   align: (left, center, left),
   stroke: none,
-  // program
-  $nonterminal("program")$, $->$, ${ med nonterminal("lexeme") | nonterminal("whitespace") med }$,
-  // lexeme
-  $nonterminal("lexeme")$, $->$, $nonterminal("qvarid") | nonterminal("qconid") | nonterminal("qvarsym") | nonterminal("qconsym")$,
-  [], $|$, $nonterminal("literal") | nonterminal("special") | nonterminal("reservedop") | nonterminal("reservedid")$,
   // literal
   $nonterminal("literal")$, $->$, $nonterminal("integer") | nonterminal("float") | nonterminal("char") | nonterminal("string")$,
   // special
@@ -122,7 +117,7 @@ Haskell compilers are expected to make use of new versions of Unicode as they ar
 
 Lexical analysis should use the ``maximal munch'' rule:
 at each point, the longest possible lexeme
-satisfying the $nonterminal("lexeme")$ production is read.
+satisfying the $mono("lexeme")$ production is read.
 So, although `case` is a reserved word, `cases` is not.
 Similarly, although `=` is reserved, `==` and `~=` are not.
 
