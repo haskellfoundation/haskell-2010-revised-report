@@ -12,6 +12,7 @@ These standard libraries are now available in the form of a zero-dependency Hask
 
 #heading(level: 2, numbering: none)[Changes to the  Report]
 
+
 #heading(level: 3, numbering: none)[Forall as a keyword]
 
 The definition of the nonterminal $nonterminal("reservedid")$ has been changed to also include the terminal $terminal("forall")$ as a reserved identifier.
@@ -25,7 +26,12 @@ The definitions of the nonterminals $nonterminal("decimal")$ and $nonterminal("h
 The datatype contexts have been removed from the standard libraries. Note that
 datatype contexts themselves are not removed from the language.
 
+
 #heading(level: 3, numbering: none)[Remove mutually recursive modules]
 
 The requirement to support mutually recursive module imports has been lifted:
 Implementations are only required to support acyclic module import graphs.
+
+#heading(level: 3, numbering: none)[Derived Instances of Ix]
+
+The information that Haskell allows to derive instances of the `Ix` class from the module `Data.Ix`, and how those instances look like, has been moved from the library report to @chapter:derived-instances.
