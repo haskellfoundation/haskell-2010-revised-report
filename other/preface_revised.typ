@@ -11,3 +11,7 @@ These standard libraries are now available in the form of a zero-dependency Hask
 
 
 #heading(level: 2, numbering: none)[Changes to the  Report]
+
+#heading(level: 3, numbering: none)[Derived Instances of Ix]
+
+The information that Haskell allows to derive instances of the `Ix` class from the module `Data.Ix`, and how those instances look like, has been moved from the library report to @chapter:derived-instances.

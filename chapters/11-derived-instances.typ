@@ -5,8 +5,10 @@ automatically in conjunction with a `data` or `newtype` declaration.
 The body of a derived instance declaration is derived syntactically from
 the definition of the associated type.  Derived instances are
 possible only for classes known to the compiler: those defined in
-either the Prelude or a standard library.  In this chapter, we
-describe the derivation of classes defined by the Prelude.
+either the Prelude or a standard library.
+Haskell supports the derivation of instances for the classes `Eq`, `Ord`, `Enum`, `Bounded`, `Show` and `Read` from the Prelude, and for the class `Ix` from the standard library `Data.Ix`.
+//In this chapter, we
+//describe the derivation of classes defined by the Prelude.
 
 If $T$ is an algebraic datatype declared by:
 
@@ -18,10 +20,11 @@ $
 (where $m >= 0$ and the parentheses may be omitted if $m=1$) then
 a derived instance declaration is possible for a class $C$
 if these conditions hold:
-+ $C$ is one of `Eq`, `Ord`, `Enum`, `Bounded`, `Show` or `Read`.
+
++ $C$ is one of `Eq`, `Ord`, `Enum`, `Bounded`, `Show`, `Read` or `Ix`.
 + There is a context $c x'$ such that $c x' => C t_(i j)$ holds for each of the constituent types $t_(i j)$.
 + If $C$ is `Bounded`, the type must be either an enumeration (all constructors must be nullary) or have only one constructor.
-+ If $C$ is `Enum`, the type must be an enumeration.
++ If $C$ is `Enum` or `Ix`, the type must be an enumeration.
 + There must be no explicit instance declaration elsewhere in the program that
   makes $T u_1 dots u_k$ an instance of $C$.
 + If the data declaration has no constructors (i.e. when $n=0$),
@@ -229,6 +232,56 @@ uses.  Some problems include:
   reading a large structure may be quite slow.
 - There is no user control over the printing of types defined in the Prelude.  For example, there is no way to change the
   formatting of floating point numbers.
+
+== Derived instances of Ix <sec:derived-ix>
+
+It is possible to derive an instance of `Ix` automatically, using a `deriving` clause on a `data` declaration.
+Such derived instance declarations for the class `Ix` are only possible for enumerations (i.e. datatypes having only nullary constructors) and single-constructor datatypes, whose constituent types are instances of `Ix`.
+A Haskell implementation must provide `Ix` instances for tuples up to at least size 15.
+
+For an _enumeration_, the nullary constructors are assumed to be numbered left-to-right with the indices being $0$ to $n-1$ inclusive. This is the same numbering defined by the `Enum` class.
+For example, given the datatype:
+```haskell
+data Colour = Red | Orange | Yellow | Green | Blue | Indigo | Violet
+```
+we would have:
+```haskell
+range   (Yellow,Blue)        ==  [Yellow,Green,Blue]
+index   (Yellow,Blue) Green  ==  1
+inRange (Yellow,Blue) Red    ==  False
+```
+
+For _single-constructor datatypes_, the derived instance declarations are as shown for tuples:
+```haskell
+instance  (Ix a, Ix b)  => Ix (a,b) where
+        range ((l,l'),(u,u'))
+                = [(i,i') | i <- range (l,u), i' <- range (l',u')]
+        index ((l,l'),(u,u')) (i,i')
+                =  index (l,u) i ⋆ rangeSize (l',u') + index (l',u') i'
+        inRange ((l,l'),(u,u')) (i,i')
+                = inRange (l,u) i && inRange (l',u') i'
+```
+
+```haskell
+-- Instances for other tuples are obtained from this scheme:
+--
+--  instance  (Ix a1, Ix a2, ... , Ix ak) => Ix (a1,a2,...,ak)  where
+--      range ((l1,l2,...,lk),(u1,u2,...,uk)) =
+--          [(i1,i2,...,ik) | i1 <- range (l1,u1),
+--                            i2 <- range (l2,u2),
+--                            ...
+--                            ik <- range (lk,uk)]
+--
+--      index ((l1,l2,...,lk),(u1,u2,...,uk)) (i1,i2,...,ik) =
+--        index (lk,uk) ik + rangeSize (lk,uk) ⋆ (
+--         index (lk-1,uk-1) ik-1 + rangeSize (lk-1,uk-1) ⋆ (
+--          ...
+--           index (l1,u1)))
+--
+--      inRange ((l1,l2,...lk),(u1,u2,...,uk)) (i1,i2,...,ik) =
+--          inRange (l1,u1) i1 && inRange (l2,u2) i2 &&
+--              ... && inRange (lk,uk) ik
+```
 
 == An Example
 
