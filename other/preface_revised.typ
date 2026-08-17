@@ -11,3 +11,8 @@ These standard libraries are now available in the form of a zero-dependency Hask
 
 
 #heading(level: 2, numbering: none)[Changes to the  Report]
+
+#heading(level: 3, numbering: none)[Significance of Whitespace around Operators]
+
+The accepted GHC proposal X governs how to parse whitespace around operators.
+This proposal has been incorporated into the report.

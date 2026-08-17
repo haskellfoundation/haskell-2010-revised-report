@@ -41,11 +41,6 @@ lambda abstractions extend to the right as far as possible.
   columns: 3,
   align: (left, center, left),
   stroke: none,
-  // program
-  $nonterminaldef("program")$, $->$, ${ med nonterminal("lexeme") | nonterminal("whitespace") med }$,
-  // lexeme
-  $nonterminaldef("lexeme")$, $->$, $nonterminal("qvarid") | nonterminal("qconid") | nonterminal("qvarsym") | nonterminal("qconsym")$,
-  [], $|$, $nonterminal("literal") | nonterminal("special") | nonterminal("reservedop") | nonterminal("reservedid")$,
   // literal
   $nonterminaldef("literal")$, $->$, $nonterminal("integer") | nonterminal("float") | nonterminal("char") | nonterminal("string")$,
   // special
