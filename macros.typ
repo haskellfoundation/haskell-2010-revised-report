@@ -14,7 +14,12 @@
   }
 }
 
-/// Typesetting nonterminal symbols in the gramma
+/// Typesetting tokens in the grammar
+#let token(x) = {
+  box(stroke: black, inset: 4pt, radius: 3pt)[$mono(#x)$]
+}
+
+/// Typesetting nonterminal symbols in the grammar
 #let nonterminal(x) = context {
   if target() == "paged" {
     link(label(x))[#text(fill: maroon, style: "italic", font: main_font_name)[#x]]
