@@ -31,7 +31,7 @@ module Data.Ix
     --          range ((l,l'),(u,u'))
     --                  = [(i,i') | i <- range (l,u), i' <- range (l',u')]
     --          index ((l,l'),(u,u')) (i,i')
-    --                  =  index (l,u) i ⋆ rangeSize (l',u') + index (l',u') i'
+    --                  =  index (l,u) i * rangeSize (l',u') + index (l',u') i'
     --          inRange ((l,l'),(u,u')) (i,i')
     --                  = inRange (l,u) i && inRange (l',u') i'
     --
@@ -45,8 +45,8 @@ module Data.Ix
     --  --                            ik <- range (lk,uk)]
     --  --
     --  --      index ((l1,l2,...,lk),(u1,u2,...,uk)) (i1,i2,...,ik) =
-    --  --        index (lk,uk) ik + rangeSize (lk,uk) ⋆ (
-    --  --         index (lk-1,uk-1) ik-1 + rangeSize (lk-1,uk-1) ⋆ (
+    --  --        index (lk,uk) ik + rangeSize (lk,uk) * (
+    --  --         index (lk-1,uk-1) ik-1 + rangeSize (lk-1,uk-1) * (
     --  --          ...
     --  --           index (l1,u1)))
     --  --

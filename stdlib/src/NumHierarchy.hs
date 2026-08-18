@@ -171,12 +171,12 @@ instance Fractional Float
 
 instance Fractional Double
 
-infixr 8 ⋆⋆
+infixr 8 **
 
 class (Fractional a) => Floating a where
   pi :: a
   exp, log, sqrt :: a -> a
-  (⋆⋆), logBase :: a -> a -> a
+  (**), logBase :: a -> a -> a
   sin, cos, tan :: a -> a
   asin, acos, atan :: a -> a
   sinh, cosh, tanh :: a -> a

@@ -51,7 +51,7 @@ imagPart = imagPart
 mkPolar :: (RealFloat a) => a -> a -> Complex a
 mkPolar = mkPolar
 
--- | cis t is a complex value with magnitude 1 and phase t (modulo 2⋆pi).
+-- | cis t is a complex value with magnitude 1 and phase t (modulo 2 * pi).
 cis :: (RealFloat a) => a -> Complex a
 cis = cis
 

@@ -38,7 +38,7 @@ module Prelude
         exp,
         log,
         sqrt,
-        (⋆⋆),
+        (**),
         logBase,
         sin,
         cos,
