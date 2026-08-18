@@ -1,0 +1,1 @@
+This is the library report for the revised Haskell 2010 language report.
