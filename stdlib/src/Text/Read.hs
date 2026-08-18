@@ -1,3 +1,4 @@
+{-# OPTIONS_HADDOCK hide #-}
 module Text.Read where
 
 import Data.Bool

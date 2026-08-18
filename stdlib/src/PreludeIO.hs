@@ -1,3 +1,4 @@
+{-# OPTIONS_HADDOCK hide #-}
 module PreludeIO
   ( FilePath,
     IOError,

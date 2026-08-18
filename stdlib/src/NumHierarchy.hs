@@ -1,3 +1,4 @@
+{-# OPTIONS_HADDOCK hide #-}
 module NumHierarchy where
 
 import Data.Bool

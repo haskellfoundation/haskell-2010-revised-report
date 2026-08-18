@@ -1,3 +1,4 @@
+{-# OPTIONS_HADDOCK hide #-}
 -- |
 --  Module: Data.Enum
 module Data.Enum where

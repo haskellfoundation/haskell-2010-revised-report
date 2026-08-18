@@ -1,3 +1,4 @@
+{-# OPTIONS_HADDOCK hide #-}
 module Prim (Char, Float, Double, Integer) where
 
 -- | The character type @Char@ is an enumeration whose values represent Unicode (or equivalently ISO/IEC
