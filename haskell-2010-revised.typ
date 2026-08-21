@@ -2,6 +2,11 @@
   title: [Haskell 2010 \ Revised Language Report]
 )
 
+#set text(
+  font: "Source Sans 3"
+)
+#show raw: set text(font: "Ubuntu Mono")
+
 
 #set heading(numbering: (..nums) => {
  if nums.pos().len() == 1 {
