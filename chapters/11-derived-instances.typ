@@ -246,7 +246,7 @@ Note the implicit use of default class method
 definitions---for
 example, only `<=` is defined for `Ord`, with the other
 class methods (`<`, `>`, `>=`, `max`, and `min`) being defined by the defaults given in
-the class declaration shown in @fig:standard-classes.
+the class declaration shown in @subsec:eq-class and @subsec:ord-class.
 
 #figure(
   caption: "Example of Derived Instances",
