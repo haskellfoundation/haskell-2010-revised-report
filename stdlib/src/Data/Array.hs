@@ -41,7 +41,7 @@ import Text.Read
 import Text.Show
 
 -- | The type of immutable non-strict (boxed) arrays with indices in @i@ and elements in @e@.
-data (Ix i) => Array i e = AbstractArray
+data Array i e = AbstractArray
 
 instance (Ix i, Eq e) => Eq (Array i e)
 

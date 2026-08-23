@@ -15,7 +15,7 @@ import Text.Show
 -- Must be defined together with the Num typeclasses
 
 -- | Rational numbers, with numerator and denominator of some @Integral@ type.
-data (Integral a) => Ratio a = AbstractRatio
+data Ratio a = AbstractRatio
 
 instance (Integral a) => Enum (Ratio a)
 
