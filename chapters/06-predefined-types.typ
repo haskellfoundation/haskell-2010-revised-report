@@ -1,4 +1,4 @@
-#import "@preview/cetz:0.5.1"
+#import "@preview/diagraph:0.3.7"
 
 The Haskell Prelude contains predefined classes, types,
 and functions that are implicitly imported into every Haskell
@@ -189,98 +189,51 @@ or `zipWith ($) fs xs`.
 Haskell classes defined in the Prelude and the Prelude types that
 are instances of these classes.
 
-// Cf. https://forum.typst.app/t/how-to-export-cetz-diagrams-in-html/3034/5
-#let drawing(..args) = {
-  let canvas = cetz.canvas(..args)
-  context if target() == "html" {
-    html.frame(canvas)
-  } else {
-    canvas
-  }
-}
-
 #figure(
   caption: "Standard Haskell Classes",
-  drawing({    
-    import cetz.draw: *
-      let ellipse_size = (60pt, 40pt)
-      // Eq
-      let eq_pos = (0,0)
-      circle(eq_pos, radius: ellipse_size, name: "eq")
-      content(eq_pos, [#set align(center); *Eq*\ All except IO, (->)])
-      // Show
-      let show_pos = (5,0)
-      circle(show_pos, radius: ellipse_size, name: "show")
-      content(show_pos, [#set align(center);*Show*\ All except IO, (->)])
-      // Read
-      let read_pos = (10,0)
-      circle(read_pos, radius: ellipse_size, name: "read")
-      content(read_pos, [#set align(center);*Read*\ All except IO, (->)])
-      // Ord
-      let ord_pos = (0,-4)
-      circle(ord_pos, radius: ellipse_size, name: "ord")
-      content(ord_pos, [#set align(center);*Ord*\ All except (->)\ IO, IOError])
-      // Num
-      let num_pos = (5,-4)
-      circle(num_pos, radius: ellipse_size, name: "num")
-      content(num_pos, [#set align(center);*Num*\ Int, Integer\ Float, Double])
-      // Bounded
-      let bounded_pos = (10,-4)
-      circle(bounded_pos, radius: ellipse_size, name: "bounded")
-      content(bounded_pos, [#set align(center);*Bounded*\ Int, Char, Bool, ()\ Ordering, tuples])
-      // Enum
-      let enum_pos = (0,-8)
-      circle(enum_pos, radius: ellipse_size, name: "enum")
-      content(enum_pos, [#set align(center);*Enum*\ (), Bool, Char, Ordering,\ Int, Integer, Float,\ Double])
-      // Real
-      let real_pos = (5,-8)
-      circle(real_pos, radius: ellipse_size, name: "real")
-      content(real_pos, [#set align(center);*Real*\ Int, Integer\ Float, Double])
-      // Fractional
-      let fractional_pos = (10,-8)
-      circle(fractional_pos, radius: ellipse_size, name: "fractional")
-      content(fractional_pos, [#set align(center);*Fractional*\ Float, Double])
-      // Integral
-      let integral_pos = (0,-12)
-      circle(integral_pos, radius: ellipse_size, name: "integral")
-      content(integral_pos, [#set align(center);*Integral*\ Int, Integer])
-      // RealFrac
-      let realfrac_pos = (5,-12)
-      circle(realfrac_pos, radius: ellipse_size, name: "realfrac")
-      content(realfrac_pos, [#set align(center);*RealFrac*\ Float, Double])
-      // Floating
-      let floating_pos = (10,-12)
-      circle(floating_pos, radius: ellipse_size, name: "floating")
-      content(floating_pos, [#set align(center);*Floating*\ Float, Double])
-      // RealFloat
-      let realfloat_pos = (7.5,-16)
-      circle(realfloat_pos, radius: ellipse_size, name: "realfloat")
-      content(realfloat_pos, [#set align(center);*RealFloat*\ Float, Double])
-      // Monad
-      let monad_pos = (2.5,-20)
-      circle(monad_pos, radius: ellipse_size, name: "monad")
-      content(monad_pos, [#set align(center);*Monad*\ IO,`[]`,Maybe])
-      // Functor
-      let functor_pos = (7.5,-20)
-      circle(functor_pos, radius: ellipse_size, name: "functor")
-      content(functor_pos, [#set align(center);*Functor*\ IO,`[]`,Maybe])
+  diagraph.raw-render(
+    // Scale the width to the page
+    width:95%,
+    ```dot
+      digraph {
+        node[width=1.8, height=1.2, fixedsize=true];
 
-      // Superclasses
-      set-style(mark: (end: ">", fill: black))
-      line("eq", "ord")
-      line("eq", "num")
-      line("show", "num")
-      line("ord", "real")
-      line("num", "real")
-      line("num", "fractional")
-      line("enum", "integral")
-      line("real", "integral")
-      line("real", "realfrac")
-      line("fractional", "realfrac")
-      line("fractional", "floating")
-      line("realfrac", "realfloat")
-      line("floating", "realfloat")
-    }
+        eq[label=<<b>Eq</b><br/>All except IO, (-&gt;)>];
+        show[label=<<b>Show</b><br/>All except IO, (-&gt;)>];
+        read[label=<<b>Read</b><br/>All except IO, (-&gt;)>];
+        ord[label=<<b>Ord</b><br/>All except IO, (-&gt;)<br/>IO, IOError>];
+        num[label=<<b>Num</b><br/>Int, Integer<br/>Float, Double>];
+        bounded[label=<<b>Bounded</b><br/>Int, Char, Bool, ()<br/>Ordering, Tuples>];
+        enum[label=<<b>Enum</b><br/>(), Bool, Char, Ordering<br/>Int, Integer, Float<br/>Double>];
+        real[label=<<b>Real</b><br/>Int, Integer,<br/>Float, Double>];
+        fractional[label=<<b>Fractional</b><br/>Float, Double>];
+        integral[label=<<b>Integral</b><br/>Int, Integer>];
+        realfrac[label=<<b>RealFrac</b><br/>Float, Double>];
+        floating[label=<<b>Floating</b><br/>Float, Double>];
+        realfloat[label=<<b>RealFloat</b><br/>Float, Double>];
+        monad[label=<<b>Monad</b><br/>IO, [], Maybe>];
+        functor[label=<<b>Functor</b><br/>IO, [], Maybe>];
+
+        eq -> ord;
+        eq -> num;
+        show -> num;
+        ord -> real;
+        num -> real;
+        num -> fractional;
+        enum -> integral;
+        real -> integral;
+        real -> realfrac;
+        fractional -> realfrac;
+        fractional -> floating;
+        realfrac -> realfloat;
+        floating -> realfloat;
+
+        // Group the standalone typeclasses
+        read -> bounded[style=invis];
+        bounded -> monad[style=invis];
+        monad -> functor[style=invis];
+      }
+    ```
   )
 )<fig:standard-classes>
 
