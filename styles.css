@@ -1,6 +1,57 @@
+@font-face {
+  font-display:swap;
+  font-family:"Source Sans 3";
+  font-style:normal;
+  font-weight:400;
+  src:url("/fonts/source-sans-3-v9-latin-regular.woff2") format("woff2")
+}
+@font-face {
+  font-display:swap;
+  font-family:"Ubuntu Mono";
+  font-style:normal;
+  font-weight:400;
+  src:url("/fonts/ubuntu-mono-v15-latin-regular.woff2") format("woff2")
+}
+@font-face {
+  font-display:swap;
+  font-family:"Raleway";
+  font-style:normal;
+  font-weight:700;
+  src:url("/fonts/raleway-v28-latin-700.woff2") format("woff2")
+}
+@font-face {
+  font-display:swap;
+  font-family:"Raleway";
+  font-style:normal;
+  font-weight:900;
+  src:url("/fonts/raleway-v28-latin-900.woff2") format("woff2")
+}
+
+a:link, a:visited {
+    color:#9E358F;
+}
+
+body {
+  font-family:"Source Sans 3",Helvetica,Arial,sans-serif;
+  font-size:16px;
+  line-height:1.428571429;
+  color:#333333;
+  background-color:#fff
+}
+
+h1,
+h2 {
+  font-family:"Raleway",Helvetica,Arial,sans-serif
+}
+
+pre,
+code {
+  font-family:'Ubuntu Mono',monospace
+}
+
 .main {
-    width: 1000px;
-    margin: 20px
+    width: 800px;
+    margin: 20px;
 }
 
 .translation-box {

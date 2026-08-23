@@ -202,3 +202,9 @@
 
 // Copy the file `styles.css` into the bundle.
 #asset("styles.css", read("styles.css"))
+
+// Copy the fonts into the bundle
+#asset("fonts/raleway-v28-latin-700.woff2", read(encoding: none, "fonts/raleway-v28-latin-700.woff2"))
+#asset("fonts/raleway-v28-latin-900.woff2", read(encoding: none, "fonts/raleway-v28-latin-900.woff2"))
+#asset("fonts/source-sans-3-v9-latin-regular.woff2", read(encoding: none, "fonts/source-sans-3-v9-latin-regular.woff2"))
+#asset("fonts/ubuntu-mono-v15-latin-regular.woff2", read(encoding: none, "fonts/ubuntu-mono-v15-latin-regular.woff2"))
