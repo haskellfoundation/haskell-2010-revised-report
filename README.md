@@ -45,6 +45,24 @@ The contribution process is documented in [CONTRIBUTING.md](CONTRIBUTING.md)
 
 We have adopted the [Haskell Foundation Guidelines for Respectful Communication](https://haskell.foundation/guidelines-for-respectful-communication/) for this project.
 
+## WG Members
+
+The working group for editing the revised report consists of the following members:
+
+| Name                        | GitHub Handle | Other |
+| --------------------------- | ------------- | ----- |
+| David Binder                | @BinderDavid  |       |
+| Mike Pilgrem                | @mpilgrem     |       |
+| Freddy Cubas                | @superstar64  |       |
+| Benjamin M                  | @L0neGamer    |       |
+| Jaro Reinders               | @noughtmare   |       |
+| Mario Blažević              | @blamario     |       |
+| Mirek Kratochvil            | @exaexa       |       |
+| Adam Gundry                 | @adamgundry   |       |
+| Jack Kelly                  | @endgame      |       |
+| José Manuel Calderón Trilla | @jmct         |       |
+| Brendan Lane                | @gilgamec     |       |
+
 ## References and Prior Work
 
 - The verb/latex sources for the Haskell 2010 language report are available at [github.com/haskell/haskell-report](https://github.com/haskell/haskell-report)
