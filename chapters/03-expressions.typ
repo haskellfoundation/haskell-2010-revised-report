@@ -548,7 +548,7 @@ does not cause an execution-time error until `x` or `y` is evaluated.
 #translation-box([
   The dynamic semantics of the expression
   $mono("let") { d_1; dots ; d_n} mono("in") e_0$
-  are captured by this translation: After removing all type signatures, each declaration $d_i$ is translated into an equation of the form $p_i = e_i$, where $p_i$ and $e_i$ are patterns and expressions
+  are captured by this translation: After removing all type signatures, each declaration $d_i$ is translated into an equation with a standalone pattern binding, $p_i = e_i$, where $p_i$ and $e_i$ are patterns and expressions
   respectively, using the translation in
   @subsec:function-and-pattern-bindings.  Once done, these identities
   hold, which may be used as a translation into the kernel:

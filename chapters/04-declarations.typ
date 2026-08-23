@@ -1285,8 +1285,9 @@ is not a valid pattern.
 
 ==== Pattern bindings <sec:pattern-bindings>
 
-A pattern binding binds variables to values.  A _simple_ pattern
-binding has form $p = e$.
+A pattern binding binds variables to values.  A _standalone_ pattern
+binding has form $p = e$, where $p$ is any pattern. A _simple_ pattern
+binding has form $x = e$, where $x$ is a single variable.
 The pattern $p$ is
 matched "lazily" as an irrefutable pattern, as if there were an implicit `~` in front 
 of it.  See the translation in
@@ -1309,7 +1310,7 @@ words, a pattern binding is:
 
 
 #translation-box[
-  The pattern binding above is semantically equivalent to this simple pattern binding:
+  The pattern binding above is semantically equivalent to this standalone pattern binding:
   #table(
     columns: 2,
     align: (right, left),
