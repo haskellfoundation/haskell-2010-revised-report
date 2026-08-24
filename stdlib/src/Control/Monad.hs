@@ -107,6 +107,13 @@ infixl 1 >>, >>=
 
 infixr 1 =<<
 
+-- |
+-- === Specification:
+--
+-- @
+-- instance  (Ix a)          => Functor (Array a) where  
+--     fmap fn (MkArray b f) =  MkArray b (fn . f) 
+-- @
 instance (Ix i) => Functor (Array i)
 
 -- | The Monad class defines the basic operations over a monad, a concept from a branch of mathematics
