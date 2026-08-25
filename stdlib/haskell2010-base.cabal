@@ -45,9 +45,6 @@ library
       System.IO
       System.IO.Error
     other-modules:
-      PreludeList
-      PreludeText
-      PreludeIO
       Prim
       NumHierarchy
       Data.Bool

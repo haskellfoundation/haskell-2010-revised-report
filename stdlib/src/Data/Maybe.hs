@@ -42,6 +42,13 @@ instance (Show a) => Show (Maybe a)
 -- | The @maybe@ function takes a default value, a function, and a @Maybe@ value. If the @Maybe@ value is
 -- @Nothing@, the function returns the default value. Otherwise, it applies the function to the value inside
 -- the @Just@ and returns the result.
+--
+-- === __Specification:__
+--
+-- @
+-- maybe n f Nothing  =  n  
+-- maybe n f (Just x) =  f x 
+-- @
 maybe :: b -> (a -> b) -> Maybe a -> b
 maybe = maybe
 
