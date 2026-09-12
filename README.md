@@ -49,19 +49,19 @@ We have adopted the [Haskell Foundation Guidelines for Respectful Communication]
 
 The working group for editing the revised report consists of the following members:
 
-| Name                        | GitHub Handle | Other |
-| --------------------------- | ------------- | ----- |
-| David Binder                | @BinderDavid  |       |
-| Mike Pilgrem                | @mpilgrem     |       |
-| Freddy Cubas                | @superstar64  |       |
-| Benjamin M                  | @L0neGamer    |       |
-| Jaro Reinders               | @noughtmare   |       |
-| Mario Blažević              | @blamario     |       |
-| Mirek Kratochvil            | @exaexa       |       |
-| Adam Gundry                 | @adamgundry   |       |
-| Jack Kelly                  | @endgame      |       |
-| José Manuel Calderón Trilla | @jmct         |       |
-| Brendan Lane                | @gilgamec     |       |
+| Name                        | GitHub Handle | Other    |
+| --------------------------- | ------------- | -------- |
+| David Binder                | @BinderDavid  | chair    |
+| Mike Pilgrem                | @mpilgrem     |          |
+| Freddy Cubas                | @superstar64  |          |
+| Benjamin M                  | @L0neGamer    |          |
+| Jaro Reinders               | @noughtmare   |          |
+| Mario Blažević              | @blamario     |          |
+| Mirek Kratochvil            | @exaexa       | co-chair |
+| Adam Gundry                 | @adamgundry   |          |
+| Jack Kelly                  | @endgame      |          |
+| José Manuel Calderón Trilla | @jmct         |          |
+| Brendan Lane                | @gilgamec     |          |
 
 ## References and Prior Work
 
