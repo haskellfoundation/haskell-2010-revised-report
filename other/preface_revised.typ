@@ -11,3 +11,7 @@ These standard libraries are now available in the form of a zero-dependency Hask
 
 
 #heading(level: 2, numbering: none)[Changes to the  Report]
+
+#heading(level: 3, numbering: none)[Remove mutually recursive modules]
+
+The requirement to support mutually recursive modules has been lifted.
