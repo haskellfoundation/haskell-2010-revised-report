@@ -614,8 +614,8 @@ integers `Int`, arbitrary precision integers `Integer`, single
 precision floating `Float`, and double precision floating
 `Double`.  Other numeric types such as rationals and complex numbers
 are defined in libraries.  In particular, the type `Rational` is a
-ratio of two `Integer`n values, as defined in the `Data.Ratio`
-library.
+ratio of two `Integer`n values, as defined in the module `Data.Ratio`
+of the standard library.
 
 #figure(
   caption: "Standard Numeric Types",

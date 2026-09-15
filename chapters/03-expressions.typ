@@ -185,8 +185,8 @@ Similarly, a floating point literal stands for an application of `fromRational` 
   where `fromInteger` is a method in class `Num` (see @sec:numeric-literals).
 
   The floating point literal $f$ is equivalent to $mono("fromRational") (n mono("Ratio.%") d)$, where `fromRational` is a method in class `Fractional` and `Ratio.%` constructs a rational from two integers, as defined in
-the `Data.Ratio` library.
-The integers $n$ and $d$ are chosen so that $n \/ d = f$.
+  the module `Data.Ratio` from the standard library.
+  The integers $n$ and $d$ are chosen so that $n \/ d = f$.
 ])
 
 
