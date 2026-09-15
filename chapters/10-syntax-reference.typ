@@ -118,7 +118,7 @@ lambda abstractions extend to the right as far as possible.
   // octit
   $nonterminaldef("octit")$, $->$, $terminal("0") | terminal("1") | dots | terminal("7")$,
   // hexit
-  $nonterminaldef("hexit")$, $->$, $nonterminal("digit") | terminal("A") | dots | terminal("F") | terminal("a") | dots | terminal("f")$,
+  $nonterminaldef("hexit")$, $->$, $nonterminal("ascDigit") | terminal("A") | dots | terminal("F") | terminal("a") | dots | terminal("f")$,
 )
 
 #table(
@@ -190,7 +190,7 @@ lambda abstractions extend to the right as far as possible.
   align: (left, center, left),
   stroke: none,
   // decimal
-  $nonterminaldef("decimal")$, $->$, $nonterminal("digit"){nonterminal("digit")}$,
+  $nonterminaldef("decimal")$, $->$, $nonterminal("ascDigit"){nonterminal("ascDigit")}$,
   // octal
   $nonterminaldef("octal")$, $->$, $nonterminal("octit"){nonterminal("octit")}$,
   // hexadecimal
