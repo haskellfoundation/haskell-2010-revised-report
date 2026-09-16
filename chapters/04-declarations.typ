@@ -892,14 +892,12 @@ user-defined datatypes.  For example, derived instances for datatypes
 in the class `Eq` define the operations `==` and `/=`, freeing the
 programmer from the need to define them.
 
-The only classes in the Prelude for
-which derived instances are allowed are
+The only classes for which derived instances are allowed are
 `Eq`, `Ord`, `Enum`, `Bounded`, `Show`,
-and `Read`, all mentioned in @fig:standard-classes.
+and `Read` from the Prelude, and `Ix` from the standard library `Data.Ix`.
 The precise details of how the derived instances are generated for each of
 these classes are provided in @chapter:derived-instances, including
 a specification of when such derived instances are possible. 
-Classes defined by the standard libraries may also be derivable.
 
 A static error results if it is not possible to derive an `instance`
 declaration over a class named in a `deriving` form.  For example,
