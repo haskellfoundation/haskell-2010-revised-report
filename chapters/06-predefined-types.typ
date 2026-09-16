@@ -362,7 +362,7 @@ The default declarations allow a user to create an `Ord` instance
 either with a type-specific `compare` function or with type-specific
 `==` and `<=` functions.
 
-=== The Read and Show Classes
+=== The Read and Show Classes <subsec:read-show>
 
 ```haskell
 type  ReadS a = String -> [(a,String)]
@@ -582,7 +582,7 @@ mapM_     :: Monad m => (a -> m b) -> [a] -> m ()
 (=<<)     :: Monad m => (a -> m b) -> m a -> m b
 ```
 
-=== The Bounded Class
+=== The Bounded Class <subsec:bounded>
 
 ```haskell
 class  Bounded a  where
