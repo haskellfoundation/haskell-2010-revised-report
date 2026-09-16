@@ -185,10 +185,10 @@ or `zipWith ($) fs xs`.
 
 == Standard Haskell Classes <sec:standard-haskell-classes>
 
-@fig:numeric-classes shows the hierarchy of numeric
-Haskell classes defined in the Prelude and the Prelude types that
-are instances of these classes.
-@fig:functor-monad-classes shows classes belonging to the Functor--Monad hierarchy.
+The standard classes include the hierarchy of numeric classes (@fig:numeric-classes),
+the Functor--Monad hierarchy (@fig:functor-monad-classes),
+and miscellaneous classes `Show`, `Read` (@subsec:read-show) and `Bounded` (@subsec:bounded).
+
 
 // Cf. https://forum.typst.app/t/how-to-export-cetz-diagrams-in-html/3034/5
 #let drawing(..args) = {
