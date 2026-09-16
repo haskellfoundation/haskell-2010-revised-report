@@ -128,7 +128,7 @@ Haskell compilers are expected to make use of new versions of Unicode as they ar
   // octit
   $italic("octit")$, $->$, $terminal("0") | terminal("1") | dots | terminal("7")$,
   // hexit
-  $italic("hexit")$, $->$, $nonterminal("digit") | terminal("A") | dots | terminal("F") | terminal("a") | dots | terminal("f")$,
+  $italic("hexit")$, $->$, $nonterminal("ascDigit") | terminal("A") | dots | terminal("F") | terminal("a") | dots | terminal("f")$,
 )
 
 Lexical analysis should use the ``maximal munch'' rule:
@@ -321,7 +321,7 @@ definition of `+` in the Prelude (@sec:fixity-declarations).
   align: (left, center, left),
   stroke: none,
   // decimal
-  $italic("decimal")$, $->$, $nonterminal("digit"){nonterminal("digit")}$,
+  $italic("decimal")$, $->$, $nonterminal("ascDigit"){nonterminal("ascDigit")}$,
   // octal
   $italic("octal")$, $->$, $nonterminal("octit"){nonterminal("octit")}$,
   // hexadecimal
