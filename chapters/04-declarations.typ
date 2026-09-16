@@ -129,7 +129,7 @@ To ensure that they are valid, type expressions are classified
 into different _kinds_, which take one of two possible
 forms:
 
-- The symbol $ast$ represents the kind of all nullary type constructors.
+- The identifier $mono("Type")$ represents the kind of all nullary type constructors.
 - If $kappa_1$ and $kappa_2$ are kinds, then $kappa_1 -> kappa_2$
   is the kind of types that take a type of kind $kappa_1$ and return
   a type of kind $kappa_2$.
@@ -177,24 +177,23 @@ The main forms of type expression are as follows:
 2. Type constructors.  Most type constructors are written as an identifier
    beginning with an uppercase letter.  For example:
    - `Char`, `Int`, `Integer`, `Float`, `Double` and `Bool` are
-     type constants with kind $ast$.
+     type constants with kind $mono("Type")$.
    - `Maybe` and `IO` are unary type
-     constructors, and treated as types with kind $ast -> ast$.
+     constructors, and treated as types with kind $mono("Type") -> mono("Type")$.
    - The declarations `data T ...` or `newtype T ...` add the type
      constructor `T` to the type vocabulary.  The kind of `T` is determined by
      kind inference.
    Special syntax is provided for certain built-in type constructors:
    - The _trivial type_ is written as `()` and
-     has kind $ast$.
+     has kind $mono("Type")$.
      It denotes the "nullary tuple" type, and has exactly one value,
      also written `()` (see @sec:unit-expression and @subsec:basic-trivial).
    - The _function type_ is written as `(->)` and has
-     kind $ast -> ast -> ast$.
-   - The _list type_  is written as `[]` and has kind $ast -> ast$.
+     kind $mono("Type") -> mono("Type") -> mono("Type")$.
+   - The _list type_  is written as `[]` and has kind $mono("Type") -> mono("Type")$.
    - The _tuple types_ are written as `(,)`,
      `(,,)`, and so on.
-     Their kinds are $ast -> ast -> ast$,$ast -> ast -> ast -> ast$,  and
-     so on.
+     Their kinds are $mono("Type") -> mono("Type") -> mono("Type")$,$mono("Type") -> mono("Type") -> mono("Type") -> mono("Type")$,  and so on.
    Use of the `(->)` and `[]` constants is described in more detail below.
 
 3. Type application.  If $t_1$ is a type of kind
@@ -207,8 +206,8 @@ The main forms of type expression are as follows:
 For example, the type expression `IO a` can be understood as the application
 of a constant, `IO`, to the variable `a`.  Since the `IO` type
 constructor has kind 
-$ast -> ast$, it follows that both the variable `a` and the whole
-expression, `IO a`, must have kind $ast$.
+$mono("Type") -> mono("Type")$, it follows that both the variable `a` and the whole
+expression, `IO a`, must have kind $mono("Type")$.
 In general, a process of _kind inference_
 (see @sec:kind-inference) is needed to determine appropriate kinds for user-defined datatypes, type
 synonyms, and classes.
@@ -217,7 +216,7 @@ Special syntax is provided to allow certain type expressions to be written
 in a more traditional style:
 
 1. A _function type_ has the form $t_1 -> t_2$, which is equivalent to the type
-   $(->) t_1 t_2$.  Function arrows associate to the right.
+   $(->) space t_1 space t_2$.  Function arrows associate to the right.
    For example, `Int -> Int -> Float` means `Int -> (Int -> Float)`.
 2. A _tuple type_ has the form $(t_1, dots, t_k)$, where $k >= 2$, which is equivalent to
    the type $(,dots,) t_1 dots t_k$ where there are
@@ -225,7 +224,7 @@ in a more traditional style:
    type of $k$-tuples with the first component of type $t_1$, the second
    component of type $t_2$, and so on (see @sec:tuple-expression
    and @subsec:basic-tuples).
-3. A _list type_ has the form $[t]$, which is equivalent to the type $[] t$.
+3. A _list type_ has the form $[t]$, which is equivalent to the type $[] space t$.
    It denotes the type of lists with elements of type $t$ (see @sec:lists and @subsec:basic-lists).
 
 
@@ -415,7 +414,7 @@ The type variables $u_1$ through $u_k$ must be distinct and may appear
 in $italic("cx")$ and the $t_(i j)$; it is a static error
 for any other type variable to appear in $italic("cx")$ or on the right-hand-side.
 The new type constant $T$ has a kind of the form
-$kappa_1 -> dots -> kappa_k -> ast$
+$kappa_1 -> dots -> kappa_k -> mono("Type")$
 where the kinds $kappa_i$ of the argument variables $u_i$ are
 determined by kind inference
 as described in @sec:kind-inference.
@@ -426,7 +425,7 @@ For example, the declaration
 ```haskell
 data Eq a => Set a = NilSet | ConsSet a (Set a)
 ```
-introduces a type constructor `Set` of kind $ast -> ast$, and constructors `NilSet` and `ConsSet` with types
+introduces a type constructor `Set` of kind $mono("Type") -> mono("Type")$, and constructors `NilSet` and `ConsSet` with types
 #table(
     columns: 3,
     align: (left, center, left),
@@ -1663,35 +1662,34 @@ are determined using standard techniques of type inference and
 kind-preserving unification @jones:cclasses.  For example, in the
 definitions above, the parameter `a` appears as an argument of the
 function constructor `(->)` in the type of `bar` and hence must
-have kind $ast$.  It follows that both `D` and `S` must have
-kind $ast -> ast$ and that every instance of class `C` must
-have kind $ast$.
+have kind $mono("Type")$.  It follows that both `D` and `S` must have
+kind $mono("Type") -> mono("Type")$ and that every instance of class `C` must have kind $mono("Type")$.
 
 It is possible that some parts of an inferred kind may not be fully
 determined by the corresponding definitions; in such cases, a default
-of $ast$ is assumed.  For example, we could assume an arbitrary kind
+of $mono("Type")$ is assumed.  For example, we could assume an arbitrary kind
 $kappa$ for the `a` parameter in each of the following examples:
 ```haskell
   data App f a = A (f a)
   data Tree a  = Leaf | Fork (Tree a) (Tree a)
 ```
 This would give kinds
-$(kappa -> ast) -> kappa -> ast$ and
-$kappa -> ast$ for `App` and `Tree`, respectively, for any
+$(kappa -> mono("Type")) -> kappa -> mono("Type")$ and
+$kappa -> mono("Type")$ for `App` and `Tree`, respectively, for any
 kind $kappa$, and would require an extension to allow polymorphic
-kinds.  Instead, using the default binding $kappa=ast$, the
+kinds.  Instead, using the default binding $kappa=mono("Type")$, the
 actual kinds for these two constructors are
-$(ast -> ast) -> ast -> ast$ and
-$ast -> ast$, respectively.
+$(mono("Type") -> mono("Type")) -> mono("Type") -> mono("Type")$ and
+$mono("Type") -> mono("Type")$, respectively.
 
 Defaults are applied to each dependency group without consideration of
 the ways in which particular type constructor constants or classes are
 used in later dependency groups or elsewhere in the program.  For example,
 adding the following definition to those above does not influence the
 kind inferred for `Tree` (by changing it to
-$(ast -> ast) -> ast$, for instance), and instead
-generates a static error because the kind of `[]`, $ast -> ast$,
-does not match the kind $ast$ that is expected for an argument of `Tree`:
+$(mono("Type") -> mono("Type")) -> mono("Type")$, for instance), and instead
+generates a static error because the kind of `[]`, $mono("Type") -> mono("Type")$,
+does not match the kind $mono("Type")$ that is expected for an argument of `Tree`:
 ```haskell
   type FunnyTree = Tree []     -- invalid
 ```
