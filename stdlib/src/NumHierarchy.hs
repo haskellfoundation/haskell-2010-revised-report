@@ -15,7 +15,7 @@ import Text.Show
 -- Must be defined together with the Num typeclasses
 
 -- | Rational numbers, with numerator and denominator of some @Integral@ type.
-data (Integral a) => Ratio a = AbstractRatio
+data Ratio a = AbstractRatio
 
 instance (Integral a) => Enum (Ratio a)
 
@@ -47,12 +47,12 @@ infixl 7 %
 
 -- | Extract the numerator of the ratio in reduced form: the numerator and denominator have no common
 -- factor and the denominator is positive.
-numerator :: (Integral a) => Ratio a -> a
+numerator :: Ratio a -> a
 numerator = numerator
 
 -- | Extract the denominator of the ratio in reduced form: the numerator and denominator have no common
 -- factor and the denominator is positive.
-denominator :: (Integral a) => Ratio a -> a
+denominator :: Ratio a -> a
 denominator = denominator
 
 -- | @approxRational@, applied to two real fractional numbers @x@ and @epsilon@, returns the simplest rational
