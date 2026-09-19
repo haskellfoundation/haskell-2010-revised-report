@@ -1,15 +1,25 @@
+// TODO somehow make this a global config
+#let main_font_name = "IBM Plex Serif"
+#let mono_font_name = "IBM Plex Mono"
+
 /// Typesetting terminal symbols in the grammar
 #let terminal(x) = {
-  text(fill: eastern, $mono(#x)$)
+  text(fill: eastern, font: mono_font_name)[#x]
 }
 
 /// Typesetting nonterminal symbols in the gramma
 #let nonterminal(x) = {
-  link(label(x))[#text(fill: maroon, $italic(#x)$)]
+  link(label(x))[#text(fill: maroon, style: "italic", font: main_font_name)[#x]]
 }
 
+#let varname(x) = {
+  text(style: "italic", font: main_font_name)[#x]
+}
+
+#let nontermname(x) = varname(x)
+
 #let nonterminaldef(x) = {
-  [$italic(#x)$#raw("")#label(x)]
+  [#text(style: "italic", font: main_font_name)[#x]#raw("")#label(x)]
 }
 
 /// A box used in defining the meaning of syntactic entities by translation.
