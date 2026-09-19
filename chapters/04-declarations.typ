@@ -758,8 +758,8 @@ given explicitly with no `where` part.
   $italic("topdecl")$, $->$, $terminal("instance") [nonterminal("scontext") terminal("=>")] nonterminal("qtycls") nonterminal("inst") [terminal("where") nonterminal("idecls")]$, $$,
   // inst
   $italic("inst")$, $->$, $nonterminal("gtycon")$, $$,
-  $$,$|$,$terminal("(")nonterminal("gtycon") nonterminal("tyvar")_1 dots nonterminal("tyvar")_k terminal(")")$,[($k >= 0$, $italic("tyvars")$ distinct)],
-  $$,$|$,$terminal("(") nonterminal("tyvar")_1 terminal(",") dots terminal(",") nonterminal("tyvar")_k terminal(")")$,[($k >= 2$, $italic("tyvars")$ distinct)],
+  $$,$|$,$terminal("(")nonterminal("gtycon") nonterminal("tyvar")_1 dots nonterminal("tyvar")_k terminal(")")$,[($k >= 0$, $nontermname("tyvars")$ distinct)],
+  $$,$|$,$terminal("(") nonterminal("tyvar")_1 terminal(",") dots terminal(",") nonterminal("tyvar")_k terminal(")")$,[($k >= 2$, $nontermname("tyvars")$ distinct)],
   $$,$|$,$terminal("[") nonterminal("tyvar") terminal("]")$,$$,
   $$,$|$,$terminal("(") nonterminal("tyvar")_1 terminal("->") nonterminal("tyvar")_2 terminal(")")$,[($italic("tyvar")_1$ and $italic("tyvar")_2$ distinct)],
   // idecls

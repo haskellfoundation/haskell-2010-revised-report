@@ -3,13 +3,23 @@
   text(fill: eastern, $mono(#x)$)
 }
 
+// TODO somehow make this a global config
+// TODO also fix it in HTML which doesn't seem to work with font: at all
+#let main_font_name = "IBM Plex Serif"
+
 /// Typesetting nonterminal symbols in the gramma
 #let nonterminal(x) = {
-  link(label(x))[#text(fill: maroon, $italic(#x)$)]
+  link(label(x))[#text(fill: maroon, style: "italic", font: main_font_name)[#x]]
 }
 
+#let varname(x) = {
+  text(style: "italic", font: main_font_name)[#x]
+}
+
+#let nontermname(x) = varname(x)
+
 #let nonterminaldef(x) = {
-  [$italic(#x)$#raw("")#label(x)]
+  [#text(style: "italic", font: main_font_name)[#x]#raw("")#label(x)]
 }
 
 /// A box used in defining the meaning of syntactic entities by translation.

@@ -5,7 +5,9 @@
 #let main_font_name = "IBM Plex Serif"
 #let mono_font_name = "IBM Plex Mono"
 
-#set text(font: main_font_name)
+#set text(
+  font: main_font_name
+)
 #show raw: set text(font: mono_font_name)
 
 #set heading(numbering: (..nums) => {
