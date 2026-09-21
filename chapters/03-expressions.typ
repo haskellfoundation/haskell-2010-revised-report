@@ -935,7 +935,7 @@ Patterns have this syntax:
   $italic("fpat")$,$->$,$nonterminal("qvar") terminal("=") nonterminal("pat")$,$$,
 )
 
-=== As-Patterns <sec:as-patterns>
+==== As-Patterns <sec:as-patterns>
 
 Patterns of the form $italic("var")mono("@")italic("pat")$ are called _as-patterns_,
 and allow one to use $italic("var")$
@@ -949,7 +949,7 @@ let { xs = e } in
   case xs of { (x:rest) -> if x==0 then rest else xs }
 ```
 
-=== Wildcard Patterns <sec:wildcard-patterns>
+==== Wildcard Patterns <sec:wildcard-patterns>
 
 Patterns of the form `_` are _wildcards_ and are useful when some part of a pattern
 is not referenced on the right-hand-side.  It is as if an
@@ -961,6 +961,16 @@ is equivalent to:
 ```haskell
 case e of { [x,y,z]  ->  if x==0 then True else False }
 ```
+
+==== Numeric Literal Patterns <sec:numeric-literal-patterns>
+
+Aside from the obvious static type constraints (for
+example, it is a static error to match a character against a
+boolean), the following static class constraints hold for numeric literal patterns:
+
+- An integer literal pattern can only be matched against a value in the class `Num`.
+- A floating literal pattern can only be matched against a value
+  in the class `Fractional`.
 
 === Linear Patterns <sec:linear-patterns>
 
@@ -996,7 +1006,11 @@ Every pattern is either _failable_ or _failure-free_.
 The failure-free patterns are as follows:
 - a variable
 - a wildcard
-- TODO
+- $N italic("apat")$ where $N$ is a constructor
+  defined by `newtype` and $italic("apat")$ is failure-free (see @sec:datatype-renamings)
+- $K italic("apat")_1 dots italic("apat")_n$ where $K$ is the only constructor defined by a `data` declaration and $italic("apat")_1$ to $italic("apat")_n$ are all failure-free.
+- $italic("var")mono("@")italic("apat")$ where $italic("apat")$ is failure-free,
+- $~italic("apat")$ (whether or not $italic("apat")$ is failure-free).
 All other patterns are _failable_.
 
 Matching a failure-free pattern against a value can never _fail_ (cp. @sec:pattern-matching-outcomes).
@@ -1011,19 +1025,12 @@ defining the semantics of pattern matching for case expressions is sufficient.
 
 === Outcomes of Matching a Pattern Against a Value <sec:pattern-matching-outcomes>
 
-Patterns are matched against values.
-Attempting to match a pattern can have one of three results:
+Patterns are matched against values, which can have one of three results:
 
-1. it may _fail_
-2. it may _succeed_, returning a binding for each variable in the pattern
-3. it may _diverge_ (i.e.~return $bot$)
-
-Here are some examples to illustrate these outcomes:
-
-1. Matching the pattern `True` against the value `False` fails.
-2. Matching the pattern `[x,y]` against the value `[2,3]` succeeds and binds `x` to the value `2` and `y` to the value `3`.
-3. Matching the pattern `True` against the value `undefined` diverges.
-
+1. it may _fail_. For example, matching the pattern `True` against the value `False` fails.
+2. it may _succeed_, returning a binding for each variable in the pattern.
+   For example, matching the pattern `[x,y]` against the value `[2,3]` succeeds and binds `x` to the value `2` and `y` to the value `3`.
+3. it may _diverge_. For example, matching the pattern `True` against the value `undefined` diverges.
 
 === Informal Semantics of Pattern Matching
 
@@ -1075,15 +1082,7 @@ Pattern matching proceeds from left to right, and outside to inside, according t
    $italic("var")$ to $v$.  If the match of $italic("apat")$ against $v$ fails or diverges,
    then so does the overall match.
 
-Aside from the obvious static type constraints (for
-example, it is a static error to match a character against a
-boolean), the following static class constraints hold:
-
-- An integer literal pattern can only be matched against a value in the class `Num`.
-- A floating literal pattern can only be matched against a value
-  in the class `Fractional`.
-
-Here are some examples:
+==== Examples
 
 1. If the pattern `['a','b']` is matched against $['x',bot]$, then `'a'` _fails_ to match against `'x'`, and the result is a failed match.  But
    if `['a','b']` is matched against $[bot,'x']$, then attempting to match `'a'` against $bot$ causes the match to _diverge_.
@@ -1122,6 +1121,8 @@ Here are some examples:
    )
 
    Additional examples may be found in @sec:datatype-renamings.
+
+=== Guards
 
 Top level patterns in case expressions and the set of top level
 patterns in function or pattern bindings may have zero or more
