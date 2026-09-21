@@ -30,6 +30,12 @@ jobs:
       # typst does not create the parent directory of the PDF output on its own.
       - run: typst compile --format bundle --features bundle --features html haskell-2010-revised-html.typ _site
       - run: typst compile haskell-2010-revised.typ _site/haskell-2010-revised.pdf
+      # Generate library report documentation      
+      - run: cabal haddock --haddock-output-dir out
+        working-directory: stdlib
+      - run: mkdir _site/stdlib
+      - run: cp stdlib/out/haskell2010-base/* _site/stdlib
+
       - uses: actions/upload-pages-artifact@v4
         with:
           path: _site
