@@ -1,4 +1,5 @@
 #import "@preview/cetz:0.5.1"
+#import "../macros.typ" : *
 
 The Haskell Prelude contains predefined classes, types,
 and functions that are implicitly imported into every Haskell
@@ -152,8 +153,8 @@ seq :: a -> b -> b
 ```
 The function `seq` is defined by the equations:
 $
-  italic("seq") bot med b &= bot \
-  italic("seq") a med b &= b quad (text("if") a eq.not bot)
+  varname("seq") bot med b &= bot \
+  varname("seq") a med b &= b quad (text("if") a eq.not bot)
 $
 
 `seq` is usually introduced to improve performance by
@@ -860,11 +861,11 @@ Two functions convert numbers to type `Rational`:
 its real argument with full precision;
 `approxRational` takes two real fractional arguments
 $x$ and $epsilon$ and returns the simplest rational number within
-$epsilon$ of $x$, where a rational $p italic("/") q$ in reduced form is
-_simpler_ than another $p' italic("/") q'$ if
+$epsilon$ of $x$, where a rational $p / q$ in reduced form is
+_simpler_ than another $p' / q'$ if
 $|p| <= |p'|$ and $q <= q^'$.
 Every real interval contains a unique simplest rational;
-in particular, note that $0 italic("/") 1$ is the simplest rational of all.
+in particular, note that $0 / 1$ is the simplest rational of all.
 
 The class methods of class `RealFloat` allow
 efficient, machine-independent

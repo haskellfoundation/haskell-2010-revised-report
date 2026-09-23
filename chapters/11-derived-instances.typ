@@ -11,7 +11,7 @@ describe the derivation of classes defined by the Prelude.
 If $T$ is an algebraic datatype declared by:
 
 $
-  mono("data") italic("cx") mono("=>") T med u_1 dots u_k = K_1 med t_(1,1) dots t_(1,k_1) | dots | K_n med t_(n,1) dots t_(n,k_n) \
+  mono("data") varname("cx") mono("=>") T med u_1 dots u_k = K_1 med t_(1,1) dots t_(1,k_1) | dots | K_n med t_(n,1) dots t_(n,k_n) \
   mono("deriving") (C_1, dots, C_m)
 $
 
@@ -41,7 +41,7 @@ omitted or the form `deriving ()` may be used.
 Each derived instance declaration will have the form:
 
 $
-  mono("instance") (italic("cx"), italic("cx")') mono("=>") C_i med (T med u_1 dots u_k) mono("where") { med d med }
+  mono("instance") (varname("cx"), varname("cx")') mono("=>") C_i med (T med u_1 dots u_k) mono("where") { med d med }
 $
 
 where $d$ is derived automatically depending on $C_i$ and the data

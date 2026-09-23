@@ -57,7 +57,7 @@ Because they are allowed to be mutually recursive,
 modules allow a program to be partitioned freely without regard to
 dependencies.
 
-A module name (lexeme $italic("modid")$) is a sequence of one or more
+A module name (lexeme $nonterminal("modid")$) is a sequence of one or more
 identifiers beginning with capital letters, separated by dots, with no
 intervening spaces.  For example, `Data.Bool`, `Main` and
 `Foreign.Marshal.Alloc` are all valid module names.
@@ -66,7 +66,7 @@ intervening spaces.  For example, `Data.Bool`, `Main` and
   columns: 4,
   align: (left, center, left, left),
   stroke: none,
-  $italic("modid")$, $->$, ${ nonterminal("conid") terminal(".") } nonterminal("conid")$, $$
+  $nonterminal("modid")$, $->$, ${ nonterminal("conid") terminal(".") } nonterminal("conid")$, $$
 
 )
 
@@ -74,7 +74,7 @@ Module names can be thought of as being arranged in a hierarchy in
 which appending a new component creates a child of the original module
 name.  For example, the module `Control.Monad.ST` is a child of the
 `Control.Monad` sub-hierarchy.  This is purely a convention, however,
-and not part of the language definition; in this report a $italic("modid")$ is
+and not part of the language definition; in this report a $nonterminal("modid")$ is
 treated as a single identifier occupying a flat namespace.
 
 There is one distinguished module, `Prelude`, which is imported into
@@ -91,21 +91,21 @@ types, type synonyms, classes, etc. (see @chapter:declarations).
   columns: 4,
   align: (left, center, left, left),
   stroke: none,
-  $italic("module")$, $->$, $terminal("module") nonterminal("modid") [ nonterminal("exports")] terminal("where") nonterminal("body")$,$$,
+  $nonterminal("module")$, $->$, $terminal("module") nonterminal("modid") [ nonterminal("exports")] terminal("where") nonterminal("body")$,$$,
   $$, $|$, $nonterminal("body")$, $$,
   $nonterminal("body")$, $->$, $terminal("{") nonterminal("impdecls") terminal(";") nonterminal("topdecls") terminal("}")$, $$,
   $$, $|$, $terminal("{") nonterminal("impdecls") terminal("}")$, $$,
   $$, $|$, $terminal("{") nonterminal("topdecls") terminal("}")$, $$,
-  $italic("impdecls")$, $->$, $nonterminal("impdecl")_1 terminal(";") dots terminal(";") nonterminal("impdecl")_n$, $(n >= 1)$,
-  $italic("topdecls")$, $->$, $nonterminal("topdecl")_1 terminal(";") dots terminal(";") nonterminal("topdecl")_n$, $(n >= 1)$,
+  $nonterminal("impdecls")$, $->$, $nonterminal("impdecl")_1 terminal(";") dots terminal(";") nonterminal("impdecl")_n$, $(n >= 1)$,
+  $nonterminal("topdecls")$, $->$, $nonterminal("topdecl")_1 terminal(";") dots terminal(";") nonterminal("topdecl")_n$, $(n >= 1)$,
 )
 
 A module begins with a header: the keyword
 `module`, the module name, and a list of entities (enclosed in round
 parentheses) to be exported.  The header is followed by a possibly-empty
-list of `import` declarations ($italic("impdecls")$, @sec:import) that specify modules to be imported,
+list of `import` declarations ($nonterminal("impdecls")$, @sec:import) that specify modules to be imported,
 optionally restricting the imported bindings.  
-This is followed by a possibly-empty list of top-level declarations ($italic("topdecls")$, @chapter:declarations).
+This is followed by a possibly-empty list of top-level declarations ($nonterminal("topdecls")$, @chapter:declarations).
 
 An abbreviated form of module, consisting only 
 of the module body, is permitted.  If this is used, the header is assumed to be `module Main(main) where`.
@@ -117,12 +117,12 @@ If the first lexeme in the abbreviated module is not a `{`, then the layout rule
   columns: 4,
   align: (left, center, left, left),
   stroke: none,
-  $italic("exports")$, $->$, $terminal("(") nonterminal("export")_1 terminal(",") dots terminal(",") nonterminal("export")_n [terminal(",")]terminal(")")$, $(n >= 0)$,
-  $italic("export")$, $->$, $nonterminal("qvar")$, $$,
+  $nonterminal("exports")$, $->$, $terminal("(") nonterminal("export")_1 terminal(",") dots terminal(",") nonterminal("export")_n [terminal(",")]terminal(")")$, $(n >= 0)$,
+  $nonterminal("export")$, $->$, $nonterminal("qvar")$, $$,
   $$, $|$, $nonterminal("qtycon") [ terminal("(..)") | terminal("(") nonterminal("cname")_1 terminal(",") dots terminal(",") nonterminal("cname")_n terminal(")")]$, $(n >= 0)$,
   $$, $|$, $nonterminal("qtycls") [ terminal("(..)") | terminal("(") nonterminal("var")_1 terminal(",") dots terminal(",") nonterminal("var")_n terminal(")")]$, $(n >= 0)$,
   $$, $|$, $terminal("module") nonterminal("modid")$, $$,
-  $italic("cname")$, $->$, $nonterminal("var") | nonterminal("con")$, $$,
+  $nonterminal("cname")$, $->$, $nonterminal("var") | nonterminal("con")$, $$,
 )
 
 An _export list_ identifies the entities to be exported by a
@@ -230,14 +230,14 @@ can import each other recursively), and between `module B` and `C.f`
   columns: 4,
   align: (left, center, left, left),
   stroke: none,
-  $italic("impdecl")$, $->$, $terminal("import") [terminal("qualified")] nonterminal("modid") [terminal("as") nonterminal("modid")] [nonterminal("impspec")]$, $$,
+  $nonterminal("impdecl")$, $->$, $terminal("import") [terminal("qualified")] nonterminal("modid") [terminal("as") nonterminal("modid")] [nonterminal("impspec")]$, $$,
   $$, $|$, $$, [(empty declaration)],
-  $italic("impspec")$, $->$, $terminal("(") nonterminal("import")_1 terminal(",") dots terminal(",") nonterminal("import")_n [terminal(",")] terminal(")")$, $(n >= 0)$,
+  $nonterminal("impspec")$, $->$, $terminal("(") nonterminal("import")_1 terminal(",") dots terminal(",") nonterminal("import")_n [terminal(",")] terminal(")")$, $(n >= 0)$,
   $$, $|$, $terminal("hiding") terminal("(") nonterminal("import")_1 terminal(",") dots terminal(",") nonterminal("import")_n [terminal(",")] terminal(")")$, $(n >= 0)$,
-  $italic("import")$, $->$, $nonterminal("var")$, $$,
+  $nonterminal("import")$, $->$, $nonterminal("var")$, $$,
   $$, $|$, $nonterminal("tycon") [ terminal("(..)") | terminal("(") nonterminal("cname")_1 terminal(",") dots terminal(",") nonterminal("cname")_n terminal(")")]$, $(n >= 0)$,
   $$, $|$, $nonterminal("tycls") [ terminal("(..)") | terminal("(") nonterminal("var")_1 terminal(",") dots terminal(",") nonterminal("var")_n terminal(")")]$, $(n >= 0)$,
-  $italic("cname")$, $->$, $nonterminal("var") | nonterminal("con")$, $$,
+  $nonterminal("cname")$, $->$, $nonterminal("var") | nonterminal("con")$, $$,
 )
 
 The entities exported by a module may be brought into scope in
@@ -258,7 +258,7 @@ cumulative: an entity is in scope if it is imported by any of the `import`
 declarations in a module.  The ordering of import declarations is irrelevant.
 
 Lexically, the terminal symbols "`as`", "`qualified`" and
-"`hiding`" are each a $italic("varid")$ rather than a $italic("reservedid")$.  They have
+"`hiding`" are each a $nonterminal("varid")$ rather than a $nonterminal("reservedid")$.  They have
 special significance only in the context of an `import` declaration;
 they may also be used as variables.
 
@@ -271,7 +271,7 @@ of the following three ways:
    by listing them in parentheses.
    Items in the list have the same form as those in export lists, except
    qualifiers are not permitted and
-   the "`module` $italic("modid")$" entity is not permitted.  When the `(..)` form
+   the "`module` $nonterminal("modid")$" entity is not permitted.  When the `(..)` form
    of import is used for a type or class, the `(..)` refers to all of the
    constructors, methods, or field names exported from the module.
 
@@ -281,7 +281,7 @@ of the following three ways:
    imported.
 
 2. Entities can be excluded by 
-   using the form $mono("hiding") (italic("import")_1, dots, italic("import")_n)$, which
+   using the form $mono("hiding") (nonterminal("import")_1, dots, nonterminal("import")_n)$, which
    specifies that all entities exported by the named module should
    be imported except for those named in the list.  Data constructors may be
    named directly in hiding lists without being prefixed by the
@@ -295,7 +295,7 @@ of the following three ways:
    It is an error to hide an entity that is not, in fact, exported by
    the imported module.
 
-3. Finally, if $italic("impspec")$ is omitted then 
+3. Finally, if $nonterminal("impspec")$ is omitted then 
    all the entities exported by the specified module are imported.
 
 
@@ -414,7 +414,7 @@ instance Show (IO a) where
 == Name Clashes and Closure
 === Qualified names <sec:qualifiers>
 
-A _qualified name_ is written as $italic("modid").italic("name")$ (@sec:ids).
+A _qualified name_ is written as $nonterminal("modid").varname("name")$ (@sec:ids).
 A qualified name is brought into scope:
 
 - _By a top level declaration._
