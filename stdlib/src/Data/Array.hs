@@ -41,14 +41,56 @@ import Text.Read
 import Text.Show
 
 -- | The type of immutable non-strict (boxed) arrays with indices in @i@ and elements in @e@.
+--
+-- === __Specification:__
+--
+-- @
+-- data (Ix a) => Array a b = MkArray (a,a) (a -> b) deriving ()
+-- @
 data (Ix i) => Array i e = AbstractArray
 
+-- | === Specification:
+--
+-- @
+-- instance  (Ix a, Eq b)  => Eq (Array a b)  where  
+--     a == a' =  assocs a == assocs a
+-- @
 instance (Ix i, Eq e) => Eq (Array i e)
 
+-- | === Specification:
+--
+-- @
+-- instance  (Ix a, Ord b) => Ord (Array a b)  where  
+--     a <= a' =  assocs a <= assocs a'
+-- @
 instance (Ix i, Ord e) => Ord (Array i e)
 
+-- | === Specification:
+--
+-- @
+-- instance  (Ix a, Read a, Read b) => Read (Array a b)  where  
+--     readsPrec p = readParen (p > arrPrec)  
+--            (\r -> [ (array b as, u)  
+--                   | ("array",s) <- lex r,  
+--                     (b,t)       <- readsPrec (arrPrec+1) s,  
+--                     (as,u)      <- readsPrec (arrPrec+1) t ])  
+-- 
+--     -- Precedence of the 'array' function is that of application itself  
+--     arrPrec = 10 
+-- @
 instance (Ix a, Read a, Read b) => Read (Array a b)
 
+-- | === Specification:
+--
+-- @
+-- instance  (Ix a, Show a, Show b) => Show (Array a b)  where  
+--     showsPrec p a = showParen (p > arrPrec) (  
+--                     showString "array " .  
+--                     showsPrec (arrPrec+1) (bounds a) . showChar ' ' .  
+--                     showsPrec (arrPrec+1) (assocs a)
+--     -- Precedence of the 'array' function is that of application itself  
+--     arrPrec = 10 
+-- @
 instance (Ix a, Show a, Show b) => Show (Array a b)
 
 -- | Construct an array with the specified bounds and containing values for given indices within these
@@ -71,6 +113,22 @@ instance (Ix a, Show a, Show b) => Show (Array a b)
 -- If, in any dimension, the lower bound is greater than the upper bound, then the array is legal, but empty.
 -- Indexing an empty array always gives an array-bounds error, but @bounds@ still yields the bounds with
 -- which the array was constructed.
+--
+-- === __Specification:__
+--
+-- @
+-- array       :: (Ix a) => (a,a) -> [(a,b)] -> Array a b  
+-- array b ivs  
+--   | any (not . inRange b. fst) ivs  
+--      = error "Data.Array.array: out-of-range array association"  
+--   | otherwise  
+--      = MkArray b arr  
+--   where  
+--     arr j = case [ v | (i,v) <- ivs, i == j ] of  
+--               [v]   -> v  
+--               []    -> error "Data.Array.!: undefined array element"  
+--               _     -> error "Data.Array.!: multiply defined array element"
+-- @
 array ::
   (Ix i) =>
   -- | a pair of bounds, each of the index type of the array. These bounds are the lowest
@@ -86,6 +144,13 @@ array ::
 array = array
 
 -- | Construct an array from a pair of bounds and a list of values in index order.
+--
+-- === __Specification:__
+--
+-- @
+-- listArray             :: (Ix a) => (a,a) -> [b] -> Array a b  
+-- listArray b vs        =  array b (zipWith (\ a b -> (a,b)) (range b) vs)
+-- @
 listArray :: (Ix i) => (i, i) -> [e] -> Array i e
 listArray = listArray
 
@@ -102,6 +167,14 @@ listArray = listArray
 -- If the accumulating function is strict, then @accumArray@ is strict in the values, as well as the indices,
 -- in the association list. Thus, unlike ordinary arrays built with @array@, accumulated arrays should not in
 -- general be recursive.
+--
+-- === __Specification:__
+--
+-- @
+-- accumArray            :: (Ix a) => (b -> c -> b) -> b -> (a,a) -> [(a,c)]  
+--                                    -> Array a b  
+-- accumArray f z b      =  accum f (array b [(i,z) | i <- range b])
+-- @
 accumArray ::
   (Ix i) =>
   -- | accumulating function
@@ -118,22 +191,57 @@ accumArray = accumArray
 infixl 9 !
 
 -- | The value at the given index in an array.
+--
+-- === __Specification:__
+--
+-- @
+-- (!)                   :: (Ix a) => Array a b -> a -> b  
+-- (!) (MkArray _ f)     =  f 
+-- @
 (!) :: (Ix i) => Array i e -> i -> e
 (!) = (!)
 
 -- | The bounds with which an array was constructed.
+--
+-- === __Specification:__
+--
+-- @
+-- bounds                :: (Ix a) => Array a b -> (a,a)  
+-- bounds (MkArray b _)  =  b 
+-- @
 bounds :: (Ix i) => Array i e -> (i, i)
 bounds = bounds
 
 -- | The list of indices of an array in ascending order.
+--
+-- === __Specification:__
+--
+-- @
+-- indices               :: (Ix a) => Array a b -> [a]  
+-- indices               =  range . bounds
+-- @
 indices :: (Ix i) => Array i e -> [i]
 indices = indices
 
 -- | The list of elements of an array in index order.
+--
+-- === __Specification:__
+--
+-- @
+-- elems                 :: (Ix a) => Array a b -> [b]  
+-- elems a               =  [a!i | i <- indices a]
+-- @
 elems :: (Ix i) => Array i e -> [e]
 elems = elems
 
 -- | The list of associations of an array in index order.
+--
+-- === __Specification:__
+--
+-- @
+-- assocs                :: (Ix a) => Array a b -> [(a,b)]  
+-- assocs a              =  [(i, a!i) | i <- indices a]
+-- @
 assocs :: (Ix i) => Array i e -> [(i, e)]
 assocs = assocs
 
@@ -149,6 +257,17 @@ infixl 9 //
 -- is the same matrix, except with the diagonal zeroed.
 -- Repeated indices in the association list are handled as for @array@: the resulting array is undefined (i.e.
 -- bottom),
+--
+-- === __Specification:__
+--
+-- @
+-- (//)                  :: (Ix a) => Array a b -> [(a,b)] -> Array a b  
+-- a // new_ivs          = array (bounds a) (old_ivs ++ new_ivs)  
+--                       where  
+--                         old_ivs = [(i,a!i) | i <- indices a,  
+--                                              i ‘notElem‘ new_is]  
+--                         new_is  = [i | (i,_) <- new_ivs]
+-- @
 (//) :: (Ix i) => Array i e -> [(i, e)] -> Array i e
 (//) = (//)
 
@@ -157,6 +276,14 @@ infixl 9 //
 --
 -- @
 -- accumArray f z b = accum f (array b [(i, z) | i <- range b])
+-- @
+--
+-- === __Specification:__
+--
+-- @
+-- accum                 :: (Ix a) => (b -> c -> b) -> Array a b -> [(a,c)]  
+--                                    -> Array a b  
+-- accum f               =  foldl (\a (i,v) -> a // [(i,f (a!i) v)])
 -- @
 accum ::
   (Ix i) =>
@@ -171,6 +298,14 @@ accum = accum
 --
 -- A similar transformation of array values may be achieved using @fmap@ from the @Array@ instance of the
 -- @Functor@ class.
+--
+-- === __Specification:__
+--
+-- @
+-- ixmap                 :: (Ix a, Ix b) => (a,a) -> (a -> b) -> Array b c  
+--                                          -> Array a c  
+-- ixmap b f a           = array b [(i, a ! f i) | i <- range b]
+-- @
 ixmap ::
   (Ix i, Ix j) =>
   (i, i) ->
