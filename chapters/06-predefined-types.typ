@@ -631,10 +631,10 @@ of the standard library.
     table.hline(),
     [`Integer`], [`Integral`], [Arbitrary-precision integers],
     [`Int`], [`Integral`], [Rational numbers],
-    [`(Integral a) => Ratio a`], [`RealFrac`], [Rational numbers],
+    [`Ratio a`], [`RealFrac`], [Rational numbers],
     [`Float`], [`RealFloat`], [Real floating-point, single precision],
     [`Double`], [`RealFloat`], [Real floating-point, double precision],
-    [`(RealFloat a) => Complex a`], [`Floating`], [Complex floating-point],
+    [`Complex a`], [`Floating`], [Complex floating-point],
     table.hline(),
   )
 )<fig:numeric-types>
