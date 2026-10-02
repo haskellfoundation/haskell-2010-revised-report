@@ -117,7 +117,6 @@ instance (Ix a, Show a, Show b) => Show (Array a b)
 -- === __Specification:__
 --
 -- @
--- array       :: (Ix a) => (a,a) -> [(a,b)] -> Array a b  
 -- array b ivs  
 --   | any (not . inRange b. fst) ivs  
 --      = error "Data.Array.array: out-of-range array association"  
@@ -148,7 +147,6 @@ array = array
 -- === __Specification:__
 --
 -- @
--- listArray             :: (Ix a) => (a,a) -> [b] -> Array a b  
 -- listArray b vs        =  array b (zipWith (\ a b -> (a,b)) (range b) vs)
 -- @
 listArray :: (Ix i) => (i, i) -> [e] -> Array i e
@@ -171,8 +169,6 @@ listArray = listArray
 -- === __Specification:__
 --
 -- @
--- accumArray            :: (Ix a) => (b -> c -> b) -> b -> (a,a) -> [(a,c)]  
---                                    -> Array a b  
 -- accumArray f z b      =  accum f (array b [(i,z) | i <- range b])
 -- @
 accumArray ::
@@ -195,7 +191,6 @@ infixl 9 !
 -- === __Specification:__
 --
 -- @
--- (!)                   :: (Ix a) => Array a b -> a -> b  
 -- (!) (MkArray _ f)     =  f 
 -- @
 (!) :: (Ix i) => Array i e -> i -> e
@@ -206,7 +201,6 @@ infixl 9 !
 -- === __Specification:__
 --
 -- @
--- bounds                :: (Ix a) => Array a b -> (a,a)  
 -- bounds (MkArray b _)  =  b 
 -- @
 bounds :: Array i e -> (i, i)
@@ -217,7 +211,6 @@ bounds = bounds
 -- === __Specification:__
 --
 -- @
--- indices               :: (Ix a) => Array a b -> [a]  
 -- indices               =  range . bounds
 -- @
 indices :: (Ix i) => Array i e -> [i]
@@ -228,7 +221,6 @@ indices = indices
 -- === __Specification:__
 --
 -- @
--- elems                 :: (Ix a) => Array a b -> [b]  
 -- elems a               =  [a!i | i <- indices a]
 -- @
 elems :: Array i e -> [e]
@@ -239,7 +231,6 @@ elems = elems
 -- === __Specification:__
 --
 -- @
--- assocs                :: (Ix a) => Array a b -> [(a,b)]  
 -- assocs a              =  [(i, a!i) | i <- indices a]
 -- @
 assocs :: (Ix i) => Array i e -> [(i, e)]
@@ -261,7 +252,6 @@ infixl 9 //
 -- === __Specification:__
 --
 -- @
--- (//)                  :: (Ix a) => Array a b -> [(a,b)] -> Array a b  
 -- a // new_ivs          = array (bounds a) (old_ivs ++ new_ivs)  
 --                       where  
 --                         old_ivs = [(i,a!i) | i <- indices a,  
@@ -281,8 +271,6 @@ infixl 9 //
 -- === __Specification:__
 --
 -- @
--- accum                 :: (Ix a) => (b -> c -> b) -> Array a b -> [(a,c)]  
---                                    -> Array a b  
 -- accum f               =  foldl (\a (i,v) -> a // [(i,f (a!i) v)])
 -- @
 accum ::
@@ -302,8 +290,6 @@ accum = accum
 -- === __Specification:__
 --
 -- @
--- ixmap                 :: (Ix a, Ix b) => (a,a) -> (a -> b) -> Array b c  
---                                          -> Array a c  
 -- ixmap b f a           = array b [(i, a ! f i) | i <- range b]
 -- @
 ixmap ::
