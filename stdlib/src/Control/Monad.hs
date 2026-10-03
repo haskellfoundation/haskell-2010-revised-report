@@ -6,7 +6,8 @@
 module Control.Monad
   ( -- * Functor and monad classes
     Functor (fmap),
-    Monad ((>>=), (>>), return, fail),
+    Monad ((>>=), (>>), return),
+    MonadFail (fail),
     MonadPlus (mzero, mplus),
 
     -- * Functions
@@ -77,44 +78,26 @@ module Control.Monad
   )
 where
 
+import Control.Applicative
 import Data.Array
 import Data.Bool
+import Data.Functor
 import Data.Int
 import Data.Ix
 import Data.Maybe
 import Data.String
 import System.IO
 
--- | The Functor class is used for types that can be mapped over. Instances of Functor should satisfy the
--- following laws:
---
--- @
---   fmap id == id
---   fmap (f . g) == fmap f . fmap g
--- @
---
--- The instances of 'Functor' for lists, 'Data.Maybe.Maybe' and 'System.IO.IO' satisfy these laws.
-class Functor f where
-  fmap :: (a -> b) -> f a -> f b
-
-instance Functor []
-
-instance Functor IO
-
-instance Functor Maybe
-
 infixl 1 >>, >>=
 
 infixr 1 =<<
-
-instance (Ix i) => Functor (Array i)
 
 -- | The Monad class defines the basic operations over a monad, a concept from a branch of mathematics
 -- known as category theory. From the perspective of a Haskell programmer, however, it is best to think
 -- of a monad as an abstract datatype of actions. Haskell’s do expressions provide a convenient syntax
 -- for writing monadic expressions.
 --
--- Minimal complete definition: >>= and return.
+-- Minimal complete definition: >>=.
 --
 -- Instances of 'Monad' should satisfy the following laws:
 --
@@ -132,7 +115,7 @@ instance (Ix i) => Functor (Array i)
 --
 -- The instances of 'Monad' for lists, 'Data.Maybe.Maybe' and 'System.IO.IO' defined in the Prelude
 -- satisfy these laws.
-class Monad m where
+class (Applicative m) => Monad m where
   -- | Sequentially compose two actions, passing any value produced by the first as an argument to the
   -- second.
   (>>=) :: m a -> (a -> m b) -> m b
@@ -143,16 +126,26 @@ class Monad m where
 
   -- | Inject a value into the monadic type.
   return :: a -> m a
-
-  -- | Fail with a message. This operation is not part of the mathematical definition of a monad, but is
-  -- invoked on pattern-match failure in a do expression.
-  fail :: String -> m a
+  return = pure
 
 instance Monad []
 
 instance Monad IO
 
 instance Monad Maybe
+
+-- | Monads that support a simple 'error'-like failure.
+class (Monad m) => MonadFail m where
+  -- | Fail with a message. This operation is not part of the mathematical definition of a monad, but is
+  -- invoked on pattern-match failure in a do expression.
+  fail :: String -> m a
+  fail = error
+
+instance MonadFail []
+
+instance MonadFail IO
+
+instance MonadFail Maybe
 
 -- | Monads that also support choice and failure.
 class (Monad m) => MonadPlus m where
