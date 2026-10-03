@@ -211,10 +211,6 @@ and miscellaneous classes `Show`, `Read` (@subsec:read-show) and `Bounded` (@sub
       let eq_pos = (0,0)
       draw_rect(eq_pos, "eq")
       content(eq_pos, [#set align(center); *Eq*\ All except IO, (->)])
-      // Show
-      let show_pos = (5,0)
-      draw_rect(show_pos, "show")
-      content(show_pos, [#set align(center);*Show*\ All except IO, (->)])
       // Ord
       let ord_pos = (0,-4)
       draw_rect(ord_pos, "ord")
@@ -255,8 +251,6 @@ and miscellaneous classes `Show`, `Read` (@subsec:read-show) and `Bounded` (@sub
       // Superclasses
       set-style(mark: (end: ">", fill: black))
       line("eq", "ord")
-      line("eq", "num")
-      line("show", "num")
       line("ord", "real")
       line("num", "real")
       line("num", "fractional")
@@ -606,8 +600,7 @@ Haskell provides several kinds of numbers; the numeric
 types and the operations upon them have been heavily influenced by Common Lisp and Scheme.
 Numeric function names and operators are usually overloaded, using
 several type classes with an inclusion relation shown in @fig:numeric-classes.
-The class `Num` of numeric
-types is a subclass of `Eq`, since all numbers may be compared for equality; its subclass `Real` is also a subclass of `Ord`, since the other comparison operations
+`Num` has a subclass `Real`, which is also a subclass of `Ord`, since the other comparison operations
 apply to all but complex numbers (defined in the `Complex` library).
 The class `Integral` contains integers of both
 limited and unlimited range; the class
@@ -676,7 +669,7 @@ built-in types that are instances of the numeric classes.
 #figure(
   caption: "Standard Numeric Classes and Related Operations, Part 1",
   ```haskell
-class  (Eq a, Show a) => Num a  where
+class  Num a  where
     (+), (-), (*)  :: a -> a -> a
     negate         :: a -> a
     abs, signum    :: a -> a
