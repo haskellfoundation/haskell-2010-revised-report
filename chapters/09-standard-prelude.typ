@@ -76,7 +76,7 @@ module Prelude (
     RealFloat(floatRadix, floatDigits, floatRange, decodeFloat,
               encodeFloat, exponent, significand, scaleFloat, isNaN,
               isInfinite, isDenormalized, isIEEE, isNegativeZero, atan2),
-    Functor(fmap),
+    Functor(fmap, (<$)),
     Applicative((<*>), pure, liftA2, (<*), (*>)),
     Monad((>>=), (>>), return),
     MonadFail(fail),
