@@ -187,7 +187,7 @@ class  Num a  where
     fromInteger      :: Integer -> a
 
         -- Minimal complete definition:
-        --      All, except negate or (-)
+        --      All, except one of negate and (-)
     x - y            =  x + negate y
     negate x         =  0 - x
 
