@@ -714,8 +714,9 @@ to be written in a more traditional way as:
   The ellipsis "`...`" stands for a compiler-generated error message,
   passed to `fail`, preferably giving some indication of the location
   of the pattern-match failure;
-  the functions `>>`, `>>=`, and `fail` are operations in the class `Monad`,
-  as defined in the Prelude; and `ok` is a fresh identifier.
+  the functions `>>` and `>>=` are operations in the class `Monad` defined in the Prelude,
+  `fail` is operation in the class `MonadFail` also defined in the Prelude;
+  and `ok` is a fresh identifier.
 ])
 
 As indicated by the translation of `do`, variables bound by `let` have fully polymorphic types while those defined by `<-` are lambda bound and are thus monomorphic.
