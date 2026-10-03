@@ -629,7 +629,7 @@ mapM_     :: Monad m => (a -> m b) -> [a] -> m ()
 
 ```haskell
 class  (Monad m) => MonadFail m  where
-    fail :: String -> m a
+    fail    :: String -> m a
 
     fail s  = error s
 ```
