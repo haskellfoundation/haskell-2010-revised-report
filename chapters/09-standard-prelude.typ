@@ -77,7 +77,7 @@ module Prelude (
               encodeFloat, exponent, significand, scaleFloat, isNaN,
               isInfinite, isDenormalized, isIEEE, isNegativeZero, atan2),
     Functor(fmap),
-    Applicative((<*>), pure, liftA2),
+    Applicative((<*>), pure, liftA2, (<*), (*>)),
     Monad((>>=), (>>), return),
     MonadFail(fail),
     mapM, mapM_, sequence, sequence_, (=<<),
@@ -107,6 +107,7 @@ infixl 6  +, -
 --   infixr 5  :
 
 infix  4  ==, /=, <, <=, >=, >
+infixl 4  <$>, <$, <*>, <*, *>
 infixr 3  &&
 infixr 2  ||
 infixl 1  >>, >>=
@@ -342,17 +343,28 @@ realToFrac      =  fromRational . toRational
 -- Monadic classes
 
 class  Functor f  where
-    fmap              :: (a -> b) -> f a -> f b
+    fmap  :: (a -> b) -> f a -> f b
+    (<$)  :: a -> f b -> f a
+
+        -- Minimal complete definition:
+        --      fmap
+    (<$)  = fmap . const
+
+f <$> a = fmap f a
 
 class  (Functor f) => Applicative f  where
     (<*>)   :: f (a -> b) -> f a -> f b
     pure    :: a -> f a
     liftA2  :: (a -> b -> c) -> f a -> f b -> f c
+    (<*)    :: f a -> f b -> f a
+    (*>)    :: f a -> f b -> f b
 
         -- Minimal complete definition:
-        --      pure, and either of <*> and liftA2
+        --      pure, and one of <*> and liftA2
     (<*>)         = liftA2 id
     liftA2 f x y  = f <$> x <*> y
+    u *> v        = (id <$ u) <*> v
+    u <* v        = liftA2 const u v
 
 class  (Applicative m) => Monad m  where
     (>>=)   :: m a -> (a -> m b) -> m b
