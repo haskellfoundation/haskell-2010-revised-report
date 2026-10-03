@@ -3,6 +3,7 @@ module Data.Functor
   , (<$>)
   ) where
 
+import Data.Array
 import Data.Maybe
 import System.IO
 
