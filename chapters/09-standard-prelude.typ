@@ -76,8 +76,10 @@ module Prelude (
     RealFloat(floatRadix, floatDigits, floatRange, decodeFloat,
               encodeFloat, exponent, significand, scaleFloat, isNaN,
               isInfinite, isDenormalized, isIEEE, isNegativeZero, atan2),
-    Monad((>>=), (>>), return, fail),
     Functor(fmap),
+    Applicative((<*>), pure, liftA2),
+    Monad((>>=), (>>), return),
+    MonadFail(fail),
     mapM, mapM_, sequence, sequence_, (=<<),
     maybe, either,
     (&&), (||), not, otherwise,
@@ -342,15 +344,29 @@ realToFrac      =  fromRational . toRational
 class  Functor f  where
     fmap              :: (a -> b) -> f a -> f b
 
-class  Monad m  where
-    (>>=)  :: m a -> (a -> m b) -> m b
-    (>>)   :: m a -> m b -> m b
-    return :: a -> m a
-    fail   :: String -> m a
+class  (Functor f) => Applicative f  where
+    (<*>)   :: f (a -> b) -> f a -> f b
+    pure    :: a -> f a
+    liftA2  :: (a -> b -> c) -> f a -> f b -> f c
 
         -- Minimal complete definition:
-        --      (>>=), return
+        --      pure, and either of <*> and liftA2
+    (<*>)         = liftA2 id
+    liftA2 f x y  = f <$> x <*> y
+
+class  (Applicative m) => Monad m  where
+    (>>=)   :: m a -> (a -> m b) -> m b
+    (>>)    :: m a -> m b -> m b
+    return  :: a -> m a
+
+        -- Minimal complete definition:
+        --      (>>=)
     m >> k  =  m >>= \_ -> k
+    return  = pure
+
+class  (Monad m) => MonadFail m  where
+    fail    :: String -> m a
+
     fail s  = error s
 
 sequence       :: Monad m => [m a] -> m [a]
@@ -463,11 +479,18 @@ instance  Functor Maybe  where
     fmap f Nothing    =  Nothing
     fmap f (Just x)   =  Just (f x)
 
+instance  Applicative Maybe  where
+    pure               = Just
+    Just f <*> Just a  = Just (f a)
+    f <*> a            = Nothing
+
 instance  Monad Maybe  where
     (Just x) >>= k   =  k x
     Nothing  >>= k   =  Nothing
     return           =  Just
-    fail s           =  Nothing
+
+instance  MonadFail Maybe  where
+    fail s  =  Nothing
 
 -- Either type
 
@@ -481,12 +504,18 @@ either f g (Right y) =  g y
 
 data IO a = ... 	-- abstract
 
-instance  Functor IO where
-   fmap f x           =  x >>= (return . f)
+instance  Functor IO  where
+   fmap  = ...
 
-instance Monad IO where
+instance  Applicative IO  where
+    pure   = ...
+    (<*>)  = ...
+
+instance  Monad IO  where
    (>>=)  = ...
-   return = ...
+   return = pure
+
+instance  MonadFail IO  where
    fail s = ioError (userError s)
 
 -- Ordering type
@@ -580,12 +609,18 @@ numericEnumFromThenTo n n' m = takeWhile p (numericEnumFromThen n n')
 data  [a]  =  [] | a : [a]  deriving (Eq, Ord)
 	-- Not legal Haskell; for illustration only
 
-instance Functor [] where
+instance  Functor []  where
     fmap = map
+
+instance  Applicative []  where
+    pure a     = [a]
+    fs <*> as  = [f a | f <- fs, a <- as]
 
 instance  Monad []  where
     m >>= k          = concat (map k m)
     return x         = [x]
+
+instance  MonadFail []  where
     fail s           = []
 
 -- Tuples
