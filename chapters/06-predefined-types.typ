@@ -534,8 +534,12 @@ For all four of these Prelude numeric types, all of the `enumFrom` family of fun
 ```haskell
 class  Functor f  where
     fmap    :: (a -> b) -> f a -> f b
+    (<$)  :: a -> f b -> f a
+
+    (<$)  = fmap . const
 ```
-The `Functor` class is used for types that can be mapped over.  Lists, `IO`, and `Maybe` are in this class.
+The `Functor` class is used for types that can be mapped over.
+Lists, `IO`, and `Maybe` are in this class.
 
 Instances of `Functor` should satisfy the following laws:
 $
@@ -543,7 +547,12 @@ $
   mono("fmap (f . g)") &= mono("fmap f . fmap g")
 $
 
+Additionally, instances that define `(<$)` should preserve the semantics of the
+class default, but may implement it more efficiently.
+
 All instances of `Functor` defined in the Prelude satisfy these laws.
+
+Prelude provides a shortcut operator `(<$>)` which stands for `\`fmap\``.
 
 === The Applicative class
 
@@ -552,13 +561,20 @@ class  (Functor f) => Applicative f  where
     (<*>)   :: f (a -> b) -> f a -> f b
     pure    :: a -> f a
     liftA2  :: (a -> b -> c) -> f a -> f b -> f c
+    (<*)    :: f a -> f b -> f a
+    (*>)    :: f a -> f b -> f b
 
     (<*>)         = liftA2 id
     liftA2 f x y  = f <$> x <*> y
+    u *> v        = (id <$ u) <*> v
+    u <* v        = liftA2 const u v
 ```
-The `Applicative` class is used for functors with application semantics. `pure`
-embeds a pure expression. `(<*>)` and `liftA2` apply a function within
-functors, combining the functor semantics to form the result.
+The `Applicative` class is used for functors with application semantics.
+`pure` embeds a pure expression.
+`(<*>)` and `liftA2` apply a function within functors, combining the functor
+semantics to form the result.
+`(<*)` and `(*>)` provide one-sided versions of `(<*>)`, discarding values in
+right or left argument, respectively.
 
 A complete definition of `Applicative` instance must implement `pure` and at
 least one of `(<*>)` and `liftA2`.
@@ -570,6 +586,9 @@ mono("pure f <*> pure x") &= mono("pure (f x)") \
 mono("u <*> pure y") &= mono("pure (\f -> f y) <*> u") \
 mono("u <*> (v <*> w)") &= mono("pure (.) <*> u <*> v <*> w")
 $
+
+Specialized implementations of `(<*)` and `(*>)` should not change semantics
+from the class defaults.
 
 The instances should additionally relate to `Functor` super-instances by the
 following law:
@@ -607,11 +626,13 @@ $
   mono("m >>= (\x -> k x >>= h)") &= mono("(m >>= k) >>= h")
 $
 
-Instances of both `Monad` should relate to `Functor` and `Applicative`
+Instances of both `Monad` should relate to their `Functor` and `Applicative`
 superclass instances via following laws:
 $
   mono("fmap f xs") &= mono("xs >>= return . f") \
-  mono("pure a") &= mono("return a")
+  mono("m1 <*> m2") &= mono("m1 >>= (\x1 -> m2 >>= (\x2 -> return (x1 x2)))") \
+  mono("pure a") &= mono("return a") \
+  mono("(*>)") = mono("(>>)")
 $
 
 All instances of `Monad` defined in the Prelude satisfy these laws.
