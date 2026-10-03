@@ -70,8 +70,11 @@ module Prelude
         isNegativeZero,
         atan2
       ),
-    Monad ((>>=), (>>), return, fail),
-    Functor (fmap),
+    Functor (fmap, (<$)),
+    (<$>),
+    Applicative (pure, (<*>), liftA2, (<*), (*>)),
+    Monad ((>>=), (>>), return),
+    MonadFail (fail),
     mapM,
     mapM_,
     sequence,
@@ -110,6 +113,7 @@ module Prelude
   )
 where
 
+import Control.Applicative
 import Control.Monad
 import Data.Bool
 import Data.Char
@@ -117,6 +121,7 @@ import Data.Either
 import Data.Enum
 import Data.Eq
 import Data.Function
+import Data.Functor
 import Data.Int
 import Data.Maybe
 import Data.Ord
