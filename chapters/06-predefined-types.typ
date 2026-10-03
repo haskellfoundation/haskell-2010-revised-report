@@ -552,7 +552,7 @@ class default, but may implement it more efficiently.
 
 All instances of `Functor` defined in the Prelude satisfy these laws.
 
-Prelude provides a shortcut operator `(<$>)` which stands for `\`fmap\``.
+Prelude provides operator `(<$>)`, which is an infix shortcut for `fmap`.
 
 === The Applicative class
 
