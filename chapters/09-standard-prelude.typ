@@ -180,7 +180,7 @@ class  Bounded a  where
 
 -- Numeric classes
 
-class  (Eq a, Show a) => Num a  where
+class  Num a  where
     (+), (-), (*)    :: a -> a -> a
     negate           :: a -> a
     abs, signum      :: a -> a
