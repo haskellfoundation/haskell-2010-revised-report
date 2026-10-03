@@ -72,7 +72,7 @@ infixl 6 +, -
 
 infixl 7 *
 
-class (Eq a, Show a) => Num a where
+class Num a where
   (+), (-), (*) :: a -> a -> a
   negate :: a -> a
   abs, signum :: a -> a
