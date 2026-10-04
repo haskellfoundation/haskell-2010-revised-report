@@ -88,7 +88,7 @@ There is no upper bound on the size of a tuple, but some Haskell
 implementations may restrict the size of tuples, and limit the
 instances associated with larger tuples.  However, every Haskell
 implementation must support tuples up to size 15, together with the instances
-for `Eq`, `Ord`, `Bounded`, `Read`, and `Show`.  
+for `Eq`, `Ord`, `Bounded`, `Read`, and `Show`.
 The Prelude and
 libraries define tuple functions such as `zip` for tuples up to a size
 of 7.
@@ -202,54 +202,54 @@ and miscellaneous classes `Show`, `Read` (@subsec:read-show) and `Bounded` (@sub
 
 #figure(
   caption: "Numeric Haskell Classes",
-  drawing({    
+  drawing({
     import cetz.draw: *
-      let draw_rect(pos, name) = {
-        rect(cetz.vector.add(pos, (-2,-1.5)), (rel: (4,3)), name: name)
+      let draw_circ(pos, name) = {
+        circle(pos, radius: (60pt, 40pt), name: name)
       }
       // Eq
       let eq_pos = (0,0)
-      draw_rect(eq_pos, "eq")
+      draw_circ(eq_pos, "eq")
       content(eq_pos, [#set align(center); *Eq*\ All except IO, (->)])
       // Show
       let show_pos = (5,0)
-      draw_rect(show_pos, "show")
+      draw_circ(show_pos, "show")
       content(show_pos, [#set align(center);*Show*\ All except IO, (->)])
       // Ord
       let ord_pos = (0,-4)
-      draw_rect(ord_pos, "ord")
+      draw_circ(ord_pos, "ord")
       content(ord_pos, [#set align(center);*Ord*\ All except (->)\ IO, IOError])
       // Num
       let num_pos = (5,-4)
-      draw_rect(num_pos, "num")
+      draw_circ(num_pos, "num")
       content(num_pos, [#set align(center);*Num*\ Int, Integer\ Float, Double])
       // Enum
       let enum_pos = (0,-8)
-      draw_rect(enum_pos, "enum")
+      draw_circ(enum_pos, "enum")
       content(enum_pos, [#set align(center);*Enum*\ (), Bool, Char, Ordering,\ Int, Integer, Float,\ Double])
       // Real
       let real_pos = (5,-8)
-      draw_rect(real_pos, "real")
+      draw_circ(real_pos, "real")
       content(real_pos, [#set align(center);*Real*\ Int, Integer\ Float, Double])
       // Fractional
       let fractional_pos = (10,-8)
-      draw_rect(fractional_pos, "fractional")
+      draw_circ(fractional_pos, "fractional")
       content(fractional_pos, [#set align(center);*Fractional*\ Float, Double])
       // Integral
       let integral_pos = (0,-12)
-      draw_rect(integral_pos, "integral")
+      draw_circ(integral_pos, "integral")
       content(integral_pos, [#set align(center);*Integral*\ Int, Integer])
       // RealFrac
       let realfrac_pos = (5,-12)
-      draw_rect(realfrac_pos, "realfrac")
+      draw_circ(realfrac_pos, "realfrac")
       content(realfrac_pos, [#set align(center);*RealFrac*\ Float, Double])
       // Floating
       let floating_pos = (10,-12)
-      draw_rect(floating_pos, "floating")
+      draw_circ(floating_pos, "floating")
       content(floating_pos, [#set align(center);*Floating*\ Float, Double])
       // RealFloat
       let realfloat_pos = (7.5,-16)
-      draw_rect(realfloat_pos, "realfloat")
+      draw_circ(realfloat_pos, "realfloat")
       content(realfloat_pos, [#set align(center);*RealFloat*\ Float, Double])
 
       // Superclasses
@@ -273,18 +273,18 @@ and miscellaneous classes `Show`, `Read` (@subsec:read-show) and `Bounded` (@sub
 
 #figure(
   caption: "Haskell Classes of the Monadic Hierarchy",
-  drawing({    
+  drawing({
     import cetz.draw: *
-      let draw_rect(pos, name) = {
-        rect(cetz.vector.add(pos, (-2,-1.5)), (rel: (4,3)), name: name)
+      let draw_circ(pos, name) = {
+        circle(pos, radius: (60pt, 40pt), name: name)
       }
       // Functor
       let functor_pos = (2.5,0)
-      draw_rect(functor_pos, "functor")
+      draw_circ(functor_pos, "functor")
       content(functor_pos, [#set align(center);*Functor*\ IO,`[]`,Maybe])
       // Monad
       let monad_pos = (2.5,-4)
-      draw_rect(monad_pos, "monad")
+      draw_circ(monad_pos, "monad")
       content(monad_pos, [#set align(center);*Monad*\ IO,`[]`,Maybe])
     }
   )
@@ -646,7 +646,7 @@ of the standard library.
 )<fig:numeric-types>
 
 The default floating point operations defined by the Haskell
-Prelude do not 
+Prelude do not
 conform to current language independent arithmetic (LIA) standards.  These
 standards require considerably more complexity in the numeric
 structure and have thus been relegated to a library.  Some, but not
@@ -723,7 +723,7 @@ class  (RealFrac a, Floating a) => RealFloat a  where
     exponent            :: a -> Int
     significand         :: a -> a
     scaleFloat          :: Int -> a -> a
-    isNaN, isInfinite, isDenormalized, isNegativeZero, isIEEE 
+    isNaN, isInfinite, isDenormalized, isNegativeZero, isIEEE
                         :: a -> Bool
     atan2               :: a -> a -> a
 
@@ -757,7 +757,7 @@ See @sec:default-decls for a discussion of overloading ambiguity.
 === Arithmetic and Number-Theoretic Operations
 
 The infix class methods `(+)`, `(*)`, `(-)`, and the unary function `negate` (which can also be written as a prefix minus sign; see
-@sec:operator-applications) apply to all numbers.  
+@sec:operator-applications) apply to all numbers.
 The class methods
 `quot`, `rem`, `div`, and `mod` apply only to integral numbers, while the class method `(/)`
 applies only to fractional ones.
@@ -783,7 +783,7 @@ odd    =  not . even
 ```
 Finally, there are the greatest common divisor and least common
 multiple functions.  `gcd` $x$ $y$ is the greatest
-(positive) integer that divides both $x$ and $y$; for example `gcd (-3) 6 = 3`, `gcd (-3) (-6) = 3`, 
+(positive) integer that divides both $x$ and $y$; for example `gcd (-3) 6 = 3`, `gcd (-3) (-6) = 3`,
 `gcd 0 4 = 4`. `gcd 0 0` raises a runtime error.
 
 `lcm` $x$ $y$ is the smallest positive integer that both $x$ and $y$ divide.
