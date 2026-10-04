@@ -66,16 +66,23 @@ with an error.
 In the interests of portability, multiple attempts to enable the same,
 supported language features (e.g. via command-line arguments,
 implementation-specific features dependencies or non-standard
-pragmas) are specifically permitted.  Haskell 2010 implementations that
-support the `LANGUAGE` pragma are required to support
+pragmas) are specifically permitted.
+
+=== Required extensions
+
+Haskell 2010 implementations that support the `LANGUAGE` pragma are required to support
 ```haskell
 {-# LANGUAGE Haskell2010 #-}
 ```
-Those implementations are also encouraged to support the following
-named language features:
-```haskell
-PatternGuards, NoNPlusKPatterns, RelaxedPolyRec,
-EmptyDataDecls, ForeignFunctionInterface
-```
-These are the named language extensions supported by some pre-Haskell
-2010 implementations, that have been integrated into this report.
+
+=== Legacy extensions
+
+Some pre-Haskell 2010 implementations supported the following language extensions that have been integrated into this report:
+- ```haskell {-# LANGUAGE PatternGuards #-}```
+- ```haskell {-# LANGUAGE NoNPlusKPatterns #-}```
+- ```haskell {-# LANGUAGE RelaxedPolyRec #-}```
+- ```haskell {-# LANGUAGE EmptyDataDecls #-}```
+- ```haskell {-# LANGUAGE ForeignFunctionInterface #-}```
+
+A Haskell implementation may choose to support these language extensions.
+If an implementation chooses to support these language extensions, then they must not change the behaviour of the implementation when it is configured to run in its Haskell 2010 compliant mode.
