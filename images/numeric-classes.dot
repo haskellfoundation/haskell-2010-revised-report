@@ -1,0 +1,30 @@
+digraph {
+    node[width=2.25, height=1.5, fixedsize=true];
+
+    eq[label="Eq\nAll except IO, (->)"];
+    show[label="Show\nAll except IO, (->)"];
+    ord[label="Ord\nAll except IO, (->)\nIO, IOError"];
+    num[label="Num\nInt, Integer\nFloat, Double"];
+    enum[label="Enum\n(), Bool, Char, Ordering\nInt, Integer, Float\nDouble"];
+    real[label="Real\nInt, Integer,\nFloat, Double"];
+    fractional[label="Fractional\nFloat, Double"];
+    integral[label="Integral\nInt, Integer"];
+    realfrac[label="RealFrac\nFloat, Double"];
+    floating[label="Floating\nFloat, Double"];
+    realfloat[label="RealFloat\nFloat, Double"];
+
+
+    eq -> ord;
+    eq -> num;
+    show -> num;
+    ord -> real;
+    num -> real;
+    num -> fractional;
+    enum -> integral;
+    real -> integral;
+    real -> realfrac;
+    fractional -> realfrac;
+    fractional -> floating;
+    realfrac -> realfloat;
+    floating -> realfloat;
+}

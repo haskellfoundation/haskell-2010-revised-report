@@ -1,5 +1,3 @@
-#import "@preview/cetz:0.5.1"
-
 The Haskell Prelude contains predefined classes, types,
 and functions that are implicitly imported into every Haskell
 program.  In this chapter, we describe the types and classes found in
@@ -190,104 +188,15 @@ the Functor--Monad hierarchy (@fig:functor-monad-classes),
 and miscellaneous classes `Show`, `Read` (@subsec:read-show) and `Bounded` (@subsec:bounded).
 
 
-// Cf. https://forum.typst.app/t/how-to-export-cetz-diagrams-in-html/3034/5
-#let drawing(..args) = {
-  let canvas = cetz.canvas(..args)
-  context if target() == "html" {
-    html.frame(canvas)
-  } else {
-    canvas
-  }
-}
-
 #figure(
   caption: "Numeric Haskell Classes",
-  drawing({
-    import cetz.draw: *
-      let draw_circ(pos, name) = {
-        circle(pos, radius: (60pt, 40pt), name: name)
-      }
-      // Eq
-      let eq_pos = (0,0)
-      draw_circ(eq_pos, "eq")
-      content(eq_pos, [#set align(center); *Eq*\ All except IO, (->)])
-      // Show
-      let show_pos = (5,0)
-      draw_circ(show_pos, "show")
-      content(show_pos, [#set align(center);*Show*\ All except IO, (->)])
-      // Ord
-      let ord_pos = (0,-4)
-      draw_circ(ord_pos, "ord")
-      content(ord_pos, [#set align(center);*Ord*\ All except (->)\ IO, IOError])
-      // Num
-      let num_pos = (5,-4)
-      draw_circ(num_pos, "num")
-      content(num_pos, [#set align(center);*Num*\ Int, Integer\ Float, Double])
-      // Enum
-      let enum_pos = (0,-8)
-      draw_circ(enum_pos, "enum")
-      content(enum_pos, [#set align(center);*Enum*\ (), Bool, Char, Ordering,\ Int, Integer, Float,\ Double])
-      // Real
-      let real_pos = (5,-8)
-      draw_circ(real_pos, "real")
-      content(real_pos, [#set align(center);*Real*\ Int, Integer\ Float, Double])
-      // Fractional
-      let fractional_pos = (10,-8)
-      draw_circ(fractional_pos, "fractional")
-      content(fractional_pos, [#set align(center);*Fractional*\ Float, Double])
-      // Integral
-      let integral_pos = (0,-12)
-      draw_circ(integral_pos, "integral")
-      content(integral_pos, [#set align(center);*Integral*\ Int, Integer])
-      // RealFrac
-      let realfrac_pos = (5,-12)
-      draw_circ(realfrac_pos, "realfrac")
-      content(realfrac_pos, [#set align(center);*RealFrac*\ Float, Double])
-      // Floating
-      let floating_pos = (10,-12)
-      draw_circ(floating_pos, "floating")
-      content(floating_pos, [#set align(center);*Floating*\ Float, Double])
-      // RealFloat
-      let realfloat_pos = (7.5,-16)
-      draw_circ(realfloat_pos, "realfloat")
-      content(realfloat_pos, [#set align(center);*RealFloat*\ Float, Double])
-
-      // Superclasses
-      set-style(mark: (end: ">", fill: black))
-      line("eq", "ord")
-      line("eq", "num")
-      line("show", "num")
-      line("ord", "real")
-      line("num", "real")
-      line("num", "fractional")
-      line("enum", "integral")
-      line("real", "integral")
-      line("real", "realfrac")
-      line("fractional", "realfrac")
-      line("fractional", "floating")
-      line("realfrac", "realfloat")
-      line("floating", "realfloat")
-    }
-  )
+  image("../images/numeric-classes.svg")
 )<fig:numeric-classes>
+
 
 #figure(
   caption: "Haskell Classes of the Monadic Hierarchy",
-  drawing({
-    import cetz.draw: *
-      let draw_circ(pos, name) = {
-        circle(pos, radius: (60pt, 40pt), name: name)
-      }
-      // Functor
-      let functor_pos = (2.5,0)
-      draw_circ(functor_pos, "functor")
-      content(functor_pos, [#set align(center);*Functor*\ IO,`[]`,Maybe])
-      // Monad
-      let monad_pos = (2.5,-4)
-      draw_circ(monad_pos, "monad")
-      content(monad_pos, [#set align(center);*Monad*\ IO,`[]`,Maybe])
-    }
-  )
+  image("../images/functor-monad-classes.svg")
 )<fig:functor-monad-classes>
 
 Default class method declarations (@sec:type-classes) are provided

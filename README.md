@@ -13,20 +13,22 @@ Note that the layout of both versions is not final, and that presentation of the
 
 ## How to Build the PDF report
 
-In order to build the report you have to install Typst version `0.15` or later.
+In order to build the report you have to install Typst (version `0.15` or later) and Graphviz (version `2.42` or later).
 Typst is available at [typst.app/](https://typst.app/).
+Graphviz is avaliable at [graphviz.org/](https://graphviz.org/).
 
-The `Makefile` contains a target to build the report, but the two following commands also work:
+The `Makefile` contains targets to build the report and to watch for updates:
 
 ```console
-> typst compile haskell-2010-revised.typ
+> make pdf
 ```
 builds the report in pdf form.
 
 ```console
-> typst watch haskell-2010-revised.typ
+> make watch-pdf
 ```
 continuously watches for file changes and rebuilds the pdf on every change.
+Note that `make depend-pdf` may have to be rerun if dependencies change.
 
 ## Building HTML
 

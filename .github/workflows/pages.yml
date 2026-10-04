@@ -26,10 +26,10 @@ jobs:
         with:
           persist-credentials: false
       - uses: typst-community/setup-typst@v5
-      # The bundle has to be built first: it creates the _site directory, and
-      # typst does not create the parent directory of the PDF output on its own.
-      - run: typst compile --format bundle --features bundle --features html haskell-2010-revised-html.typ _site
-      - run: typst compile haskell-2010-revised.typ _site/haskell-2010-revised.pdf
+      - run: sudo apt-get update && sudo apt-get install -y graphviz
+      - run: make pdf html
+      - run: mkdir _site
+      - run: cp -R haskell-2010-revised.pdf haskell-2010-revised-html _site
       # Generate library report documentation      
       - run: cabal haddock --haddock-output-dir out
         working-directory: stdlib
