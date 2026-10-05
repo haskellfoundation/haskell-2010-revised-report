@@ -19,7 +19,7 @@ import System.IO
 class Functor f where
   fmap :: (a -> b) -> f a -> f b
   (<$) :: a -> f b -> f a
-  (<$) = fmap . const
+  a <$ f = fmap (\_ -> a) f
 
 
 instance Functor []
