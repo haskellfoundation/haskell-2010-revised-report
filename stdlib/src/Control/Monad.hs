@@ -139,7 +139,6 @@ class (Monad m) => MonadFail m where
   -- | Fail with a message. This operation is not part of the mathematical definition of a monad, but is
   -- invoked on pattern-match failure in a do expression.
   fail :: String -> m a
-  fail = error
 
 instance MonadFail []
 
