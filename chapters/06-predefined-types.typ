@@ -651,8 +651,6 @@ mapM_     :: Monad m => (a -> m b) -> [a] -> m ()
 ```haskell
 class  (Monad m) => MonadFail m  where
     fail    :: String -> m a
-
-    fail s  = error s
 ```
 
 `MonadFail` typeclass describes `Monad`s equipped with `error`-like failure

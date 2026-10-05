@@ -379,8 +379,6 @@ class  (Applicative m) => Monad m  where
 class  (Monad m) => MonadFail m  where
     fail    :: String -> m a
 
-    fail s  = error s
-
 sequence       :: Monad m => [m a] -> m [a]
 sequence       =  foldr mcons (return [])
                     where mcons p q = p >>= \x -> q >>= \y -> return (x:y)
