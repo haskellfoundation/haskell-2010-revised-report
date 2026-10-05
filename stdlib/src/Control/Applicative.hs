@@ -11,19 +11,19 @@ class (Functor f) => Applicative f where
   pure :: a -> f a
 
   (<*>) :: f (a -> b) -> f a -> f b
-  (<*>) = liftA2 id
+  (<*>) = liftA2 (\f a -> f a)
   
   liftA2 :: (a -> b -> c) -> f a -> f b -> f c
   liftA2 f x = (<*>) (fmap f x)
   
   (<*) :: f a -> f b -> f a
-  (<*) = liftA2 const
+  (<*) = liftA2 (\a _ -> a)
   
   (*>) :: f a -> f b -> f b
-  a1 *> a2 = (id <$ a1) <*> a2
+  (*>) = liftA2 (\_ b -> b)
 
-instance Applicactive []
+instance Applicative []
 
-instance Applicactive IO
+instance Applicative IO
 
-instance Applicactive Maybe
+instance Applicative Maybe
