@@ -6,16 +6,16 @@ In this chapter, we describe the syntax and informal semantics of Haskell _decla
   stroke: none,
   align: (left, center, left, left),
   // module
-  $italic("module")$, $->$, $terminal("module") nonterminal("modid") [ nonterminal("exports")] terminal("where") nonterminal("body")$,$$,
+  $nonterminal("module")$, $->$, $terminal("module") nonterminal("modid") [ nonterminal("exports")] terminal("where") nonterminal("body")$,$$,
   $$, $|$, $nonterminal("body")$, $$,
   // body
-  $italic("body")$, $->$, $terminal("{") nonterminal("impdecls") terminal(";") nonterminal("topdecls") terminal("}")$, $$,
+  $nonterminal("body")$, $->$, $terminal("{") nonterminal("impdecls") terminal(";") nonterminal("topdecls") terminal("}")$, $$,
   $$, $|$, $terminal("{") nonterminal("impdecls") terminal("}")$, $$,
   $$, $|$, $terminal("{") nonterminal("topdecls") terminal("}")$, $$,
   // topdecls
-  $italic("topdecls")$, $->$, $nonterminal("topdecl")_1 terminal(";") dots terminal(";") nonterminal("topdecl")_n$, $(n >= 1)$,
+  $nonterminal("topdecls")$, $->$, $nonterminal("topdecl")_1 terminal(";") dots terminal(";") nonterminal("topdecl")_n$, $(n >= 1)$,
   // topdecl
-  $italic("topdecl")$, $->$, $terminal("type") nonterminal("simpletype") terminal("=") nonterminal("type")$, $$,
+  $nonterminal("topdecl")$, $->$, $terminal("type") nonterminal("simpletype") terminal("=") nonterminal("type")$, $$,
   $$, $|$, $terminal("data") [nonterminal("context") terminal("=>")] nonterminal("simpletype") [terminal("=") nonterminal("constrs")] [nonterminal("deriving")]$, $$,
   $$, $|$, $terminal("newtype") [nonterminal("context") terminal("=>")] nonterminal("simpletype") terminal("=") nonterminal("newconstr") [nonterminal("deriving")]$, $$,
   $$, $|$, $terminal("class") [nonterminal("scontext") terminal("=>")] nonterminal("tycls") nonterminal("tyvar") [terminal("where") nonterminal("cdecls")]$, $$,
@@ -24,30 +24,30 @@ In this chapter, we describe the syntax and informal semantics of Haskell _decla
   $$, $|$, $terminal("foreign") nonterminal("fdecl")$, $$,
   $$, $|$, $nonterminal("decl")$, $$,
   // decls
-  $italic("decls")$, $->$, $terminal("{") nonterminal("decl")_1 terminal(";") dots terminal(";") nonterminal("decl")_n terminal("}")$, $(n >= 0)$,
+  $nonterminal("decls")$, $->$, $terminal("{") nonterminal("decl")_1 terminal(";") dots terminal(";") nonterminal("decl")_n terminal("}")$, $(n >= 0)$,
   // decl
-  $italic("decl")$, $->$, $nonterminal("gendecl")$, $$,
+  $nonterminal("decl")$, $->$, $nonterminal("gendecl")$, $$,
   $$,$|$, $(nonterminal("funlhs") | nonterminal("pat")) nonterminal("rhs")$,$$,
   // cdecls
-  $italic("cdecls")$, $->$, $terminal("{") nonterminal("cdecl")_1 terminal(";") dots terminal(";") nonterminal("cdecl")_n terminal("}")$, $(n >= 0)$,
+  $nonterminal("cdecls")$, $->$, $terminal("{") nonterminal("cdecl")_1 terminal(";") dots terminal(";") nonterminal("cdecl")_n terminal("}")$, $(n >= 0)$,
   // cdecl
-  $italic("cdecl")$, $->$, $nonterminal("gendecl")$, $$,
+  $nonterminal("cdecl")$, $->$, $nonterminal("gendecl")$, $$,
   $$,$|$, $(nonterminal("funlhs") | nonterminal("var")) nonterminal("rhs")$,$$,
   // idecls
-  $italic("idecls")$, $->$, $terminal("{") nonterminal("idecl")_1 terminal(";") dots terminal(";") nonterminal("idecl")_n terminal("}")$, $(n >= 0)$,
+  $nonterminal("idecls")$, $->$, $terminal("{") nonterminal("idecl")_1 terminal(";") dots terminal(";") nonterminal("idecl")_n terminal("}")$, $(n >= 0)$,
   // idecl
-  $italic("idecl")$, $->$, $(nonterminal("funlhs") | nonterminal("var")) nonterminal("rhs")$, $$,
+  $nonterminal("idecl")$, $->$, $(nonterminal("funlhs") | nonterminal("var")) nonterminal("rhs")$, $$,
   $$, $|$, $$, [(empty)],
   // gendecl
-  $italic("gendecl")$, $->$, $nonterminal("vars") terminal("::") [nonterminal("context") terminal("=>")] nonterminal("type")$, [(type signature)],
+  $nonterminal("gendecl")$, $->$, $nonterminal("vars") terminal("::") [nonterminal("context") terminal("=>")] nonterminal("type")$, [(type signature)],
   $$, $|$, $nonterminal("fixity") [nonterminal("integer")] nonterminal("ops")$, [(fixity declaration)],
   $$, $|$, $$, [(empty declaration)],
   // ops
-  $italic("ops")$, $->$, $nonterminal("op")_1 terminal(",") dots terminal(",") nonterminal("op")_n$, $(n >= 1)$,
+  $nonterminal("ops")$, $->$, $nonterminal("op")_1 terminal(",") dots terminal(",") nonterminal("op")_n$, $(n >= 1)$,
   // vars
-  $italic("vars")$, $->$, $nonterminal("var")_1 terminal(",") dots terminal(",") nonterminal("var")_n$, $(n >= 1)$,
+  $nonterminal("vars")$, $->$, $nonterminal("var")_1 terminal(",") dots terminal(",") nonterminal("var")_n$, $(n >= 1)$,
   // fixity
-  $italic("fixity")$, $->$, $terminal("infixl") | terminal("infixr") | terminal("infix")$, $$,
+  $nonterminal("fixity")$, $->$, $terminal("infixl") | terminal("infixr") | terminal("infix")$, $$,
 
 )
 
@@ -147,17 +147,17 @@ Kind inference is discussed in @sec:kind-inference.
   stroke: none,
   align: (left, center, left, left),
   // type
-  $italic("type")$, $->$, $nonterminal("btype") [terminal("->") nonterminal("type")]$, [(function type)],
+  $nonterminal("type")$, $->$, $nonterminal("btype") [terminal("->") nonterminal("type")]$, [(function type)],
   // btype
-  $italic("btype")$, $->$, $[nonterminal("btype")] nonterminal("atype")$, [(type application)],
+  $nonterminal("btype")$, $->$, $[nonterminal("btype")] nonterminal("atype")$, [(type application)],
   // atype
-  $italic("atype")$, $->$, $nonterminal("gtycon")$, $$,
+  $nonterminal("atype")$, $->$, $nonterminal("gtycon")$, $$,
   $$,$|$, $nonterminal("tyvar")$, $$,
   $$,$|$, $terminal("(") nonterminal("type")_1 terminal(",") dots terminal(",") nonterminal("type")_k terminal(")")$, [(tuple type, $k >= 2$)],
   $$,$|$, $terminal("[") nonterminal("type") terminal("]")$, [(list type)],
   $$,$|$, $terminal("(") nonterminal("type") terminal(")")$, [(parenthesized constructor)],
   // gtycon
-  $italic("gtycon")$, $->$, $nonterminal("qtycon")$, $$,
+  $nonterminal("gtycon")$, $->$, $nonterminal("qtycon")$, $$,
   $$,$|$,$terminal("()")$, [(unit type)],
   $$,$|$,$terminal("[]")$, [(list constructor)],
   $$,$|$,$terminal("(->)")$, [(function constructor)],
@@ -263,23 +263,23 @@ $forall a. (a -> a)$.
   stroke: none,
   align: (left, center, left, left),
   // context
-  $italic("context")$, $->$, $nonterminal("class")$, $$,
+  $nonterminal("context")$, $->$, $nonterminal("class")$, $$,
   $$,$|$,$terminal("(") nonterminal("class")_1 terminal(",") dots terminal(",") nonterminal("class")_n terminal(")")$,$(n >= 0)$,
   // class
-  $italic("class")$, $->$, $nonterminal("qtycls") nonterminal("tyvar")$, $$,
+  $nonterminal("class")$, $->$, $nonterminal("qtycls") nonterminal("tyvar")$, $$,
   $$,$|$,$nonterminal("qtycls") terminal("(") nonterminal("tyvar") nonterminal("atype")_1 dots nonterminal("atype")_n terminal(")")$,$(n >= 1)$,
   // qtycls
-  $italic("qtycls")$, $->$, $[nonterminal("modid") terminal(".")] nonterminal("tycls")$,$$,
+  $nonterminal("qtycls")$, $->$, $[nonterminal("modid") terminal(".")] nonterminal("tycls")$,$$,
   // tycls
-  $italic("tycls")$, $->$, $nonterminal("conid")$,$$,
+  $nonterminal("tycls")$, $->$, $nonterminal("conid")$,$$,
   // tyvar
-  $italic("tyvar")$, $->$, $nonterminal("varid")$,$$,
+  $nonterminal("tyvar")$, $->$, $nonterminal("varid")$,$$,
 
 )
 
-A _class assertion_ has form $italic("qtycls") italic("tyvar")$, and
-indicates the membership of the type $italic("tyvar")$ in the class
-$italic("qtycls")$.
+A _class assertion_ has form $nonterminal("qtycls") nonterminal("tyvar")$, and
+indicates the membership of the type $nonterminal("tyvar")$ in the class
+$nonterminal("qtycls")$.
 A class identifier begins with an uppercase letter.
 A _context_ consists of zero or more class assertions,
 and has the general form
@@ -289,11 +289,11 @@ $
 where $C_1, dots, C_n$ are class identifiers, and each of the $u_1, dots, u_n$ is
 either a type variable, or the application of type variable to one or more types.
 The outer parentheses may be omitted when $n=1$.
-In general, we use $italic("cx")$ to denote a context and we write $italic("cx") mono("=>") t$ to
-indicate the type $t$ restricted by the context $italic("cx")$.
-The context $italic("cx")$ must only contain type variables referenced in $t$.
+In general, we use $varname("cx")$ to denote a context and we write $varname("cx") mono("=>") t$ to
+indicate the type $t$ restricted by the context $varname("cx")$.
+The context $varname("cx")$ must only contain type variables referenced in $t$.
 For convenience,
-we write $italic("cx") mono("=>") t$ even if the context $italic("cx")$ is empty, although in this
+we write $varname("cx") mono("=>") t$ even if the context $varname("cx")$ is empty, although in this
 case the concrete syntax contains no `=>`.
 
 === Semantics of Types and Classes <sec:type-semantics>
@@ -305,11 +305,11 @@ and constructor classes, respectively, in more detail.)
 
 The Haskell type system attributes a _type_ to each
 expression in the program.  In general, a type is of the form
-$forall safeoverline(u). italic("cx") => t$,
+$forall safeoverline(u). varname("cx") => t$,
 where $safeoverline(u)$ is a set of type variables $u_1, dots, u_n$.
 In any such type, any of the universally-quantified type variables $u_i$
-that are free in $italic("cx")$ must also be free in $t$.
-Furthermore, the context $italic("cx")$ must be of the form given above in
+that are free in $varname("cx")$ must also be free in $t$.
+Furthermore, the context $varname("cx")$ must be of the form given above in
 @sec:classes-contexts.  For example, here are some
 valid types:
 ```haskell
@@ -341,16 +341,16 @@ described in @sec:default-decls).  Therefore, explicit typings (called
 _type signatures_)
 are usually optional (see @sec:expression-type-sigs and @sec:type-signatures).
 
-The type $forall safeoverline(u).italic("cx")_1 => t_1$ _more general than_ the 
-type $forall safeoverline(w). italic("cx")_2 => t_2$ if and only if there is 
+The type $forall safeoverline(u).varname("cx")_1 => t_1$ _more general than_ the 
+type $forall safeoverline(w). varname("cx")_2 => t_2$ if and only if there is 
 a substitution $S$ whose domain is $safeoverline(u)$ such that:
 
 - $t_2$ is identical to $S(t_1)$.
-- Whenever $italic("cx")_2$ holds in the class environment, $S(italic("cx")_1)$ also holds.
+- Whenever $varname("cx")_2$ holds in the class environment, $S(varname("cx")_1)$ also holds.
 
-A value of type $forall safeoverline(u).italic("cx") => t$,
+A value of type $forall safeoverline(u).varname("cx") => t$,
 may be instantiated at types $safeoverline(s)$ if and only if
-the context $italic("cx")[safeoverline(s)/safeoverline(u)]$ holds.
+the context $varname("cx")[safeoverline(s)/safeoverline(u)]$ holds.
 For example, consider the function `double`:
 ```haskell
 double x = x + x
@@ -376,44 +376,44 @@ the top level of a module.
   align: (left, center, left, left),
   stroke: none,
   // topdecl
-  $italic("topdecl")$, $->$, $terminal("data") [nonterminal("context") terminal("=>")] nonterminal("simpletype") [terminal("=") nonterminal("constrs")] [nonterminal("deriving")]$, $$,
+  $nonterminal("topdecl")$, $->$, $terminal("data") [nonterminal("context") terminal("=>")] nonterminal("simpletype") [terminal("=") nonterminal("constrs")] [nonterminal("deriving")]$, $$,
   // simpletype
-  $italic("simpletype")$, $->$, $nonterminal("tycon") nonterminal("tyvar")_1 dots nonterminal("tyvar")_k$, $(k >= 0)$,
+  $nonterminal("simpletype")$, $->$, $nonterminal("tycon") nonterminal("tyvar")_1 dots nonterminal("tyvar")_k$, $(k >= 0)$,
   // constrs
-  $italic("constrs")$, $->$, $nonterminal("constr")_1 terminal("|") dots terminal("|") nonterminal("constr")_n$, $(n >= 1)$,
+  $nonterminal("constrs")$, $->$, $nonterminal("constr")_1 terminal("|") dots terminal("|") nonterminal("constr")_n$, $(n >= 1)$,
   // constr
-  $italic("constr")$, $->$, $nonterminal("con") [terminal("!")] nonterminal("atype")_1 dots [terminal("!")] nonterminal("atype")_k$, [(arity $italic("con") = k$, $k >= 0$)],
-  $$,$|$,$(nonterminal("btype") | terminal("!") nonterminal("atype")) nonterminal("conop") (nonterminal("btype") | terminal("!") nonterminal("atype"))$,[(infix $italic("conop")$)],
+  $nonterminal("constr")$, $->$, $nonterminal("con") [terminal("!")] nonterminal("atype")_1 dots [terminal("!")] nonterminal("atype")_k$, [(arity $nonterminal("con") = k$, $k >= 0$)],
+  $$,$|$,$(nonterminal("btype") | terminal("!") nonterminal("atype")) nonterminal("conop") (nonterminal("btype") | terminal("!") nonterminal("atype"))$,[(infix $nonterminal("conop")$)],
   $$,$|$,$nonterminal("con") terminal("{") nonterminal("fielddecl")_1 terminal(",") dots terminal(",") nonterminal("fielddecl")_n terminal("}")$,$(n >= 0)$,
   // fielddecl
-  $italic("fielddecl")$, $->$, $nonterminal("vars") terminal("::") (nonterminal("type") | terminal("!") nonterminal("atype"))$, $$,
+  $nonterminal("fielddecl")$, $->$, $nonterminal("vars") terminal("::") (nonterminal("type") | terminal("!") nonterminal("atype"))$, $$,
   // deriving
-  $italic("deriving")$, $->$, $terminal("deriving") ( nonterminal("dclass") | terminal("(") nonterminal("dclass")_1 terminal(",") dots terminal(",") nonterminal("dclass")_n terminal(")"))$, $(n >= 0)$,
+  $nonterminal("deriving")$, $->$, $terminal("deriving") ( nonterminal("dclass") | terminal("(") nonterminal("dclass")_1 terminal(",") dots terminal(",") nonterminal("dclass")_n terminal(")"))$, $(n >= 0)$,
   // dclass
-  $italic("dclass")$, $->$, $nonterminal("qtycls")$, $$,
+  $nonterminal("dclass")$, $->$, $nonterminal("qtycls")$, $$,
 )
 
-The precedence for $italic("constr")$ is the same as that for
+The precedence for $nonterminal("constr")$ is the same as that for
 expressions---normal constructor application has higher precedence
 than infix constructor application (thus `a : Foo a` parses as `a : (Foo a)`).
 
 An algebraic datatype declaration has the form:
 $
-  mono("data") italic("cx") mono("=>") T u_1 dots u_k = K_1 t_(11) dots t_(1k_1) | dots | K_n t_(n 1) dots t_(n k_n)
+  mono("data") varname("cx") mono("=>") T u_1 dots u_k = K_1 t_(11) dots t_(1k_1) | dots | K_n t_(n 1) dots t_(n k_n)
 $
-where $italic("cx")$ is a context.
+where $varname("cx")$ is a context.
 This declaration
 introduces a new _type constructor_ $T$ with zero or more constituent _data constructors_ $K_1, dots K_n$.
 In this Report, the unqualified term "constructor" always means "data constructor".
 
 The types of the data constructors are given by:
 $
-  K_i mono("::") forall u_1 dots u_k. italic("cx")_i => t_(i 1) -> dots -> t_(i k_i) -> (T space u_1 dots u_k)
+  K_i mono("::") forall u_1 dots u_k. varname("cx")_i => t_(i 1) -> dots -> t_(i k_i) -> (T space u_1 dots u_k)
 $
-where $italic("cx")_i$ is the largest subset of $italic("cx")$ that constrains only those type variables free in the types $t_(i 1) dots t_(i k_i)$.
+where $varname("cx")_i$ is the largest subset of $varname("cx")$ that constrains only those type variables free in the types $t_(i 1) dots t_(i k_i)$.
 The type variables $u_1$ through $u_k$ must be distinct and may appear
-in $italic("cx")$ and the $t_(i j)$; it is a static error
-for any other type variable to appear in $italic("cx")$ or on the right-hand-side.
+in $varname("cx")$ and the $t_(i j)$; it is a static error
+for any other type variable to appear in $varname("cx")$ or on the right-hand-side.
 The new type constant $T$ has a kind of the form
 $kappa_1 -> dots -> kappa_k -> ast$
 where the kinds $kappa_i$ of the argument variables $u_i$ are
@@ -502,15 +502,15 @@ a data declaration.
 #translation-box[
   A declaration of the form
   $
-    mono("data") italic("cx") => T u_1 dots u_k = dots  | K s_1 dots s_n | dots
+    mono("data") varname("cx") => T u_1 dots u_k = dots  | K s_1 dots s_n | dots
   $
   where each $s_i$ is either of the form $! t_i$ or $t_i$, replaces
   every occurrence of $K$ in an expression by
   $
-    (mono("\\") x_1 dots x_n mono("->") (((K italic("op")_1 x_1) italic("op")_2 x_2) dots) italic("op")_n x_n)
+    (mono("\\") x_1 dots x_n mono("->") (((K nonterminal("op")_1 x_1) nonterminal("op")_2 x_2) dots) nonterminal("op")_n x_n)
   $
-  where $italic("op")_i$ is the non-strict apply function `$` if $s_i$ is of the form $t_i$,
-  and $italic("op")_i$ is the strict apply function `$!` (see
+  where $nonterminal("op")_i$ is the non-strict apply function `$` if $s_i$ is of the form $t_i$,
+  and $nonterminal("op")_i$ is the strict apply function `$!` (see
   @sec:strict-eval) if $s_i$ is of the form $! t_i$.
   Pattern matching on $K$ is not affected by strictness flags.
 ]
@@ -522,9 +522,9 @@ a data declaration.
   align: (left, center, left, left),
   stroke: none,
   // topdecl
-  $italic("topdecl")$, $->$, $terminal("type") nonterminal("simpletype") terminal("=") nonterminal("type")$, $$,
+  $nonterminal("topdecl")$, $->$, $terminal("type") nonterminal("simpletype") terminal("=") nonterminal("type")$, $$,
   // simpletype
-  $italic("simpletype")$, $->$, $nonterminal("tycon") nonterminal("tyvar")_1 dots nonterminal("tyvar")_k$, $(k >= 0)$,
+  $nonterminal("simpletype")$, $->$, $nonterminal("tycon") nonterminal("tyvar")_1 dots nonterminal("tyvar")_k$, $(k >= 0)$,
 )
 
 A type synonym declaration introduces a new type that
@@ -574,17 +574,17 @@ interchangeable, except in the instance type of an `instance` declaration (@sec:
   align: (left, center, left, left),
   stroke: none,
   // topdecl
-  $italic("topdecl")$, $->$, $terminal("newtype") [nonterminal("context") terminal("=>")] nonterminal("simpletype") terminal("=") nonterminal("newconstr") [nonterminal("deriving")]$, $$,
+  $nonterminal("topdecl")$, $->$, $terminal("newtype") [nonterminal("context") terminal("=>")] nonterminal("simpletype") terminal("=") nonterminal("newconstr") [nonterminal("deriving")]$, $$,
   // newconstr
-  $italic("newconstr")$, $->$, $nonterminal("con") nonterminal("atype")$, $$,
+  $nonterminal("newconstr")$, $->$, $nonterminal("con") nonterminal("atype")$, $$,
   $$,$|$,$nonterminal("con") terminal("{") nonterminal("var") terminal("::") nonterminal("type") terminal("}")$,$$,
   // simpletype
-  $italic("simpletype")$, $->$, $nonterminal("tycon") nonterminal("tyvar")_1 dots nonterminal("tyvar")_k$, $(k >= 0)$,
+  $nonterminal("simpletype")$, $->$, $nonterminal("tycon") nonterminal("tyvar")_1 dots nonterminal("tyvar")_k$, $(k >= 0)$,
 )
 
 A declaration of the form
 $
-  mono("newtype") italic("cx") mono("=>") T u_1 dots u_k = N space t
+  mono("newtype") varname("cx") mono("=>") T u_1 dots u_k = N space t
 $
 introduces a new type whose
 representation is the same as an existing type.  The type $(T u_1 dots u_k)$ renames the datatype $t$.
@@ -652,16 +652,16 @@ brings into scope both a constructor and a de-constructor:
   align: (left, center, left, left),
   stroke: none,
   // topdecl
-  $italic("topdecl")$, $->$, $terminal("class") [nonterminal("scontext") terminal("=>")] nonterminal("tycls") nonterminal("tyvar") [terminal("where") nonterminal("cdecls")]$, $$,
+  $nonterminal("topdecl")$, $->$, $terminal("class") [nonterminal("scontext") terminal("=>")] nonterminal("tycls") nonterminal("tyvar") [terminal("where") nonterminal("cdecls")]$, $$,
   // scontext
-  $italic("scontext")$, $->$, $nonterminal("simpleclass")$, $$,
+  $nonterminal("scontext")$, $->$, $nonterminal("simpleclass")$, $$,
   $$,$|$,$terminal("(") nonterminal("simpleclass")_1 terminal(",") dots terminal(",") nonterminal("simpleclass")_n terminal(")")$,$(n >= 0)$,
   // simpleclass
-  $italic("simpleclass")$, $->$, $nonterminal("qtycls") nonterminal("tyvar")$, $$,
+  $nonterminal("simpleclass")$, $->$, $nonterminal("qtycls") nonterminal("tyvar")$, $$,
   // cdecls
-  $italic("cdecls")$, $->$, $terminal("{") nonterminal("cdecl")_1 terminal(";") dots terminal(";") nonterminal("cdecl")_n terminal("}")$, $(n >= 0)$,
+  $nonterminal("cdecls")$, $->$, $terminal("{") nonterminal("cdecl")_1 terminal(";") dots terminal(";") nonterminal("cdecl")_n terminal("}")$, $(n >= 0)$,
   // cdecl
-  $italic("cdecl")$, $->$, $nonterminal("gendecl")$, $$,
+  $nonterminal("cdecl")$, $->$, $nonterminal("gendecl")$, $$,
   $$,$|$, $(nonterminal("funlhs") | nonterminal("var")) nonterminal("rhs")$,$$,
 )
 
@@ -669,18 +669,18 @@ A _class declaration_ introduces a new class and the operations
 (_class methods_) on it.
 A class declaration has the general form:
 $
-  mono("class") italic("cx") mono("=>") C u mono("where") italic("cdecls")
+  mono("class") varname("cx") mono("=>") C u mono("where") nonterminal("cdecls")
 $
 This introduces a new class name $C$; the type variable $u$ is
 scoped only over the class method signatures in the class body.
-The context $italic("cx")$ specifies the superclasses of $C$, as
-described below; the only type variable that may be referred to in $italic("cx")$
+The context $varname("cx")$ specifies the superclasses of $C$, as
+described below; the only type variable that may be referred to in $varname("cx")$
 is $u$.
 
 The superclass relation must not be cyclic; i.e.~it must form a
 directed acyclic graph.
 
-The $italic("cdecls")$ part of a `class` declaration contains three kinds
+The $nonterminal("cdecls")$ part of a `class` declaration contains three kinds
 of declarations:
 
 - The class declaration introduces new _class methods_
@@ -688,9 +688,9 @@ of declarations:
   The class methods of a class declaration are precisely the \mbox{$\it v_i$} for
   which there is an explicit type signature
   $
-    v_i mono("::") italic("cx")_i mono("=>") t_i
+    v_i mono("::") varname("cx")_i mono("=>") t_i
   $
-  in $italic("cdecls")$.
+  in $nonterminal("cdecls")$.
   Class methods share the top level namespace with variable
   bindings and field names; they must not conflict with other top level
   bindings in scope. 
@@ -700,13 +700,13 @@ of declarations:
 
   The type of the top-level class method $v_i$ is:
   $
-    v_i mono("::") forall u, safeoverline(w). (C u, italic("cx")_i) mono("=>") t_i
+    v_i mono("::") forall u, safeoverline(w). (C u, varname("cx")_i) mono("=>") t_i
   $
   The $t_i$ must mention $u$; it may mention type variables
   $safeoverline(w)$ other than $u$, in which case the type of $v_i$ is
   polymorphic in both $u$ and $safeoverline(w)$.
-  The $italic("cx")_i$ may constrain only $safeoverline(w)$; in particular,
-  the $italic("cx")_i$ may not constrain $u$.
+  The $varname("cx")_i$ may constrain only $safeoverline(w)$; in particular,
+  the $varname("cx")_i$ may not constrain $u$.
   For example:
   ```haskell
   class Foo a where
@@ -714,11 +714,11 @@ of declarations:
   ```
   Here the type of `op` is
   $forall a, b. (mono("Foo") a, mono("Num") b) => a -> b -> a$.
-- The $italic("cdecls")$ may also contain a _fixity declaration_ for any of the class methods 
+- The $nonterminal("cdecls")$ may also contain a _fixity declaration_ for any of the class methods 
   (but for no other values).
   However, since class methods declare top-level values, the fixity declaration for a class
   method may alternatively appear at top level, outside the class declaration.
-- Lastly, the $italic("cdecls")$ may contain a
+- Lastly, the $nonterminal("cdecls")$ may contain a
   _default class method_
   for any of the $v_i$.  The default class method for $v_i$ is used if no binding for it
   is given in a particular `instance` declaration (see
@@ -733,7 +733,7 @@ of declarations:
   is not permitted, because the left hand side of the default declaration is a
   pattern.
 
-Other than these cases, no other declarations are permitted in $italic("cdecls")$.
+Other than these cases, no other declarations are permitted in $nonterminal("cdecls")$.
 
 A `class` declaration with no `where` part
 may be useful for combining a
@@ -755,28 +755,28 @@ given explicitly with no `where` part.
   align: (left, center, left, left),
   stroke: none,
   // topdecl
-  $italic("topdecl")$, $->$, $terminal("instance") [nonterminal("scontext") terminal("=>")] nonterminal("qtycls") nonterminal("inst") [terminal("where") nonterminal("idecls")]$, $$,
+  $nonterminal("topdecl")$, $->$, $terminal("instance") [nonterminal("scontext") terminal("=>")] nonterminal("qtycls") nonterminal("inst") [terminal("where") nonterminal("idecls")]$, $$,
   // inst
-  $italic("inst")$, $->$, $nonterminal("gtycon")$, $$,
-  $$,$|$,$terminal("(")nonterminal("gtycon") nonterminal("tyvar")_1 dots nonterminal("tyvar")_k terminal(")")$,[($k >= 0$, $italic("tyvars")$ distinct)],
-  $$,$|$,$terminal("(") nonterminal("tyvar")_1 terminal(",") dots terminal(",") nonterminal("tyvar")_k terminal(")")$,[($k >= 2$, $italic("tyvars")$ distinct)],
+  $nonterminal("inst")$, $->$, $nonterminal("gtycon")$, $$,
+  $$,$|$,$terminal("(")nonterminal("gtycon") nonterminal("tyvar")_1 dots nonterminal("tyvar")_k terminal(")")$,[($k >= 0$, $nontermname("tyvars")$ distinct)],
+  $$,$|$,$terminal("(") nonterminal("tyvar")_1 terminal(",") dots terminal(",") nonterminal("tyvar")_k terminal(")")$,[($k >= 2$, $nontermname("tyvars")$ distinct)],
   $$,$|$,$terminal("[") nonterminal("tyvar") terminal("]")$,$$,
-  $$,$|$,$terminal("(") nonterminal("tyvar")_1 terminal("->") nonterminal("tyvar")_2 terminal(")")$,[($italic("tyvar")_1$ and $italic("tyvar")_2$ distinct)],
+  $$,$|$,$terminal("(") nonterminal("tyvar")_1 terminal("->") nonterminal("tyvar")_2 terminal(")")$,[($nonterminal("tyvar")_1$ and $nonterminal("tyvar")_2$ distinct)],
   // idecls
-  $italic("idecls")$, $->$, $terminal("{") nonterminal("idecl")_1 terminal(";") dots terminal(";") nonterminal("idecl")_n terminal("}")$, $(n >= 0)$,
+  $nonterminal("idecls")$, $->$, $terminal("{") nonterminal("idecl")_1 terminal(";") dots terminal(";") nonterminal("idecl")_n terminal("}")$, $(n >= 0)$,
   // idecl
-  $italic("idecl")$, $->$, $(nonterminal("funlhs") | nonterminal("var")) nonterminal("rhs")$, $$,
+  $nonterminal("idecl")$, $->$, $(nonterminal("funlhs") | nonterminal("var")) nonterminal("rhs")$, $$,
   $$, $|$, $$, [(empty)],
 )
 
 An _instance declaration_ introduces an instance of a class.  Let
 $
-  mono("class") italic("cx") mono("=>") C space u mono("where") { italic("cbody") }
+  mono("class") varname("cx") mono("=>") C space u mono("where") { varname("cbody") }
 $
 be a `class` declaration.  The general form of the corresponding
 instance declaration is:
 $
-  mono("instance") italic("cx")' mono("=>") C space (T space u_1 dots u_k) mono("where") { d }
+  mono("instance") varname("cx")' mono("=>") C space (T space u_1 dots u_k) mono("where") { d }
 $
 where $k >= 0$.
 The type $(T u_1 dots u_k)$ must take the form of
@@ -831,18 +831,18 @@ subject to these static restrictions:
   this can be determined using kind inference as described
   in @sec:kind-inference.
 - Assume that the type variables in the instance type $(T u_1 dots u_k)$
-  satisfy the constraints in the instance context $italic("cx")'$.
+  satisfy the constraints in the instance context $varname("cx")'$.
   Under this assumption, the following two conditions must also be satisfied:
-  1. The constraints expressed by the superclass context $italic("cx")[(T u_1 dots u_k) mono("/")u]$ of $C$ must be satisfied.
+  1. The constraints expressed by the superclass context $varname("cx")[(T u_1 dots u_k) mono("/")u]$ of $C$ must be satisfied.
      In other words, $T$ must be an instance
      of each of $C$'s superclasses and the contexts of all
-     superclass instances must be implied by $italic("cx")'$.
+     superclass instances must be implied by $varname("cx")'$.
   2. Any constraints on the type variables in the instance type
      that are required for the class method declarations in $d$ to be
      well-typed must also be satisfied.
   In fact, except in pathological cases 
   it is possible to infer from the instance declaration the
-  most general instance context $italic("cx")'$ satisfying the above two constraints, 
+  most general instance context $varname("cx")'$ satisfying the above two constraints, 
   but it is nevertheless mandatory
   to write an explicit instance context.
 
@@ -918,7 +918,7 @@ are derived for that datatype; that is, omitting a `deriving` form is equivalent
   columns: 4,
   align: (left, center, left, left),
   stroke: none,
-  $italic("topdecl")$, $->$, $terminal("default") terminal("(") nonterminal("type")_1 terminal(",") dots terminal(",") nonterminal("type")_n terminal(")")$, $(n >= 0)$,
+  $nonterminal("topdecl")$, $->$, $terminal("default") terminal("(") nonterminal("type")_1 terminal(",") dots terminal(",") nonterminal("type")_n terminal(")")$, $(n >= 0)$,
 )
 
 A problem inherent with Haskell-style overloading is the
@@ -940,8 +940,8 @@ in both cases, or `Bool`.  Such expressions
 are considered ill-typed, a static error.
 
 We say that an expression `e` has an _ambiguous type_
-if, in its type $forall safeoverline(u).italic("cx") => t$, 
-there is a type variable $u$ in $safeoverline(u)$ that occurs in $italic("cx")$ 
+if, in its type $forall safeoverline(u).varname("cx") => t$, 
+there is a type variable $u$ in $safeoverline(u)$ that occurs in $varname("cx")$ 
 but not in $t$.  Such types are invalid.
 
 For example, the earlier expression involving `show` and `read` has
@@ -1010,18 +1010,18 @@ including the top level of a module.
   align: (left, center, left, left),
   stroke: none,
   // gendecl
-  $italic("gendecl")$, $->$, $nonterminal("vars") terminal("::") [nonterminal("context") terminal("=>")] nonterminal("type")$,[],
+  $nonterminal("gendecl")$, $->$, $nonterminal("vars") terminal("::") [nonterminal("context") terminal("=>")] nonterminal("type")$,[],
   // vars
-  $italic("vars")$, $->$, $nonterminal("var")_1 terminal(",") dots terminal(",") nonterminal("var")_n$, $(n >= 1)$,
+  $nonterminal("vars")$, $->$, $nonterminal("var")_1 terminal(",") dots terminal(",") nonterminal("var")_n$, $(n >= 1)$,
 )
 
 A type signature specifies types for variables, possibly with respect
 to a context.  A type signature has the form:
 $
-  v_1, dots, v_n mono("::") italic("cx") mono("=>") t
+  v_1, dots, v_n mono("::") varname("cx") mono("=>") t
 $
 which is equivalent to asserting
-$v_i mono("::") italic("cx") mono("=>") t$
+$v_i mono("::") varname("cx") mono("=>") t$
 for each $i$ from $1$ to $n$.  Each $v_i$ must have a value binding in
 the same declaration list that contains the type signature; i.e. it is
 invalid to give a type signature for a variable bound in an
@@ -1100,18 +1100,18 @@ to supply the more general type signature, `T a -> a`.
   align: (left, center, left, left),
   stroke: none,
   // gendecl
-  $italic("gendecl")$, $->$, $nonterminal("fixity") [nonterminal("integer")] nonterminal("ops")$, [],
+  $nonterminal("gendecl")$, $->$, $nonterminal("fixity") [nonterminal("integer")] nonterminal("ops")$, [],
   // fixity
-  $italic("fixity")$, $->$, $terminal("infixl") | terminal("infixr") | terminal("infix")$, $$,
+  $nonterminal("fixity")$, $->$, $terminal("infixl") | terminal("infixr") | terminal("infix")$, $$,
   // ops
-  $italic("ops")$, $->$, $nonterminal("op")_1 terminal(",") dots terminal(",") nonterminal("op")_n$, $(n >= 1)$,
+  $nonterminal("ops")$, $->$, $nonterminal("op")_1 terminal(",") dots terminal(",") nonterminal("op")_n$, $(n >= 1)$,
   // op
-  $italic("op")$,$->$,$nonterminal("varop") | nonterminal("conop")$,[],
+  $nonterminal("op")$,$->$,$nonterminal("varop") | nonterminal("conop")$,[],
   
 )
 
 A fixity declaration gives the fixity and binding
-precedence of one or more operators.  The $italic("integer")$ in a fixity declaration
+precedence of one or more operators.  The $nonterminal("integer")$ in a fixity declaration
 must be in the range $0$ to $9$.
 A fixity declaration may appear anywhere that 
 a type signature appears and, like a type signature, declares a property of
@@ -1125,7 +1125,7 @@ or at top level.)
 There are three kinds of fixity, non-, left- and right-associativity
 (`infix`, `infixl`, and `infixr`, respectively), and ten precedence
 levels, 0 to 9 inclusive (level 0 binds least tightly, and level 9
-binds most tightly).  If the $italic("digit")$ is omitted, level 9 is assumed.
+binds most tightly).  If the $nonterminal("digit")$ is omitted, level 9 is assumed.
 Any operator lacking a fixity declaration
 is assumed to be `infixl 9` (See @chapter:expressions for more on
 the use of fixities).
@@ -1183,20 +1183,20 @@ fixity declaration.)
   align: (left, center, left, left),
   stroke: none,
   // decl
-  $italic("decl")$, $->$, $(nonterminal("funlhs") | nonterminal("pat")) nonterminal("rhs")$,$$,
+  $nonterminal("decl")$, $->$, $(nonterminal("funlhs") | nonterminal("pat")) nonterminal("rhs")$,$$,
   // funlhs
-  $italic("funlhs")$, $->$, $nonterminal("var") nonterminal("apat") { nonterminal("apat") }$, $$,
+  $nonterminal("funlhs")$, $->$, $nonterminal("var") nonterminal("apat") { nonterminal("apat") }$, $$,
   $$,$|$,$nonterminal("pat") nonterminal("varop") nonterminal("pat")$,$$,
   $$,$|$,$terminal("(") nonterminal("funlhs") terminal(")") nonterminal("apat") { nonterminal("apat")}$,$$,
   // rhs
-  $italic("rhs")$, $->$, $terminal("=") nonterminal("exp") [terminal("where") nonterminal("decls")]$, $$,
+  $nonterminal("rhs")$, $->$, $terminal("=") nonterminal("exp") [terminal("where") nonterminal("decls")]$, $$,
   $$,$|$,$nonterminal("gdrhs") [terminal("where") nonterminal("decls")]$,$$,
   // gdrhs
-  $italic("gdrhs")$, $->$, $nonterminal("guards") terminal("=") nonterminal("exp") [nonterminal("gdrhs")]$, $$,
+  $nonterminal("gdrhs")$, $->$, $nonterminal("guards") terminal("=") nonterminal("exp") [nonterminal("gdrhs")]$, $$,
   // guards
-  $italic("guards")$, $->$, $terminal("|") nonterminal("guard")_1 terminal(",") dots terminal(",") nonterminal("guard")_n$, $(n >= 1)$,
+  $nonterminal("guards")$, $->$, $terminal("|") nonterminal("guard")_1 terminal(",") dots terminal(",") nonterminal("guard")_n$, $(n >= 1)$,
   // guard
-  $italic("guard")$, $->$, $nonterminal("pat") terminal("<-") nonterminal("infixexp")$, [(pattern guard)],
+  $nonterminal("guard")$, $->$, $nonterminal("pat") terminal("<-") nonterminal("infixexp")$, [(pattern guard)],
   $$,$|$,$terminal("let") nonterminal("decls")$,[(local declaration)],
   $$,$|$,$nonterminal("infixexp")$,[(boolean guard)],
 )
@@ -1215,14 +1215,14 @@ form of a function binding for variable $x$ is:
   columns: 3,
   align: (left, left, left),
   stroke: none,
-  $x$, $p_(11) space dots space p_(1 k)$, $italic("match")_1$,
+  $x$, $p_(11) space dots space p_(1 k)$, $varname("match")_1$,
   $dots$,$$,$$,
-  $x$, $p_(n 1) space dots space p_(n k)$, $italic("match")_n$
+  $x$, $p_(n 1) space dots space p_(n k)$, $varname("match")_n$
 )
 
-where each $p_(i j)$ is a pattern, and where each $italic("match")_i$ is of the general form:
+where each $p_(i j)$ is a pattern, and where each $varname("match")_i$ is of the general form:
 $
-  = e_i mono("where") { space italic("decls")_i space }
+  = e_i mono("where") { space nonterminal("decls")_i space }
 $
 or
 
@@ -1230,16 +1230,16 @@ or
   columns: 2,
   align: (left, left),
   stroke: none,
-  $| italic("gs")_(i 1)$, $= e_(i 1)$,
+  $| varname("gs")_(i 1)$, $= e_(i 1)$,
   $dots$, $$,
-  $| italic("gs")_(i m_i)$, $= e_(i m_i)$,
-  $$, $mono("where") { space italic("decls")_i space }$
+  $| varname("gs")_(i m_i)$, $= e_(i m_i)$,
+  $$, $mono("where") { space nonterminal("decls")_i space }$
 )
 
 and where $n >= 1$, $1 <= i <= n$, $m_i >= 1$.  The former is treated
 as shorthand for a particular case of the latter, namely:
 $
-  | mono("True") = e_i mono("where") { space italic("decls")_i space }
+  | mono("True") = e_i mono("where") { space nonterminal("decls")_i space }
 $
 
 Note that all clauses defining a function must be contiguous, and the
@@ -1259,7 +1259,7 @@ x `plus` y = \ z -> x+y+z
 Note that fixity resolution applies to the infix variants of the
 function binding in the same way as for expressions
 (@sec:fixity-resolution).  Applying fixity resolution to the
-left side of the equals in a function binding must leave the $italic("varop")$ being defined at the top level.  For example, if we are defining a new
+left side of the equals in a function binding must leave the $nonterminal("varop")$ being defined at the top level.  For example, if we are defining a new
 operator `##` with precedence 6, then this definition would be
 illegal:
 ```haskell
@@ -1275,9 +1275,9 @@ is not a valid pattern.
     columns: 2,
     align: (right, left),
     stroke: none,
-    $x = mono("\\") x_1 dots x_k mono("-> case") (x_1, dots, x_k) mono("of")$, $(p_(11), dots, p_(1 k)) space italic("match")_1$,
+    $x = mono("\\") x_1 dots x_k mono("-> case") (x_1, dots, x_k) mono("of")$, $(p_(11), dots, p_(1 k)) space varname("match")_1$,
     $$, $dots$,
-    $$, $(p_(n 1), dots, p_(n k)) space italic("match")_n$,
+    $$, $(p_(n 1), dots, p_(n k)) space varname("match")_n$,
   )
 
   where the $x_i$ are new identifiers.
@@ -1292,19 +1292,19 @@ matched "lazily" as an irrefutable pattern, as if there were an implicit `~` in 
 of it.  See the translation in
 Section @sec:let-expressions.
 
-The _general_ form of a pattern binding is $p italic("match")$, where a
-$italic("match")$ is the same structure as for function bindings above; in other
+The _general_ form of a pattern binding is $p varname("match")$, where a
+$varname("match")$ is the same structure as for function bindings above; in other
 words, a pattern binding is:
 
 #table(
   columns: 2,
   stroke: none,
   align: (right, left),
-  $p$, $| italic("gs")_1 = e_1$,
-  $$, $| italic("gs")_2 = e_2$,
+  $p$, $| varname("gs")_1 = e_1$,
+  $$, $| varname("gs")_2 = e_2$,
   $$, $dots$,
-  $$, $| italic("gs")_m = e_m$,
-  $$, $mono("where") { space italic("decls") space }$
+  $$, $| varname("gs")_m = e_m$,
+  $$, $mono("where") { space nonterminal("decls") space }$
 )
 
 
@@ -1314,12 +1314,12 @@ words, a pattern binding is:
     columns: 2,
     align: (right, left),
     stroke: none,
-    $p space =$, $mono("let") italic("decls") mono("in")$,
+    $p space =$, $mono("let") nonterminal("decls") mono("in")$,
     $$, $mono("case") () mono("of")$,
-    $$, $quad () | italic("gs")_1 -> e_1$,
-    $$, $quad quad | italic("gs")_2 -> e_2 $,
+    $$, $quad () | varname("gs")_1 -> e_1$,
+    $$, $quad quad | varname("gs")_2 -> e_2 $,
     $$, $quad quad quad dots$,
-    $$, $quad quad | italic("gs")_m -> e_m$,
+    $$, $quad quad | varname("gs")_m -> e_m$,
     $$, $mono("_") -> mono("error \"Unmatched pattern\"")$
   )
 ]
@@ -1477,10 +1477,10 @@ for it to be
 ```haskell
   (g True, g 'c')
 ```
-In general, a type $forall safeoverline(u).italic("cx") => t$
+In general, a type $forall safeoverline(u).varname("cx") => t$
 is said to be _monomorphic_
 in the type variable $a$ if $a$ is free in
-$forall safeoverline(u).italic("cx") => t$.
+$forall safeoverline(u).varname("cx") => t$.
 
 It is worth noting that the explicit type signatures provided by Haskell
 are not powerful enough to express types that include monomorphic type
