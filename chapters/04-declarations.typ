@@ -894,7 +894,7 @@ programmer from the need to define them.
 
 The only classes for which derived instances are allowed are
 `Eq`, `Ord`, `Enum`, `Bounded`, `Show`,
-and `Read` from the Prelude, and `Ix` from the standard library `Data.Ix`.
+and `Read` from the Prelude, and `Ix` from the module `Data.Ix` exposed by the standard library.
 The precise details of how the derived instances are generated for each of
 these classes are provided in @chapter:derived-instances, including
 a specification of when such derived instances are possible. 

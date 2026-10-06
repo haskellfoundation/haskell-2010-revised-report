@@ -4,8 +4,7 @@ A _derived instance_ is an instance declaration that is generated
 automatically in conjunction with a `data` or `newtype` declaration.
 The body of a derived instance declaration is derived syntactically from
 the definition of the associated type.  Derived instances are
-possible only for classes known to the compiler: those defined in
-either the Prelude or a standard library.
+possible only for classes known to the compiler: those exported by the Prelude or a module exposed by a standard library.
 Haskell supports the derivation of instances for the classes `Eq`, `Ord`, `Enum`, `Bounded`, `Show` and `Read` from the Prelude, and for the class `Ix` from the standard library `Data.Ix`.
 
 If $T$ is an algebraic datatype declared by:
