@@ -5,7 +5,7 @@ automatically in conjunction with a `data` or `newtype` declaration.
 The body of a derived instance declaration is derived syntactically from
 the definition of the associated type.  Derived instances are
 possible only for classes known to the compiler: those exported by the Prelude or a module exposed by a standard library.
-Haskell supports the derivation of instances for the classes `Eq`, `Ord`, `Enum`, `Bounded`, `Show` and `Read` from the Prelude, and for the class `Ix` from the standard library `Data.Ix`.
+Haskell supports the derivation of instances for the classes `Eq`, `Ord`, `Enum`, `Bounded`, `Show` and `Read` from the Prelude, and for the class `Ix` from the module  `Data.Ix` exposed by the standard library.
 
 If $T$ is an algebraic datatype declared by:
 
