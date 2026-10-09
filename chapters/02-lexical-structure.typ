@@ -181,6 +181,7 @@ in Haskell programs and should result in a lexing error.
   [#token("deriving")], [Reserved identifier], $terminal("deriving")$, [Opening, Closing],
   [#token("do")], [Reserved identifier], $terminal("do")$, [Opening, Closing],
   [#token("else")], [Reserved identifier], $terminal("else")$, [Opening, Closing],
+  [#token("forall")], [Reserved identifier], $terminal("forall")$, [Opening, Closing],
   [#token("foreign")], [Reserved identifier], $terminal("foreign")$, [Opening, Closing],
   [#token("if")], [Reserved identifier], $terminal("if")$, [Opening, Closing],
   [#token("import")], [Reserved identifier], $terminal("import")$, [Opening, Closing],
