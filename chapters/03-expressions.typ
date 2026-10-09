@@ -610,8 +610,7 @@ A _guard_ has one of the following forms:
 - _pattern guards_ are of the form $p mono("<-") e$, where
   $p$ is a
   pattern (see @sec:pattern-matching) of type $t$ and $e$ is an
-  expression type $t$#footnote[Note that the syntax of a pattern guard is the same as that of a generator in a list comprehension.
-  The contextual difference is that, in a list comprehension, a pattern of type $t$ goes with an expression of type $[t]$.].
+  expression type $t$.
   They succeed if the expression $e$ matches the pattern $p$, and introduce the bindings of the pattern to the environment.
 - _local bindings_ are of the form $mono("let") italic("decls")$.
   They always succeed, and they introduce the names defined in $italic("decls")$ to the environment.

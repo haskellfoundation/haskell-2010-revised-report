@@ -249,7 +249,7 @@ Lisp (and its modern-day incarnations Common Lisp and
 Scheme); Landin's ISWIM; APL; Backus's FP
 @Backus1978; ML and Standard ML; Hope and Hope⁺; Clean; Id; Gofer;
 Sisal; and Turner's series of languages culminating in 
-Miranda #footnote("Miranda is a trademark of Research Software Ltd."). Without these forerunners Haskell would not have
+Miranda. Without these forerunners Haskell would not have
 been possible.
 
 #context {if target() == "paged" {

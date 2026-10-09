@@ -71,8 +71,6 @@
   ]
 ]
 
-#show footnote: none
-
 //
 // CONTENT
 //
