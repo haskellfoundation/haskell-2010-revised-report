@@ -24,3 +24,8 @@ The definitions of the nonterminals $nonterminal("decimal")$ and $nonterminal("h
 
 The datatype contexts have been removed from the standard libraries. Note that
 datatype contexts themselves are not removed from the language.
+
+#heading(level: 3, numbering: none)[Remove mutually recursive modules]
+
+The requirement to support mutually recursive module imports has been lifted:
+Implementations are only required to support acyclic module import graphs.

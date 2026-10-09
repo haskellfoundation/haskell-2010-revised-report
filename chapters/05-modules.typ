@@ -20,7 +20,7 @@ which must be a computation of type $mono("IO") tau$ for some type $tau$
 Modules may reference other modules via explicit
 `import` declarations, each giving the name of a module to be
 imported and specifying its entities to be imported.
-Modules may be mutually recursive.
+Implementations are only required to support acyclic module import graphs.
 
 Modules are used for name-space control, and are not first class values.
 A multi-module Haskell program can be converted into a single-module
@@ -53,9 +53,6 @@ af = ...
 
 bf = ...
 ```
-Because they are allowed to be mutually recursive,
-modules allow a program to be partitioned freely without regard to
-dependencies.
 
 A module name (lexeme $italic("modid")$) is a sequence of one or more
 identifiers beginning with capital letters, separated by dots, with no
@@ -219,9 +216,7 @@ import qualified C(f,g)
 g = f True
 ```
 There are no name clashes within module `A` itself, 
-but there are name clashes in the export list between `C.g` and `g`
-(assuming `C.g` and `g` are different entities -- remember, modules
-can import each other recursively), and between `module B` and `C.f`
+but there are name clashes in the export list between `C.g` and `g`, and between `module B` and `C.f`
 (assuming `B.f` and `C.f` are different entities).
 
 == Import Declarations <sec:import>
@@ -647,16 +642,6 @@ to `++` imported from `MyPrelude`.
 
 It is not possible, however, to hide `instance` declarations in the
 `Prelude`.  For example, one cannot define a new instance for `Show Char`.
-
-== Separate Compilation
-
-Depending on the Haskell implementation used, separate compilation
-of mutually recursive modules may require that imported modules contain
-additional information so that they may be referenced before they are
-compiled.  Explicit type signatures for all exported values may be
-necessary to deal with mutual recursion.  The
-precise details of separate compilation are not defined by this
-report. 
 
 == Abstract Datatypes <sec:abstract-types>
 
