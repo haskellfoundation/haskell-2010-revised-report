@@ -260,6 +260,7 @@ instance  (Ix a, Ix b)  => Ix (a,b) where
 ```
 
 Instances for other tuples are obtained from this scheme:
+```haskell
 --  instance  (Ix a1, Ix a2, ... , Ix ak) => Ix (a1,a2,...,ak)  where
 --      range ((l1,l2,...,lk),(u1,u2,...,uk)) =
 --          [(i1,i2,...,ik) | i1 <- range (l1,u1),
