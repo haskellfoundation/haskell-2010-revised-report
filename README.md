@@ -8,6 +8,7 @@ Both the HTML and the PDF version of the latest draft are available:
 
 The library report is available through the generated Haddock documentation:
 - For the HTML version: [haskell.foundation/haskell-2010-revised-report/stdlib/](https://haskell.foundation/haskell-2010-revised-report/stdlib/)
+- For the PDF version: [haskell.foundation/haskell-2010-revised-report/library-report.pdf](https://haskell.foundation/haskell-2010-revised-report/library-report.pdf)
 
 Note that the layout of both versions is not final, and that presentation of the HTML version in particular has not been optimized yet.
 
