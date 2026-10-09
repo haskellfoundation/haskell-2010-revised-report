@@ -4,7 +4,7 @@ A _derived instance_ is an instance declaration that is generated
 automatically in conjunction with a `data` or `newtype` declaration.
 The body of a derived instance declaration is derived syntactically from
 the definition of the associated type.  Derived instances are
-possible only for classes known to the compiler: those exported by the Prelude or a module exposed by a standard library.
+possible only for classes known to the compiler.
 Haskell supports the derivation of instances for the classes `Eq`, `Ord`, `Enum`, `Bounded`, `Show` and `Read` from the Prelude, and for the class `Ix` from the module  `Data.Ix` exposed by the standard library.
 
 If $T$ is an algebraic datatype declared by:
@@ -259,9 +259,7 @@ instance  (Ix a, Ix b)  => Ix (a,b) where
                 = inRange (l,u) i && inRange (l',u') i'
 ```
 
-```haskell
--- Instances for other tuples are obtained from this scheme:
---
+Instances for other tuples are obtained from this scheme:
 --  instance  (Ix a1, Ix a2, ... , Ix ak) => Ix (a1,a2,...,ak)  where
 --      range ((l1,l2,...,lk),(u1,u2,...,uk)) =
 --          [(i1,i2,...,ik) | i1 <- range (l1,u1),
