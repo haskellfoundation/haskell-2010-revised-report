@@ -42,7 +42,8 @@ jobs:
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v4
         with:
-          root_file: stdlib/latex/main.tex
+          working_directory: stdlib/latex
+          root_file: main.tex
       - run: cp stdlib/latex/main.pdf _site/library-report.pdf
 
       # Upload _site
