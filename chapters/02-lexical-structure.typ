@@ -51,11 +51,6 @@ Haskell compilers are expected to make use of new versions of Unicode as they ar
   columns: 3,
   align: (left, center, left),
   stroke: none,
-  // program
-  $italic("program")$, $->$, ${ med nonterminal("lexeme") | nonterminal("whitespace") med }$,
-  // lexeme
-  $italic("lexeme")$, $->$, $nonterminal("qvarid") | nonterminal("qconid") | nonterminal("qvarsym") | nonterminal("qconsym")$,
-  [], $|$, $nonterminal("literal") | nonterminal("special") | nonterminal("reservedop") | nonterminal("reservedid")$,
   // literal
   $italic("literal")$, $->$, $nonterminal("integer") | nonterminal("float") | nonterminal("char") | nonterminal("string")$,
   // special
@@ -133,7 +128,7 @@ Haskell compilers are expected to make use of new versions of Unicode as they ar
 
 Lexical analysis should use the ``maximal munch'' rule:
 at each point, the longest possible lexeme
-satisfying the $nonterminal("lexeme")$ production is read.
+satisfying the $mono("lexeme")$ production is read.
 So, although `case` is a reserved word, `cases` is not.
 Similarly, although `=` is reserved, `==` and `~=` are not.
 
@@ -141,6 +136,70 @@ Any kind of $nonterminal("whitespace")$ is also a proper delimiter for lexemes.
 
 Characters not in the category $nonterminal("ANY")$ are not valid
 in Haskell programs and should result in a lexing error.
+
+== Tokens <sec:tokens>
+
+#table(
+  columns: 4,
+  stroke: none,
+  align: (left, left, left, left),
+  table.hline(),
+  table.header([Token], [Category], [Definition],[Properties]),
+  table.hline(),
+  [#token("qvarid")],[Identifier],$nonterminal("qvarid")$,[Opening, Closing],
+  [#token("qconid")],[Identifier],$nonterminal("qconid")$,[Opening, Closing],
+  [#token("qvarsym")],[Identifier],$nonterminal("qvarsym")$,[Opening, Closing],
+  [#token("qconsym")],[Identifier],$nonterminal("qconsym")$,[Opening, Closing],
+  [#token("integer")],[Literal],$nonterminal("integer")$,[Opening, Closing],
+  [#token("float")],[Literal],$nonterminal("float")$,[Opening, Closing],
+  [#token("char")],[Literal],$nonterminal("char")$,[Opening, Closing],
+  [#token("string")],[Literal],$nonterminal("string")$,[Opening, Closing],
+  [#token("(")],[Special],$terminal("(")$,[Opening],
+  [#token(")")],[Special],$terminal(")")$,[Closing],
+  [#token(",")],[Special],$terminal(",")$,[],
+  [#token(";")],[Special],$terminal(";")$,[],
+  [#token("[")],[Special],$terminal("[")$,[Opening],
+  [#token("]")],[Special],$terminal("]")$,[Closing],
+  [#token("`")],[Special],$terminal("`")$,[],
+  [#token("{")],[Special],$terminal("{")$,[Opening],
+  [#token("}")],[Special],$terminal("}")$,[Closing],
+  [#token("..")], [Reserved operator], $terminal("..")$,[],
+  [#token(":")], [Reserved operator], $terminal(":")$,[],
+  [#token("::")], [Reserved operator], $terminal("::")$,[],
+  [#token("=")], [Reserved operator], $terminal("=")$,[],
+  [#token("\\")], [Reserved operator], $terminal("\\")$,[],
+  [#token("|")], [Reserved operator], $terminal("|")$,[],
+  [#token("<-")], [Reserved operator], $terminal("<-")$,[],
+  [#token("->")], [Reserved operator], $terminal("->")$,[],
+  [#token("@")], [Reserved operator], $terminal("@")$,[],
+  [#token("~")], [Reserved operator], $terminal("~")$,[],
+  [#token("=>")], [Reserved operator], $terminal("=>")$,[],
+  [#token("case")], [Reserved identifier], $terminal("case")$, [Opening, Closing],
+  [#token("class")], [Reserved identifier], $terminal("class")$, [Opening, Closing],
+  [#token("data")], [Reserved identifier], $terminal("data")$, [Opening, Closing],
+  [#token("default")], [Reserved identifier], $terminal("default")$, [Opening, Closing],
+  [#token("deriving")], [Reserved identifier], $terminal("deriving")$, [Opening, Closing],
+  [#token("do")], [Reserved identifier], $terminal("do")$, [Opening, Closing],
+  [#token("else")], [Reserved identifier], $terminal("else")$, [Opening, Closing],
+  [#token("forall")], [Reserved identifier], $terminal("forall")$, [Opening, Closing],
+  [#token("foreign")], [Reserved identifier], $terminal("foreign")$, [Opening, Closing],
+  [#token("if")], [Reserved identifier], $terminal("if")$, [Opening, Closing],
+  [#token("import")], [Reserved identifier], $terminal("import")$, [Opening, Closing],
+  [#token("in")], [Reserved identifier], $terminal("in")$, [Opening, Closing],
+  [#token("infix")], [Reserved identifier], $terminal("infix")$, [Opening, Closing],
+  [#token("infixl")], [Reserved identifier], $terminal("infixl")$, [Opening, Closing],
+  [#token("infixr")], [Reserved identifier], $terminal("infixr")$, [Opening, Closing],
+  [#token("instance")], [Reserved identifier], $terminal("instance")$, [Opening, Closing],
+  [#token("let")], [Reserved identifier], $terminal("let")$, [Opening, Closing],
+  [#token("module")], [Reserved identifier], $terminal("module")$, [Opening, Closing],
+  [#token("newtype")], [Reserved identifier], $terminal("newtype")$, [Opening, Closing],
+  [#token("of")], [Reserved identifier], $terminal("of")$, [Opening, Closing],
+  [#token("then")], [Reserved identifier], $terminal("then")$, [Opening, Closing],
+  [#token("type")], [Reserved identifier], $terminal("type")$, [Opening, Closing],
+  [#token("where")], [Reserved identifier], $terminal("where")$, [Opening, Closing],
+  [#token("_")], [Reserved identifier], $terminal("_")$, [Opening, Closing],
+  
+)
 
 == Comments
 
