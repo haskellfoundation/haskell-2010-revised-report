@@ -26,11 +26,12 @@ Modules are used for name-space control, and are not first class values.
 A multi-module Haskell program can be converted into a single-module
 program by giving each entity a unique name, changing all occurrences
 to refer to the appropriate unique name, and then concatenating all the module
-bodies#footnote[There are two minor exceptions to this statement.
+bodies.
+There are two minor exceptions to this statement.
 First, `default` declarations scope over a single module (@sec:default-decls).
 Second, Rule 2 of the monomorphism restriction (@sec:monomorphism-restriction)
 is affected by module boundaries.
-].  
+
 For example, here is a three-module program:
 ```haskell
 module Main where
