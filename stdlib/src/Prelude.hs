@@ -1,21 +1,26 @@
 -- |
 -- Module: Prelude
 module Prelude
-  ( module PreludeList,
-    module PreludeText,
-    module PreludeIO,
+  ( -- * Standard types, classes and related functions
+    -- ** Basic data types
     Bool (False, True),
+    (&&),
+    (||),
+    not,
+    otherwise,
     Maybe (Nothing, Just),
+    maybe,
     Either (Left, Right),
+    either,
     Ordering (LT, EQ, GT),
     Char,
     String,
-    Int,
-    Integer,
-    Float,
-    Double,
-    Rational,
-    IO,
+    -- *** Tuples
+    fst,
+    snd,
+    curry,
+    uncurry,
+    -- ** Basic type classes
     Eq ((==), (/=)),
     Ord (compare, (<), (<=), (>=), (>), max, min),
     Enum
@@ -29,6 +34,14 @@ module Prelude
         enumFromThenTo
       ),
     Bounded (minBound, maxBound),
+    -- ** Numbers
+    -- *** Numeric types
+    Int,
+    Integer,
+    Float,
+    Double,
+    Rational,
+    -- *** Numeric type classes
     Num ((+), (-), (*), negate, abs, signum, fromInteger),
     Real (toRational),
     Integral (quot, rem, div, mod, quotRem, divMod, toInteger),
@@ -70,19 +83,7 @@ module Prelude
         isNegativeZero,
         atan2
       ),
-    Monad ((>>=), (>>), return, fail),
-    Functor (fmap),
-    mapM,
-    mapM_,
-    sequence,
-    sequence_,
-    (=<<),
-    maybe,
-    either,
-    (&&),
-    (||),
-    not,
-    otherwise,
+    -- *** Numeric functions
     subtract,
     even,
     odd,
@@ -92,10 +93,15 @@ module Prelude
     (^^),
     fromIntegral,
     realToFrac,
-    fst,
-    snd,
-    curry,
-    uncurry,
+    -- ** Monads and functors
+    Functor (fmap),
+    Monad ((>>=), (>>), return, fail),
+    mapM,
+    mapM_,
+    sequence,
+    sequence_,
+    (=<<),
+    -- ** Miscellaneous functions
     id,
     const,
     (.),
@@ -107,6 +113,100 @@ module Prelude
     undefined,
     seq,
     ($!),
+    -- * List operations
+    map,
+    (++),
+    filter,
+    concat,
+    concatMap,
+    head,
+    last,
+    tail,
+    init,
+    null,
+    length,
+    (!!),
+    foldl,
+    foldl1,
+    scanl,
+    scanl1,
+    foldr,
+    foldr1,
+    scanr,
+    scanr1,
+    iterate,
+    repeat,
+    replicate,
+    cycle,
+    take,
+    drop,
+    splitAt,
+    takeWhile,
+    dropWhile,
+    span,
+    break,
+    lines,
+    words,
+    unlines,
+    unwords,
+    reverse,
+    and,
+    or,
+    any,
+    all,
+    elem,
+    notElem,
+    lookup,
+    sum,
+    product,
+    maximum,
+    minimum,
+    zip,
+    zip3,
+    zipWith,
+    zipWith3,
+    unzip,
+    unzip3,
+    -- * Converting to and from String
+    -- ** Converting to String
+    ShowS,
+    Show (showsPrec, show, showList),
+    shows,
+    showChar,
+    showString,
+    showParen,
+    -- ** Converting from String
+    ReadS,
+    Read (readsPrec, readList),
+    reads,
+    readParen,
+    read,
+    lex,
+    -- * Basic Input and output
+    IO,
+    -- ** Simple I/O operations
+    -- *** Output functions
+    putChar,
+    putStr,
+    putStrLn,
+    print,
+    -- *** Input functions
+    getChar,
+    getLine,
+    getContents,
+    interact,
+    -- *** Files
+    FilePath,
+    readFile,
+    writeFile,
+    appendFile,
+    readIO,
+    readLn,
+    -- ** Exception handling in the I/O monad
+    IOError,
+    ioError,
+    userError,
+    catch,
   )
 where
 
@@ -118,17 +218,18 @@ import Data.Enum
 import Data.Eq
 import Data.Function
 import Data.Int
+import Data.List
 import Data.Maybe
 import Data.Ord
 import Data.Ratio (Rational)
 import Data.String
 import Data.Tuple
 import NumHierarchy
-import PreludeIO
-import PreludeList
-import PreludeText
 import Prim
 import System.IO
+import System.IO.Error
+import Text.Read
+import Text.Show
 
 -- Standard types, classes, instances and related functions
 
