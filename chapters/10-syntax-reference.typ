@@ -459,7 +459,7 @@ these two styles in the same file.
   // export
   $nonterminaldef("export")$, $->$, $nonterminal("qvar")$, $$,
   $$, $|$, $nonterminal("qtycon") [ terminal("(..)") | terminal("(") nonterminal("cname")_1 terminal(",") dots terminal(",") nonterminal("cname")_n terminal(")")]$, $(n >= 0)$,
-  $$, $|$, $nonterminal("qtycls") [ terminal("(..)") | terminal("(") nonterminal("var")_1 terminal(",") dots terminal(",") nonterminal("var")_n terminal(")")]$, $(n >= 0)$,
+  $$, $|$, $nonterminal("qtycls") [ terminal("(..)") | terminal("(") nonterminal("qvar")_1 terminal(",") dots terminal(",") nonterminal("qvar")_n terminal(")")]$, $(n >= 0)$,
   $$, $|$, $terminal("module") nonterminal("modid")$, $$,
   // impdecl
   $nonterminaldef("impdecl")$, $->$, $terminal("import") [terminal("qualified")] nonterminal("modid") [terminal("as") nonterminal("modid")] [nonterminal("impspec")]$, $$,
