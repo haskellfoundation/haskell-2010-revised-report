@@ -1,74 +1,531 @@
+/*
+ * Stylesheet for the HTML version of the Haskell 2010 Revised Report.
+ *
+ * The markup is produced by Typst's HTML export, so most elements carry no
+ * classes. The page template in haskell-2010-revised-html.typ adds the
+ * classes used for the page chrome (header, sidebar, navigation).
+ */
+
+/* Fonts */
+
 @font-face {
-  font-display:swap;
-  font-family:"Source Sans 3";
-  font-style:normal;
-  font-weight:400;
-  src:url("fonts/source-sans-3-v9-latin-regular.woff2") format("woff2")
+  font-display: swap;
+  font-family: "Source Sans 3";
+  font-style: normal;
+  font-weight: 400;
+  src: url("fonts/source-sans-3-v9-latin-regular.woff2") format("woff2");
 }
 @font-face {
-  font-display:swap;
-  font-family:"Ubuntu Mono";
-  font-style:normal;
-  font-weight:400;
-  src:url("fonts/ubuntu-mono-v15-latin-regular.woff2") format("woff2")
+  font-display: swap;
+  font-family: "Ubuntu Mono";
+  font-style: normal;
+  font-weight: 400;
+  src: url("fonts/ubuntu-mono-v15-latin-regular.woff2") format("woff2");
 }
 @font-face {
-  font-display:swap;
-  font-family:"Raleway";
-  font-style:normal;
-  font-weight:700;
-  src:url("fonts/raleway-v28-latin-700.woff2") format("woff2")
+  font-display: swap;
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 700;
+  src: url("fonts/raleway-v28-latin-700.woff2") format("woff2");
 }
 @font-face {
-  font-display:swap;
-  font-family:"Raleway";
-  font-style:normal;
-  font-weight:900;
-  src:url("fonts/raleway-v28-latin-900.woff2") format("woff2")
+  font-display: swap;
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 900;
+  src: url("fonts/raleway-v28-latin-900.woff2") format("woff2");
 }
 
-a:link, a:visited {
-    color:#9E358F;
+/* Design tokens */
+
+:root {
+  --font-body: "Source Sans 3", Helvetica, Arial, sans-serif;
+  --font-heading: "Raleway", Helvetica, Arial, sans-serif;
+  --font-mono: "Ubuntu Mono", ui-monospace, monospace;
+
+  --color-text: #2d2a32;
+  --color-muted: #6b6574;
+  --color-bg: #ffffff;
+  --color-accent: #9e358f;
+  --color-accent-dark: #453a62;
+  --color-rule: #e4dfe8;
+  --color-surface: #f7f5f9;
+  --color-draft: #a00000;
+  --color-draft-bg: #fdf0f0;
+
+  --content-width: 48rem;
+  --sidebar-width: 16rem;
+  --header-height: 3.25rem;
+
+  color-scheme: light;
+}
+
+/* Base */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-padding-top: calc(var(--header-height) + 1rem);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
-  font-family:"Source Sans 3",Helvetica,Arial,sans-serif;
-  font-size:16px;
-  line-height:1.428571429;
-  color:#333333;
-  background-color:#fff
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: var(--color-bg);
 }
 
-h1,
-h2 {
-  font-family:"Raleway",Helvetica,Arial,sans-serif
+a:link,
+a:visited {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+a:hover,
+a:focus-visible {
+  text-decoration: underline;
 }
 
-pre,
-code {
-  font-family:'Ubuntu Mono',monospace
+/* Links to nonterminals inside grammar rules should not look like prose links */
+math a:link,
+math a:visited {
+  color: inherit;
 }
 
-.main {
-    width: 800px;
-    margin: 20px;
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--color-accent-dark);
 }
 
-.translation-box {
-    border-style: solid;
-    border-width: 2pt;
-    border-color: black;
-    padding: 5px;
-    margin: 5px;
+/* Typst maps level-1 headings (chapters) to <h2>, level-2 to <h3>, etc. */
+.main h2 {
+  font-size: 2.1rem;
+  margin: 0 0 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--color-rule);
+}
+.main h3 {
+  font-size: 1.5rem;
+  margin: 2.75rem 0 1rem;
+}
+.main h4 {
+  font-size: 1.2rem;
+  margin: 2.25rem 0 0.75rem;
+}
+.main h5 {
+  font-size: 1.05rem;
+  margin: 1.75rem 0 0.5rem;
+}
+
+p {
+  margin: 0 0 1rem;
+}
+
+strong {
+  font-weight: 700;
+}
+
+/* Code */
+
+code,
+pre {
+  font-family: var(--font-mono);
+  /* Ubuntu Mono runs small next to Source Sans */
+  font-size: 1.08em;
+}
+
+:not(pre) > code {
+  padding: 0.05em 0.25em;
+  border-radius: 3px;
+  background-color: var(--color-surface);
+}
+
+pre {
+  margin: 1.25rem 0;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  line-height: 1.4;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-rule);
+  border-radius: 4px;
+}
+
+pre code {
+  font-size: inherit;
+}
+
+/* Math */
+
+math {
+  font-size: 1.05em;
+}
+
+math[display="block"] {
+  margin: 1rem 0;
+  overflow-x: auto;
+}
+
+/* Grammar productions: tables without a header row */
+
+table:not(:has(thead)) {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 1.25rem 0;
+  padding: 0.5rem 0.75rem;
+  border-collapse: collapse;
+  border-left: 3px solid var(--color-rule);
+  background-color: var(--color-surface);
+}
+
+table:not(:has(thead)) td {
+  padding: 0.15rem 0.4rem;
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+
+table:not(:has(thead)) td:nth-child(2) {
+  text-align: center;
+}
+
+/* The comment column, e.g. "(lambda abstraction)" */
+table:not(:has(thead)) td:nth-child(4) {
+  padding-left: 1.5rem;
+  color: var(--color-muted);
+  font-size: 0.95em;
+}
+
+/* Data tables: tables with a header row */
+
+table:has(thead) {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 1.25rem 0;
+  border-collapse: collapse;
+}
+
+table:has(thead) th,
+table:has(thead) td {
+  padding: 0.4rem 0.9rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--color-rule);
+}
+
+table:has(thead) th {
+  font-weight: 700;
+  border-bottom: 2px solid var(--color-accent-dark);
+}
+
+table:has(thead) tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Figures */
+
+figure {
+  margin: 1.75rem 0;
+}
+
+figure > table:has(thead),
+figure > pre {
+  margin: 0;
+}
+
+figure > svg {
+  max-width: 100%;
+  height: auto !important;
+  margin: 0 auto;
+}
+
+figcaption {
+  margin-top: 0.6rem;
+  text-align: center;
+  font-size: 0.95em;
+  color: var(--color-muted);
+}
+
+/* Boxes */
+
+.translation-box,
+.monomorphism-box {
+  margin: 1.5rem 0;
+  padding: 0.85rem 1.1rem;
+  border-left: 4px solid var(--color-accent);
+  border-radius: 0 4px 4px 0;
+  background-color: var(--color-surface);
 }
 
 .monomorphism-box {
-    border-style: solid;
-    border-width: 2pt;
-    border-color: black;
-    padding: 5px;
-    margin: 5px;
+  border-left-color: var(--color-accent-dark);
 }
+
+.translation-box > :last-child,
+.monomorphism-box > :last-child {
+  margin-bottom: 0;
+}
+
+.center-box {
+  margin: 1.25rem 0;
+}
+
+blockquote {
+  margin: 1.25rem 0;
+  padding: 0.25rem 1.25rem;
+  border-left: 3px solid var(--color-rule);
+  color: var(--color-muted);
+}
+
+/* Lists */
+
+ul,
+ol {
+  padding-left: 1.75rem;
+}
+
+li {
+  margin: 0.2rem 0;
+}
+
+dl {
+  margin: 1rem 0;
+}
+
+dt {
+  font-weight: 700;
+}
+
+dd {
+  margin: 0 0 0.75rem 1.75rem;
+}
+
+/* Bibliography */
+
+section[role="doc-bibliography"] ul {
+  padding-left: 0;
+}
+
+section[role="doc-bibliography"] li {
+  margin: 0 0 0.75rem;
+  padding-left: 2.5rem;
+  text-indent: -2.5rem;
+}
+
+section[role="doc-bibliography"] .prefix {
+  display: inline-block;
+  min-width: 2.5rem;
+  text-indent: 0;
+}
+
+/* Page chrome: header */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: var(--color-accent-dark);
+  color: #ffffff;
+}
+
+.site-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: var(--header-height);
+  max-width: calc(var(--sidebar-width) + var(--content-width) + 6rem);
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.site-header a:link,
+.site-header a:visited {
+  color: #ffffff;
+}
+
+.site-title {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 1.15rem;
+  white-space: nowrap;
+}
+
+.site-subtitle {
+  font-weight: 700;
+  opacity: 0.8;
+}
+
+.site-links {
+  display: flex;
+  gap: 1.25rem;
+  font-size: 0.95rem;
+}
+
+/* Page chrome: draft notice */
+
+.draft-banner {
+  padding: 0.5rem 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--color-draft);
+  background-color: var(--color-draft-bg);
+  border-bottom: 1px solid #f0caca;
+}
+
+.draft-banner strong {
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+/* Page chrome: layout */
+
+.layout {
+  display: grid;
+  grid-template-columns: var(--sidebar-width) minmax(0, var(--content-width));
+  justify-content: center;
+  gap: 3rem;
+  padding: 2rem 1rem 4rem;
+}
+
+.toc-page .layout {
+  grid-template-columns: minmax(0, var(--content-width));
+}
+
+.main {
+  min-width: 0;
+}
+
+/* Page chrome: sidebar with the list of chapters */
+
+.sidebar {
+  position: sticky;
+  top: calc(var(--header-height) + 1.5rem);
+  align-self: start;
+  max-height: calc(100vh - var(--header-height) - 3rem);
+  overflow-y: auto;
+  font-size: 0.9rem;
+  line-height: 1.35;
+}
+
+.sidebar ol {
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar li {
+  margin: 0;
+}
+
+.sidebar a {
+  display: block;
+  padding: 0.3rem 0.75rem;
+  border-left: 2px solid var(--color-rule);
+}
+
+.sidebar a:link,
+.sidebar a:visited {
+  color: var(--color-muted);
+}
+
+.sidebar a:hover {
+  color: var(--color-accent);
+  text-decoration: none;
+  border-left-color: var(--color-accent);
+}
+
+/* Links to the current page are bare fragments in Typst's output */
+.sidebar a[href^="#"]:link,
+.sidebar a[href^="#"]:visited {
+  font-weight: 700;
+  color: var(--color-accent);
+  border-left-color: var(--color-accent);
+}
+
+.sidebar .prefix,
+nav[role="doc-toc"] .prefix {
+  display: inline-block;
+  min-width: 1.75em;
+  margin-right: 0.35em;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.toc-page nav[role="doc-toc"] ol ol .prefix {
+  min-width: 3em;
+}
+
+/* Page chrome: previous / next navigation */
+
+.page-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.page-nav-next {
+  margin-left: auto;
+  text-align: right;
+}
+
+.page-nav a {
+  display: flex;
+  flex-direction: column;
+}
+
+.page-nav-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-muted);
+}
+
+.page-nav-top {
+  margin-bottom: 1.75rem;
+  font-size: 0.95rem;
+}
+
+.page-nav-top .page-nav-label {
+  font-size: 0.75rem;
+}
+
+.page-nav-bottom {
+  margin-top: 3.5rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid var(--color-rule);
+}
+
+.page-nav-bottom > div {
+  flex: 1 1 0;
+  max-width: 50%;
+}
+
+.page-nav-bottom a {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-rule);
+  border-radius: 4px;
+}
+
+.page-nav-bottom a:hover {
+  text-decoration: none;
+  border-color: var(--color-accent);
+}
+
+.page-nav-bottom .page-nav-title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+}
+
+/* Grammars */
 
 
 .terminal {
@@ -83,4 +540,108 @@ code {
 
 .varname {
     font-style: italic;
+}
+
+/* Contents page */
+
+.cover {
+  margin: 1rem 0 3rem;
+  text-align: center;
+}
+
+.cover h1 {
+  margin: 0;
+  font-size: 3rem;
+  font-weight: 900;
+}
+
+.cover-subtitle {
+  margin: 0.25rem 0 1rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--color-accent);
+}
+
+.cover-editor {
+  color: var(--color-muted);
+}
+
+.toc-page nav[role="doc-toc"] ol {
+  padding-left: 1.75rem;
+}
+
+.toc-page nav[role="doc-toc"] > ol {
+  padding-left: 0;
+}
+
+.toc-page nav[role="doc-toc"] > ol > li {
+  margin-bottom: 1rem;
+}
+
+.toc-page nav[role="doc-toc"] > ol > li > div,
+.toc-page nav[role="doc-toc"] > ol > li > a {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.toc-page nav[role="doc-toc"] .prefix {
+  color: var(--color-muted);
+}
+
+/* Small screens: drop the sidebar, the header links remain */
+
+@media (max-width: 64rem) {
+  .layout {
+    grid-template-columns: minmax(0, var(--content-width));
+    gap: 0;
+    padding-top: 1.25rem;
+  }
+
+  .sidebar {
+    display: none;
+  }
+}
+
+@media (max-width: 40rem) {
+  body {
+    font-size: 1rem;
+  }
+
+  .site-subtitle {
+    display: none;
+  }
+
+  .main h2 {
+    font-size: 1.7rem;
+  }
+
+  .cover h1 {
+    font-size: 2.25rem;
+  }
+
+  .page-nav-top .page-nav-title {
+    display: none;
+  }
+}
+
+/* Printing */
+
+@media print {
+  .site-header,
+  .sidebar,
+  .page-nav {
+    display: none;
+  }
+
+  .layout {
+    display: block;
+    padding: 0;
+  }
+
+  pre,
+  table {
+    overflow: visible;
+  }
 }

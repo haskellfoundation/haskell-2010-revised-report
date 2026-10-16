@@ -37,37 +37,70 @@
 // The PDF report is marked as a draft on its titlepage.
 // But the HTML version has no draft mark.
 // So, add draft mark at the top of each page instead.
-#let draft-banner = html.elem(
-  "div",
-  attrs: (
-    style: "margin-bottom: 2em; padding: 0.5em 1em; border: 2px solid #a00; "
-      + "color: #a00; text-align: center;",
-  ),
-)[
-  #html.elem(
-    "div",
-    attrs: (style: "font-size: 1.5em; font-weight: bold; letter-spacing: 0.2em;"),
-  )[DRAFT]
-  #html.elem("div", attrs: (style: "font-size: 0.9em;"))[
-    This is a work in progress, not an official release of the Haskell 2010
-    Revised Language Report.
+#let draft-banner = html.div(class: "draft-banner")[
+  #html.strong[Draft] — This is a work in progress, not an official release
+  of the Haskell 2010 Revised Language Report.
+]
+
+#let site-header = html.header(class: "site-header")[
+  #html.div(class: "site-header-inner")[
+    #html.a(class: "site-title", href: "index.html")[
+      Haskell 2010 #html.span(class: "site-subtitle")[Revised Language Report]
+    ]
+    #html.nav(class: "site-links")[
+      #html.a(href: "index.html")[Contents]
+      #html.a(href: "haskell-2010-revised.pdf")[PDF]
+      #html.a(href: "stdlib/index.html")[Libraries]
+    ]
+  ]
+]
+
+// The title of the page that carries the given label.
+#let page-title(target) = context query(target).first().title
+
+// Links to the previous and next page. The `class` distinguishes the compact
+// navigation above the content from the larger one below it.
+#let page-nav(class: none, prev: none, next: none) = html.nav(class: "page-nav " + class)[
+  #html.div(class: "page-nav-prev")[
+    #if prev != none {
+      link(prev)[
+        #html.span(class: "page-nav-label")[← Previous]
+        #html.span(class: "page-nav-title")[#page-title(prev)]
+      ]
+    }
+  ]
+  #html.div(class: "page-nav-next")[
+    #if next != none {
+      link(next)[
+        #html.span(class: "page-nav-label")[Next →]
+        #html.span(class: "page-nav-title")[#page-title(next)]
+      ]
+    }
   ]
 ]
 
 #let report-page(path: none, title: none, toc: false, prev: none, next: none, body) = document(path, title: title)[
-  #html.html[
+  #html.html(lang: "en")[
     #html.head[
       #html.meta(charset: "utf-8")
-      #html.meta(name: "viewport", content: "width=device-width,  initial-scale=1")
+      #html.meta(name: "viewport", content: "width=device-width, initial-scale=1")
+      #html.title[#title – Haskell 2010 Revised Language Report]
       #html.link(rel: "stylesheet", href: "styles.css")
     ]
-    #html.body[
+    #html.body(class: if toc { "toc-page" } else { "chapter-page" })[
+      #site-header
       #draft-banner
-      #if not toc {
-         [#if prev != none {link(prev)[prev] } #link(<page:toc>)[Contents] #if next != none {link(next)[next]}]
-      }
-      #html.elem("div", attrs: (class: "main"))[
-        #body
+      #html.div(class: "layout")[
+        #if not toc {
+          html.aside(class: "sidebar")[
+            #outline(title: none, depth: 1)
+          ]
+        }
+        #html.main(class: "main")[
+          #if not toc { page-nav(class: "page-nav-top", prev: prev, next: next) }
+          #body
+          #if not toc { page-nav(class: "page-nav-bottom", prev: prev, next: next) }
+        ]
       ]
     ]
   ]
@@ -79,7 +112,12 @@
 
 #report-page(path: "index.html",
              toc: true,
-             title: [Home])[
+             title: [Contents])[
+  #html.div(class: "cover")[
+    #html.h1[Haskell 2010]
+    #html.p(class: "cover-subtitle")[Revised Language Report]
+    #html.p(class: "cover-editor")[Simon Marlow (editor)]
+  ]
   #outline()
 ]<page:toc>
 
