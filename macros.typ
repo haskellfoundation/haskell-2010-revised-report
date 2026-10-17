@@ -3,7 +3,11 @@
   text(fill: eastern, $mono(#x)$)
 }
 
-/// Typesetting nonterminal symbols in the gramma
+#let token(x) = {
+  box(stroke: black, inset: 4pt, radius: 3pt)[$mono(#x)$]
+}
+
+/// Typesetting nonterminal symbols in the grammar
 #let nonterminal(x) = {
   link(label(x))[#text(fill: maroon, $italic(#x)$)]
 }
