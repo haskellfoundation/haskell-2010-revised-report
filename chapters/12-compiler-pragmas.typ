@@ -1,3 +1,5 @@
+#import "../macros.typ" : *
+
 Some compiler implementations support compiler _pragmas_, which
 are used to give additional instructions or hints to the compiler, but
 which do not form part of the Haskell language proper and do not
@@ -15,8 +17,8 @@ syntax is `{-# #-}`.
 == Inlining
 
 $
-  italic("decl") &-> mono("{-# INLINE ") italic("qvars") mono("#-}") \
-  italic("decl") &-> mono("{-# NOINLINE ") italic("qvars") mono("#-}")
+  nonterminal("decl") &-> mono("{-# INLINE ") varname("qvar")dots mono("#-}") \
+  nonterminal("decl") &-> mono("{-# NOINLINE ") varname("qvar")dots mono("#-}")
 $
 
 
@@ -26,8 +28,8 @@ Compilers will often automatically inline simple expressions.  This may be preve
 == Specialization
 
 $
-  italic("decl") &-> mono("{-# SPECIALIZE ") italic("spec")_1, dots, italic("spec")_k mono("#-}") (k >= 1)\
-  italic("spec") &-> italic("vars") mono("::") italic("type")
+  nonterminal("decl") &-> mono("{-# SPECIALIZE ") nonterminal("spec")_1, dots, nonterminal("spec")_k mono("#-}") (k >= 1)\
+  nonterminaldef("spec") &-> nonterminal("vars") mono("::") nonterminal("type")
 $
 
 Specialization is used to avoid inefficiencies involved in dispatching
