@@ -8,7 +8,7 @@ the Prelude.
 Most functions are not described in detail here as they
 can easily be understood from their definitions as given in @chapter:standard-prelude.
 Other predefined types such as arrays, complex numbers, and rationals
-are defined in part:libraries[Part]
+are defined in the library report.
 
 == Standard Haskell Types <sec:standard-haskell-types>
 

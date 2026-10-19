@@ -10,28 +10,21 @@ The library report is available through the generated Haddock documentation:
 - For the HTML version: [haskell.foundation/haskell-2010-revised-report/stdlib/](https://haskell.foundation/haskell-2010-revised-report/stdlib/)
 - For the PDF version: [haskell.foundation/haskell-2010-revised-report/library-report.pdf](https://haskell.foundation/haskell-2010-revised-report/library-report.pdf)
 
-Note that the layout of both versions is not final, and that presentation of the HTML version in particular has not been optimized yet.
-
-## How to Build the PDF report
+## How to Build the Language Report
 
 In order to build the report you have to install Typst version `0.15` or later.
 Typst is available at [typst.app/](https://typst.app/).
 
-The `Makefile` contains a target to build the report, but the two following commands also work:
+The `Makefile` contains targets to build the report in pdf and html form, and to run Typst in file-watching mode for a faster iteration loop. The respective commands are:
 
 ```console
-> typst compile haskell-2010-revised.typ
+> make pdf
+> make html
+> make watch-pdf
+> make watch-html
 ```
-builds the report in pdf form.
 
-```console
-> typst watch haskell-2010-revised.typ
-```
-continuously watches for file changes and rebuilds the pdf on every change.
-
-## Building HTML
-
-The `Makefile` contains a html target, but the layout has not yet been optimized for HTML, and there are various bugs that have to be fixed.
+Building the report in PDF form creates the file `haskell-2010-revised-report.pdf`, and building the html version creates the directory `haskell-2010-revised-report-html` which contains an `index.html` file.
 
 ## Building the Standard Library Documentation
 

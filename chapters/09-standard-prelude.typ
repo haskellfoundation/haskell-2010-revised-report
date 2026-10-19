@@ -19,7 +19,7 @@ nor are these three modules available for import separately.
 Only the exports of module `Prelude` are significant.
 
 Some of these modules import Library modules, such as `Data.Char`, `Control.Monad`, `System.IO`,
-and `Numeric`.  These modules are described fully in part:libraries[Part]
+and `Numeric`.  These modules are described fully in the library report.
 These imports are not, of course, part of the specification
 of the `Prelude`.  That is, an implementation is free to import more, or less,
 of the Library modules, as it pleases.
