@@ -187,7 +187,7 @@ or `zipWith ($) fs xs`.
 == Standard Haskell Classes <sec:standard-haskell-classes>
 
 The standard classes include the hierarchy of numeric classes (@fig:numeric-classes),
-the Functor--Monad hierarchy (@fig:functor-monad-classes),
+the Monad hierarchy together Traversable hierarchy (@fig:functor-monad-classes),
 and miscellaneous classes `Show`, `Read` (@subsec:read-show) and `Bounded` (@subsec:bounded).
 
 
@@ -273,7 +273,7 @@ and miscellaneous classes `Show`, `Read` (@subsec:read-show) and `Bounded` (@sub
 )<fig:numeric-classes>
 
 #figure(
-  caption: "Haskell Classes of the Monadic Hierarchy",
+  caption: "Haskell Classes of the Monad and Traversable Hierarchies",
   drawing({
     import cetz.draw: *
       let draw_circ(pos, name) = {
@@ -295,12 +295,22 @@ and miscellaneous classes `Show`, `Read` (@subsec:read-show) and `Bounded` (@sub
       let monad_pos = (2.5,-12)
       draw_circ(monad_pos, "monadfail")
       content(monad_pos, [#set align(center);*MonadFail*\ IO,`[]`,Maybe])
+      // Foldable
+      let functor_pos = (2.5,0)
+      draw_circ(foldable_pos, "foldable")
+      content(foldable_pos, [#set align(center);*Foldable*\ `[]`,Maybe])
+      // Traversable
+      let functor_pos = (2.5,-4)
+      draw_circ(traversable_pos, "traversable")
+      content(traversable_pos, [#set align(center);*Traversable*\ `[]`,Maybe])
 
       // Superclasses
       set-style(mark: (end: ">", fill: black))
       line("functor", "applicative")
       line("applicative", "monad")
       line("monad", "monadfail")
+      line("foldable", "traversable")
+      line("functor", "traversable")
     }
   )
 )<fig:functor-monad-classes>
@@ -661,6 +671,58 @@ failure in a `do` expression.
 Instances for `IO`, lists and `Maybe` exist in Prelude: The `fail` method for
 lists returns the empty list `[]`, for `Maybe` returns `Nothing`, and for `IO`
 raises a user exception in the IO monad (see @sec:io-exceptions).
+
+=== The Foldable Class
+
+Foldable class describes types with list-like folding semantics, principially
+represented by the capability to be folded by `foldr`.
+Many helper functions are provided in the class to run the common operations on
+list-like objects, such as `sum` and `product`.
+Default behaviour of the helpers can be overridden with a specialized
+(typically more efficient) implementation.
+
+```haskell
+class  Foldable f where
+  foldr, foldr'  :: (a -> b -> b) -> b -> t a -> b
+  foldr1         :: (a -> a -> a) -> t a -> a
+
+  foldl, foldl'  :: (b -> a -> b) -> b -> t a -> b
+  foldl1         :: (a -> a -> a) -> t a -> a
+
+  fold               :: Monoid m => t m -> m
+  foldMap, foldMap'  :: Monoid m => (a -> m) -> t a -> m
+
+  toList    :: t a -> [a]
+  null      :: t a -> Bool
+  length    :: t a -> Int
+  elem      :: Eq a => a -> t a -> Bool
+
+  maximum, minimum  :: Ord a => t a -> a
+  sum, product      :: Num a => t a -> a
+```
+
+The defaults are provided so that minimal complete definition of instances is
+given by specifying either `foldMap` or `foldr`.
+
+Prelude provides Foldable instances for lists and `Maybe`.
+
+=== The Traversable class
+
+Traversable class describes Foldable Functors that may be processed "in order",
+with respect to some given Applicative or Monad semantics.
+
+```haskell
+class  (Functor t, Foldable t) => Traversable t where
+  traverse :: Applicative f => (a -> f b) -> t a -> f (t b)
+  sequenceA :: Applicative f => t (f a) -> f (t a)
+  mapM :: Monad m => (a -> m b) -> t a -> m (t b)
+  sequence :: Monad m => t (m a) -> m (t a)
+```
+
+Minimal complete definition of Traversable instances requires specification of
+either `sequenceA` or `traverse`.
+
+Prelude provides Traversable instances for `[]` and `Maybe`.
 
 === The Bounded Class <subsec:bounded>
 
