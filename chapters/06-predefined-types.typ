@@ -280,27 +280,27 @@ and miscellaneous classes `Show`, `Read` (@subsec:read-show) and `Bounded` (@sub
         circle(pos, radius: (60pt, 40pt), name: name)
       }
       // Functor
-      let functor_pos = (2.5,0)
+      let functor_pos = (0,0)
       draw_circ(functor_pos, "functor")
       content(functor_pos, [#set align(center);*Functor*\ IO,`[]`,Maybe])
       // Applicative
-      let functor_pos = (2.5,-4)
+      let functor_pos = (0,-4)
       draw_circ(functor_pos, "applicative")
       content(functor_pos, [#set align(center);*Applicative*\ IO,`[]`,Maybe])
       // Monad
-      let monad_pos = (2.5,-8)
+      let monad_pos = (0,-8)
       draw_circ(monad_pos, "monad")
       content(monad_pos, [#set align(center);*Monad*\ IO,`[]`,Maybe])
       // MonadFail
-      let monad_pos = (2.5,-12)
+      let monad_pos = (0,-12)
       draw_circ(monad_pos, "monadfail")
       content(monad_pos, [#set align(center);*MonadFail*\ IO,`[]`,Maybe])
       // Foldable
-      let functor_pos = (2.5,0)
+      let foldable_pos = (5,0)
       draw_circ(foldable_pos, "foldable")
       content(foldable_pos, [#set align(center);*Foldable*\ `[]`,Maybe])
       // Traversable
-      let functor_pos = (2.5,-4)
+      let traversable_pos = (5,-4)
       draw_circ(traversable_pos, "traversable")
       content(traversable_pos, [#set align(center);*Traversable*\ `[]`,Maybe])
 
