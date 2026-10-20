@@ -40,3 +40,7 @@ The information that Haskell allows to derive instances of the `Ix` class from t
 #heading(level: 3, numbering: none)[Updates to the Num typeclass]
 
 `Show` and `Eq` are no longer required as superclasses of `Num`.
+
+#heading(level: 3, numbering: none)[Updates to the Monad hierarchy of typeclasses]
+
+The report has adopted the Functor-Applicative-Monad-MonadFail hierarchy.
