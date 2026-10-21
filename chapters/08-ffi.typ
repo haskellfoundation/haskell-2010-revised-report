@@ -32,15 +32,15 @@ conjunction with argument and result types to resolve possible overloading.
 Regarding the second point, consider that many languages do not specify the
 exact representation of some basic types.  For example the type `int` in
 C may be 16, 32, or 64 bits wide.  Similarly, Haskell guarantees
-only that `Int` covers at least the range $[-2^(29), 2^(29) - 1]$ (@sec:numbers[Section]).  As
+only that `Int` covers at least the range $[-2^(29), 2^(29) - 1]$ (@sec:numbers).  As
 a consequence, to reliably represent values of C's `int` in Haskell, we
 have to introduce a new type `CInt`, which is guaranteed to match the
 representation of `int`.
 
 The specification of external names, dependent on a calling convention, is
-described in @sec:extent[Section], whereas the marshalling of the basic
+described in @sec:extent, whereas the marshalling of the basic
 types in dependence on a foreign language is described in
-@sec:marshalling[Section]
+@sec:marshalling.
 
 == Contexts
 
@@ -210,8 +210,7 @@ The following types constitute the set of _basic foreign types_:
   exported by the Haskell `Prelude` as well as
 - `Int8`, `Int16`, `Int32`, `Int64`, `Word8`,
   `Word16`, `Word32`, `Word64`, `Ptr a`, `FunPtr a`,
-  and `StablePtr a`, for any type `a`, as exported by `Foreign`
-  (Section~\ref{module:Foreign}).
+  and `StablePtr a`, for any type `a`, as exported by the module `Foreign` from the standard library.
 
 
 A Haskell system that implements the FFI needs to be able to pass these types
@@ -292,7 +291,7 @@ which declares the variable $v$ of type $t$ to be defined externally.
 Moreover, it specifies that $v$ is evaluated by executing the external entity
 identified by the string $e$ using calling convention $c$.  The precise form
 of $e$ depends on the calling convention and is detailed in
-@sec:extent[Section]
+@sec:extent.
 If a variable $v$ is defined by an import
 declaration, no other top-level declaration for $v$ is allowed in the same
 module.  For example, the declaration
@@ -300,7 +299,7 @@ module.  For example, the declaration
 foreign import ccall "string.h strlen"
    cstrlen :: Ptr CChar -> IO CSize
 ```
-introduces the function \mbox{\tt cstrlen}, which invokes the external function
+introduces the function `cstrlen`, which invokes the external function
 `strlen` using the standard C calling convention.  Some external entities
 can be imported as pure functions; for example,
 ```haskell
@@ -312,7 +311,7 @@ when applied to the same argument values, it always produces the same result.
 
 Whether a particular form of external entity places a constraint on the
 Haskell type with which it can be imported is defined in
-@sec:extent[Section]
+@sec:extent.
 Although, some forms of external entities restrict
 the set of Haskell types that are permissible, the system can generally not
 guarantee the consistency between the Haskell type given in an import
@@ -328,7 +327,7 @@ into the Haskell system.  If it does, the system behaviour is undefined.  The
 default for an invocation is to be `safe`.  Note that a callback into
 the Haskell system implies that a garbage collection might be triggered after
 an external entity was called, but before this call returns.  Consequently,
-objects other than stable pointers (cf.\ Section~\ref{module:Foreign.StablePtr}) may be
+objects other than stable pointers (cf. the module `Foreign.StablePtr` from the standard library) may be
 moved or garbage collected by the storage manager.
 
 === Export Declarations
@@ -452,8 +451,7 @@ C variable `bar` of integer type,
 foreign import ccall "&" bar :: Ptr CInt
 ```
 must be used to obtain a pointer referring to the variable.  The variable can
-be read and updated using the routines provided by the module `Foreign.Storable`
-(cf.\ Section~\ref{module:Foreign.Storable}).
+be read and updated using the routines provided by the module `Foreign.Storable` from the standard library.
 
 *Export Declarations*
 External entities in `ccall` export declarations are of the form
@@ -631,9 +629,9 @@ good reasons for doing the marshalling in Haskell:
 Consequently, the Haskell FFI emphasises Haskell-side marshalling.
 
 The interface to the marshalling libraries is provided by the module
-`Foreign` (Chapter~\ref{module:Foreign}) plus a language-dependent module per supported language.  In
+`Foreign` from the standard library plus a language-dependent module per supported language.  In
 particular, the standard requires the availability of the module
-`Foreign.C` (Chapter~\ref{module:Foreign.C}), which simplifies portable interfacing with external C code.
+`Foreign.C`, which simplifies portable interfacing with external C code.
 Language-dependent modules, such as `Foreign.C`, generally provide Haskell
 types representing the basic types of the foreign language using a
 representation that is compatible with the foreign types as implemented by the
@@ -791,7 +789,7 @@ be called with `NULL` for both `argc` and `argv`, signalling
 the absence of command line arguments.
 
 The function `hs_set_argv()` sets the values returned by the functions
-`getProgName` and `getArgs` of the module `System.Environment` (Section~\ref{module:System.Environment}).  This function may only be invoked after
+`getProgName` and `getArgs` of the module `System.Environment`. This function may only be invoked after
 `hs_init()`.  Moreover, if `hs_set_argv()` is called at all, this
 call must precede the first invocation of `getProgName` and
 `getArgs`.  Note that the separation of `hs_init()` and
