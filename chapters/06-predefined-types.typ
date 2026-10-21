@@ -627,7 +627,7 @@ $
   mono("m >>= (\x -> k x >>= h)") &= mono("(m >>= k) >>= h")
 $
 
-Instances of both `Monad` should relate to their `Functor` and `Applicative`
+Instances of `Monad` should relate to their `Functor` and `Applicative`
 superclass instances via following laws:
 $
   mono("fmap f xs") &= mono("xs >>= return . f") \
