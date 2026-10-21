@@ -617,6 +617,9 @@ See @chapter:basic-input-output for more information about monads.
 "`do`" expressions provide a convenient syntax for writing
 monadic expressions (see @sec:do-expressions).
 
+Specialized implementations of `return` should not change semantics from the
+default `pure`.
+
 In the Prelude, lists, `Maybe`, and `IO` are all instances of `Monad`.
 
 Instances of `Monad` should satisfy the following laws:
