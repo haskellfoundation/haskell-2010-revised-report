@@ -124,7 +124,7 @@ class (Applicative m) => Monad m where
   -- operators (such as the semicolon) in imperative languages.
   (>>) :: m a -> m b -> m b
 
-  -- | Inject a value into the monadic type.
+  -- | Inject a value into the monadic type (defaults to `pure`).
   return :: a -> m a
   return = pure
 
