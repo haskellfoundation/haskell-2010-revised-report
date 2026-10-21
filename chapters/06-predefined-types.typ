@@ -628,7 +628,7 @@ $
 $
 
 Instances of `Monad` should relate to their `Functor` and `Applicative`
-superclass instances via following laws:
+superclass instances via the following laws:
 $
   mono("fmap f xs") &= mono("xs >>= return . f") \
   mono("m1 <*> m2") &= mono("m1 >>= (\x1 -> m2 >>= (\x2 -> return (x1 x2)))") \
