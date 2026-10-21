@@ -283,10 +283,24 @@ and miscellaneous classes `Show`, `Read` (@subsec:read-show) and `Bounded` (@sub
       let functor_pos = (2.5,0)
       draw_circ(functor_pos, "functor")
       content(functor_pos, [#set align(center);*Functor*\ IO,`[]`,Maybe])
+      // Applicative
+      let functor_pos = (2.5,-4)
+      draw_circ(functor_pos, "applicative")
+      content(functor_pos, [#set align(center);*Applicative*\ IO,`[]`,Maybe])
       // Monad
-      let monad_pos = (2.5,-4)
+      let monad_pos = (2.5,-8)
       draw_circ(monad_pos, "monad")
       content(monad_pos, [#set align(center);*Monad*\ IO,`[]`,Maybe])
+      // MonadFail
+      let monad_pos = (2.5,-12)
+      draw_circ(monad_pos, "monadfail")
+      content(monad_pos, [#set align(center);*MonadFail*\ IO,`[]`,Maybe])
+
+      // Superclasses
+      set-style(mark: (end: ">", fill: black))
+      line("functor", "applicative")
+      line("applicative", "monad")
+      line("monad", "monadfail")
     }
   )
 )<fig:functor-monad-classes>
@@ -521,8 +535,12 @@ For all four of these Prelude numeric types, all of the `enumFrom` family of fun
 ```haskell
 class  Functor f  where
     fmap    :: (a -> b) -> f a -> f b
+    (<$)  :: a -> f b -> f a
+
+    (<$)  = fmap . const
 ```
-The `Functor` class is used for types that can be mapped over.  Lists, `IO`, and `Maybe` are in this class.
+The `Functor` class is used for types that can be mapped over.
+Lists, `IO`, and `Maybe` are in this class.
 
 Instances of `Functor` should satisfy the following laws:
 $
@@ -530,19 +548,67 @@ $
   mono("fmap (f . g)") &= mono("fmap f . fmap g")
 $
 
+Additionally, instances that define `(<$)` should preserve the semantics of the
+class default, but may implement it more efficiently.
+
 All instances of `Functor` defined in the Prelude satisfy these laws.
+
+Prelude provides operator `(<$>)`, which is an infix shortcut for `fmap`.
+
+=== The Applicative class
+
+```haskell
+class  (Functor f) => Applicative f  where
+    (<*>)   :: f (a -> b) -> f a -> f b
+    pure    :: a -> f a
+    liftA2  :: (a -> b -> c) -> f a -> f b -> f c
+    (<*)    :: f a -> f b -> f a
+    (*>)    :: f a -> f b -> f b
+
+    (<*>)         = liftA2 id
+    liftA2 f x y  = f <$> x <*> y
+    u <* v        = liftA2 const u v
+    u *> v        = (id <$ u) <*> v
+```
+The `Applicative` class is used for functors with application semantics.
+`pure` embeds a pure expression.
+`(<*>)` and `liftA2` apply a function within functors, combining the functor
+semantics to form the result.
+`(<*)` and `(*>)` provide one-sided versions of `(<*>)`, discarding values in
+right or left argument, respectively.
+
+A complete definition of `Applicative` instance must implement `pure` and at
+least one of `(<*>)` and `liftA2`.
+
+Instances of `Applicative` should satisfy the following laws:
+$
+mono("pure id <*> v") &= mono("v") \
+mono("pure f <*> pure x") &= mono("pure (f x)") \
+mono("u <*> pure y") &= mono("pure (\f -> f y) <*> u") \
+mono("u <*> (v <*> w)") &= mono("pure (.) <*> u <*> v <*> w")
+$
+
+Specialized implementations of `(<*)` and `(*>)` should not change semantics
+from the class defaults.
+
+The instances should additionally relate to `Functor` super-instances by the
+following law:
+$
+mono("fmap g x") &= mono("pure g <*> x")
+$
+
+All instances of `Applicative` in `Prelude` satisfy these laws.
 
 === The Monad Class <sec:monad-class>
 
 ```haskell
-class  Monad m  where
+class  (Applicative m) => Monad m  where
     (>>=)   :: m a -> (a -> m b) -> m b
     (>>)    :: m a -> m b -> m b
     return  :: a -> m a
-    fail    :: String -> m a
 
     m >> k  =  m >>= \_ -> k
-    fail s  = error s
+    return  = pure
 ```
 
 The `Monad` class defines the basic operations over a _monad_.
@@ -550,14 +616,11 @@ See @chapter:basic-input-output for more information about monads.
 
 "`do`" expressions provide a convenient syntax for writing
 monadic expressions (see @sec:do-expressions).
-The `fail` method is invoked on pattern-match failure in a `do`
-expression.
 
-In the Prelude, lists,
-`Maybe`, and `IO` are all instances of `Monad`.
-The `fail` method for lists returns the empty list `[]`,
-for `Maybe` returns `Nothing`, and for `IO` raises a user
-exception in the IO monad (see @sec:io-exceptions).
+Specialized implementations of `return` should not change semantics from the
+default `pure`.
+
+In the Prelude, lists, `Maybe`, and `IO` are all instances of `Monad`.
 
 Instances of `Monad` should satisfy the following laws:
 
@@ -567,9 +630,13 @@ $
   mono("m >>= (\x -> k x >>= h)") &= mono("(m >>= k) >>= h")
 $
 
-Instances of both `Monad` and `Functor` should additionally satisfy the law:
+Instances of `Monad` should relate to their `Functor` and `Applicative`
+superclass instances via the following laws:
 $
-  mono("fmap f xs") &= mono("xs >>= return . f")
+  mono("fmap f xs") &= mono("xs >>= return . f") \
+  mono("m1 <*> m2") &= mono("m1 >>= (\x1 -> m2 >>= (\x2 -> return (x1 x2)))") \
+  mono("pure a") &= mono("return a") \
+  mono("(*>)") = mono("(>>)")
 $
 
 All instances of `Monad` defined in the Prelude satisfy these laws.
@@ -582,6 +649,21 @@ mapM      :: Monad m => (a -> m b) -> [a] -> m [b]
 mapM_     :: Monad m => (a -> m b) -> [a] -> m ()
 (=<<)     :: Monad m => (a -> m b) -> m a -> m b
 ```
+
+=== The MonadFail Class
+
+```haskell
+class  (Monad m) => MonadFail m  where
+    fail    :: String -> m a
+```
+
+`MonadFail` typeclass describes `Monad`s equipped with `error`-like failure
+semantics. In particular, the `fail` method is invoked on pattern-match
+failure in a `do` expression.
+
+Instances for `IO`, lists and `Maybe` exist in Prelude: The `fail` method for
+lists returns the empty list `[]`, for `Maybe` returns `Nothing`, and for `IO`
+raises a user exception in the IO monad (see @sec:io-exceptions).
 
 === The Bounded Class <subsec:bounded>
 

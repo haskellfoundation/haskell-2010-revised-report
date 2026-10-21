@@ -29,3 +29,7 @@ datatype contexts themselves are not removed from the language.
 
 The requirement to support mutually recursive module imports has been lifted:
 Implementations are only required to support acyclic module import graphs.
+
+#heading(level: 3, numbering: none)[Updates of standard typeclasses]
+
+The report adopted the Functor-Applicative-Monad-MonadFail hierarchy.
