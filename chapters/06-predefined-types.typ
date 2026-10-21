@@ -567,8 +567,8 @@ class  (Functor f) => Applicative f  where
 
     (<*>)         = liftA2 id
     liftA2 f x y  = f <$> x <*> y
-    u *> v        = (id <$ u) <*> v
     u <* v        = liftA2 const u v
+    u *> v        = (id <$ u) <*> v
 ```
 The `Applicative` class is used for functors with application semantics.
 `pure` embeds a pure expression.

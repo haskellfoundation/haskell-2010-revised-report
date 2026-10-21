@@ -3,6 +3,7 @@ module Control.Applicative
   ( Applicative(pure, (<*>), liftA2, (<*), (*>))
   ) where
 
+import Data.Function
 import Data.Functor
 import Data.Maybe
 import System.IO
@@ -17,10 +18,10 @@ class (Functor f) => Applicative f where
   liftA2 f x = (<*>) (fmap f x)
   
   (<*) :: f a -> f b -> f a
-  (<*) = liftA2 (\a _ -> a)
+  u <* v = liftA2 const u v
   
   (*>) :: f a -> f b -> f b
-  (*>) = liftA2 (\_ b -> b)
+  u *> v = (id <$ u) <*> v
 
 instance Applicative []
 
