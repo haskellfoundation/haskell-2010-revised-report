@@ -1006,11 +1006,11 @@ Every pattern is either _failable_ or _failure-free_.
 The failure-free patterns are as follows:
 - a variable
 - a wildcard
-- $N italic("apat")$ where $N$ is a constructor
-  defined by `newtype` and $italic("apat")$ is failure-free (see @sec:datatype-renamings)
-- $K italic("apat")_1 dots italic("apat")_n$ where $K$ is the only constructor defined by a `data` declaration and $italic("apat")_1$ to $italic("apat")_n$ are all failure-free.
-- $italic("var")mono("@")italic("apat")$ where $italic("apat")$ is failure-free,
-- $~italic("apat")$ (whether or not $italic("apat")$ is failure-free).
+- $nontermname("N") nonterminal("apat")$ where $N$ is a constructor
+  defined by `newtype` and $nonterminal("apat")$ is failure-free (see @sec:datatype-renamings)
+- $nontermname("K") nonterminal("apat")_1 dots nonterminal("apat")_n$ where $K$ is the only constructor defined by a `data` declaration and $nonterminal("apat")_1$ to $nonterminal("apat")_n$ are all failure-free.
+- $nonterminal("var")terminal("@")nonterminal("apat")$ where $nonterminal("apat")$ is failure-free,
+- $terminal("~")nonterminal("apat")$ (whether or not $nonterminal("apat")$ is failure-free).
 All other patterns are _failable_.
 
 Matching a failure-free pattern against a value can never _fail_ (cp. @sec:pattern-matching-outcomes).
