@@ -19,6 +19,8 @@ watch-html:
 # Makefile implementation
 #
 
+GRAPHS=images/numeric-classes.svg images/functor-monad-classes.svg
+
 DEPENDENCY=bibliography.bib\
  chapters/01-intro.typ\
  chapters/02-lexical-structure.typ\
@@ -32,6 +34,7 @@ DEPENDENCY=bibliography.bib\
  chapters/10-syntax-reference.typ\
  chapters/11-derived-instances.typ\
  chapters/12-compiler-pragmas.typ\
+ $(GRAPHS)\
  macros.typ\
  other/preface.typ\
  other/preface_revised.typ\
@@ -57,8 +60,20 @@ html: haskell-2010-revised-html/index.html
 watch-html:
 	typst watch --format bundle --features bundle --features html haskell-2010-revised-html.typ
 
-haskell-2010-revised.pdf: haskell-2010-revised.typ $(DEPENDENCY)
+.PHONY: depend-pdf
+haskell-2010-revised.pdf depend-pdf: haskell-2010-revised.typ $(DEPENDENCY)
+
+haskell-2010-revised.pdf: 
 	typst compile haskell-2010-revised.typ
 
-haskell-2010-revised-html/index.html: haskell-2010-revised-html.typ $(DEPENDENCY) $(HTML_DEPENDENCY)
+.PHONY: depend-html
+haskell-2010-revised-html/index.html depend-html: haskell-2010-revised-html.typ $(DEPENDENCY) $(HTML_DEPENDENCY)
+
+haskell-2010-revised-html/index.html: 
 	typst compile --format bundle --features bundle --features html haskell-2010-revised-html.typ
+
+$(GRAPHS:%.svg=%-template.svg): images/%-template.svg: images/%.dot
+	dot -Tsvg $< -o $@
+
+$(GRAPHS): images/%.svg: images/%-template.svg images/bold.py
+	python images/bold.py $< $@

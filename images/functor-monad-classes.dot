@@ -1,0 +1,6 @@
+digraph {
+    node[width=2.25, height=1.5, fixedsize=true];
+    
+    functor[label="Functor\nIO, [], Maybe"];
+    monad[label="Monad\nIO, [], Maybe"];
+}

@@ -12,8 +12,9 @@ The library report is available through the generated Haddock documentation:
 
 ## How to Build the Language Report
 
-In order to build the report you have to install Typst version `0.15` or later.
+In order to build the report you have to install Typst (version `0.15` or later) and Graphviz (version `2.42` or later).
 Typst is available at [typst.app/](https://typst.app/).
+Graphviz is avaliable at [graphviz.org/](https://graphviz.org/).
 
 The `Makefile` contains targets to build the report in pdf and html form, and to run Typst in file-watching mode for a faster iteration loop. The respective commands are:
 
