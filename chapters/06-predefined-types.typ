@@ -610,7 +610,7 @@ limited and unlimited range; the class
 `Fractional` contains all non-integral types; and
 the class `Floating` contains all floating-point
 types, both real and complex.
-Classes `RealFrac` and `RealFloat` contain, respectively, the `Fractional` and `Floating` types that also have the `Real` ordering-related properties, and can be truncated to and represented as `Integer`s.
+Classes `RealFrac` and `RealFloat` contain, respectively, the `Fractional` and `Floating` types that also have the ordering-related properties of the typeclass `Real`, and can be truncated to and represented as `Integer`s.
 
 The Prelude defines only the most basic numeric types: fixed sized
 integers `Int`, arbitrary precision integers `Integer`, single
