@@ -100,8 +100,6 @@ Haskell compilers are expected to make use of new versions of Unicode as they ar
   $nonterminal("graphic")$, $->$, $nonterminal("small") | nonterminal("large") | nonterminal("symbol") | nonterminal("digit") | nonterminal("special") | terminal("\"") | terminal("'")$,
   // small
   $nonterminal("small")$, $->$, $nonterminal("uniSmall") | terminal("_")$,
-  // ascSmall
-  $nonterminal("ascSmall")$, $->$, $terminal("a") | terminal("b") | dots | terminal("z")$,
   // uniSmall
   $nonterminal("uniSmall")$, $->$, $text("any Unicode lowercase letter")$,
   // large

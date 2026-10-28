@@ -90,8 +90,6 @@ lambda abstractions extend to the right as far as possible.
   $nonterminaldef("graphic")$, $->$, $nonterminal("small") | nonterminal("large") | nonterminal("symbol") | nonterminal("digit") | nonterminal("special") | terminal("\"") | terminal("'")$,
   // small
   $nonterminaldef("small")$, $->$, $nonterminal("uniSmall") | terminal("_")$,
-  // ascSmall
-  $nonterminaldef("ascSmall")$, $->$, $terminal("a") | terminal("b") | dots | terminal("z")$,
   // uniSmall
   $nonterminaldef("uniSmall")$, $->$, $text("any Unicode lowercase letter")$,
   // large

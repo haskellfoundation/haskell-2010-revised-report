@@ -98,6 +98,7 @@ phrases:
   $nonterminaldef("chname")$,$->$, ${nonterminal("chchar")} terminal(".h")$, [(C header filename)],
   $nonterminaldef("cid")$, $->$, $nonterminal("letter") {nonterminal("letter") | nonterminal("ascDigit")}$, [(C identifier)],
   $nonterminaldef("chchar")$,$->$,$nonterminal("letter") | nonterminal("ascSymbol")_(chevron.l mono("&") chevron.r)$, [],
+  $nonterminaldef("ascSmall")$, $->$, $terminal("a") | terminal("b") | dots | terminal("z")$,
   $nonterminaldef("letter")$, $->$, $nonterminal("ascSmall") | nonterminal("ascLarge") | terminal("_")$,[]
 )
 
