@@ -96,8 +96,6 @@ lambda abstractions extend to the right as far as possible.
   $nonterminaldef("uniSmall")$, $->$, $text("any Unicode lowercase letter")$,
   // large
   $nonterminaldef("large")$, $->$, $text("any uppercase or titlecase Unicode letter")$,
-  // ascLarge
-  $nonterminaldef("ascLarge")$, $->$, $terminal("A") | terminal("B") | dots | terminal("Z")$,
   // symbol
   $nonterminaldef("symbol")$, $->$, $nonterminal("ascSymbol") | nonterminal("uniSymbol")_(chevron.l nonterminal("special") | terminal("_") | terminal("\"") | terminal("'") chevron.r)$,
   // ascSymbol
@@ -219,6 +217,8 @@ lambda abstractions extend to the right as far as possible.
   [], $|$, $terminal("BEL") | terminal("BS") | terminal("HT") | terminal("LF") | terminal("VT") | terminal("FF") | terminal("CR") | terminal("SO") | terminal("SI") | terminal("DLE")$,
   [], $|$, $terminal("DC1") | terminal("DC2") | terminal("DC3") | terminal("DC4") | terminal("NAK") | terminal("SYN") | terminal("ETB") | terminal("CAN")$,
   [], $|$, $terminal("EM") | terminal("SUB") | terminal("ESC") | terminal("FS") | terminal("GS") | terminal("RS") | terminal("US") | terminal("SP") | terminal("DEL")$,
+  // ascLarge
+  $nonterminaldef("ascLarge")$, $->$, $terminal("A") | terminal("B") | dots | terminal("Z")$,
   // cntrl
   $nonterminaldef("cntrl")$, $->$, $nonterminal("ascLarge") | terminal("@") | terminal("[") | terminal("\\") | terminal("]") | terminal("^") | terminal("_")$,
   // gap

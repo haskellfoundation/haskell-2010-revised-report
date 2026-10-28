@@ -106,8 +106,6 @@ Haskell compilers are expected to make use of new versions of Unicode as they ar
   $nonterminal("uniSmall")$, $->$, $text("any Unicode lowercase letter")$,
   // large
   $nonterminal("large")$, $->$, $text("any uppercase or titlecase Unicode letter")$,
-  // ascLarge
-  $nonterminal("ascLarge")$, $->$, $terminal("A") | terminal("B") | dots | terminal("Z")$,
   // symbol
   $nonterminal("symbol")$, $->$, $nonterminal("ascSymbol") | nonterminal("uniSymbol")_(chevron.l nonterminal("special") | terminal("_") | terminal("\"") | terminal("'") chevron.r)$,
   // ascSymbol
@@ -363,6 +361,8 @@ is discussed in @sec:numeric-literals.
   [], $|$, $terminal("BEL") | terminal("BS") | terminal("HT") | terminal("LF") | terminal("VT") | terminal("FF") | terminal("CR") | terminal("SO") | terminal("SI") | terminal("DLE")$,
   [], $|$, $terminal("DC1") | terminal("DC2") | terminal("DC3") | terminal("DC4") | terminal("NAK") | terminal("SYN") | terminal("ETB") | terminal("CAN")$,
   [], $|$, $terminal("EM") | terminal("SUB") | terminal("ESC") | terminal("FS") | terminal("GS") | terminal("RS") | terminal("US") | terminal("SP") | terminal("DEL")$,
+  // ascLarge
+  $nonterminal("ascLarge")$, $->$, $terminal("A") | terminal("B") | dots | terminal("Z")$,
   // cntrl
   $nonterminal("cntrl")$, $->$, $nonterminal("ascLarge") | terminal("@") | terminal("[") | terminal("\\") | terminal("]") | terminal("^") | terminal("_")$,
   // gap
