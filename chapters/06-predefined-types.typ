@@ -603,7 +603,7 @@ Numeric function names and operators are usually overloaded, using
 several type classes with an inclusion relation shown in @fig:numeric-classes.
 
 The `Num` class is designed to provide some freedom in representation by not requiring any superclasses for types that implement it.
-In particular, the comparison operators may not work on all types that behave like numbers, such as `Complex` type (in library `Data.Complex`), or syntactic representations of algebraic expressions (not present in standard).
+In particular, the comparison operators of the `Ord` class may not work on all types that behave like numbers, such as the `Complex` type (in module `Data.Complex` from the standard library), or syntactic representations of algebraic expressions.
 For such "linearly ordered" numeric types, `Num` has a subclass `Real`, which is also a subclass of `Ord`.
 The class `Integral` contains integers of both
 limited and unlimited range; the class
