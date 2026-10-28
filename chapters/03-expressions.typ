@@ -789,7 +789,7 @@ Construction using field labels is subject to the following constraints:
 - Fields not mentioned are initialized to $bot$.
 - A compile-time error occurs when any strict fields (fields
   whose declared types are prefixed by `!`) are omitted during
-  construction.  Strict fields are discused in @sec:datatype-decls.
+  construction.  Strict fields are discussed in @sec:datatype-decls.
 
 The expression `F {}`, where `F` is a data constructor, is legal
 _whether or not `F` was declared with record syntax_ (provided `F` has no strict fields --- see the fourth bullet above);
