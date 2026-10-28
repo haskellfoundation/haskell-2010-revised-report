@@ -93,7 +93,7 @@ lambda abstractions extend to the right as far as possible.
   // uniSmall
   $nonterminaldef("uniSmall")$, $->$, $text("any letter in the Unicode categories Lowercase Letter (Ll) or Other Letter (Lo)")$,
   // large
-  $nonterminaldef("large")$, $->$, $text("any uppercase or titlecase Unicode letter")$,
+  $nonterminaldef("large")$, $->$, $text("any letter in the Unicode categories Uppercase Letter (Lu) or Titlecase Letter (Lt)")$,
   // symbol
   $nonterminaldef("symbol")$, $->$, $nonterminal("ascSymbol") | nonterminal("uniSymbol")_(chevron.l nonterminal("special") | terminal("_") | terminal("\"") | terminal("'") chevron.r)$,
   // ascSymbol
