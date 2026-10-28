@@ -36,10 +36,7 @@ and $[dots]$ from concrete terminal syntax (given in typewriter font)
 such as `|` and `[...]`, although usually the context makes the
 distinction clear.
 
-Haskell uses the Unicode @Unicode character set.
-However, source  programs are currently biased toward the ASCII character set used in earlier versions of Haskell.
-
-This syntax depends on properties of the Unicode characters as defined
+Haskell uses the Unicode @Unicode character set and depends on properties of the Unicode characters as defined
 by the Unicode consortium.
 Haskell compilers are expected to make use of new versions of Unicode as they are made available.
 
