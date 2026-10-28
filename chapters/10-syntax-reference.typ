@@ -69,7 +69,7 @@ lambda abstractions extend to the right as far as possible.
   // tab
   $nonterminaldef("tab")$, $->$, $text("a horizontal tab")$,
   // uniWhite
-  $nonterminaldef("uniWhite")$, $->$, $text("any Unicode character defined as whitespace")$,
+  $nonterminaldef("uniWhite")$, $->$, $text("any Unicode character with the property White_Space=yes")$,
   // comment
   $nonterminaldef("comment")$, $->$, $nonterminal("dashes") [nonterminal("any")_(chevron.l nonterminal("symbol") chevron.r) { nonterminal("any") }] nonterminal("newline")$,
   // dashes
@@ -89,17 +89,11 @@ lambda abstractions extend to the right as far as possible.
   // graphic
   $nonterminaldef("graphic")$, $->$, $nonterminal("small") | nonterminal("large") | nonterminal("symbol") | nonterminal("digit") | nonterminal("special") | terminal("\"") | terminal("'")$,
   // small
-  $nonterminaldef("small")$, $->$, $nonterminal("ascSmall") | nonterminal("uniSmall") | terminal("_")$,
-  // ascSmall
-  $nonterminaldef("ascSmall")$, $->$, $terminal("a") | terminal("b") | dots | terminal("z")$,
+  $nonterminaldef("small")$, $->$, $nonterminal("uniSmall") | terminal("_")$,
   // uniSmall
-  $nonterminaldef("uniSmall")$, $->$, $text("any Unicode lowercase letter")$,
+  $nonterminaldef("uniSmall")$, $->$, $text("any letter in the Unicode categories Lowercase Letter (Ll) or Other Letter (Lo)")$,
   // large
-  $nonterminaldef("large")$, $->$, $nonterminal("ascLarge") | nonterminal("uniLarge")$,
-  // ascLarge
-  $nonterminaldef("ascLarge")$, $->$, $terminal("A") | terminal("B") | dots | terminal("Z")$,
-  // uniLarge
-  $nonterminaldef("uniLarge")$, $->$, $text("any uppercase or titlecase Unicode letter")$,
+  $nonterminaldef("large")$, $->$, $text("any letter in the Unicode categories Uppercase Letter (Lu) or Titlecase Letter (Lt)")$,
   // symbol
   $nonterminaldef("symbol")$, $->$, $nonterminal("ascSymbol") | nonterminal("uniSymbol")_(chevron.l nonterminal("special") | terminal("_") | terminal("\"") | terminal("'") chevron.r)$,
   // ascSymbol
@@ -112,7 +106,7 @@ lambda abstractions extend to the right as far as possible.
   // ascDigit
   $nonterminaldef("ascDigit")$, $->$, $terminal("0") | terminal("1") | dots | terminal("9")$,
   // uniDigit
-  $nonterminaldef("uniDigit")$, $->$, $text("any Unicode decimal digit")$,
+  $nonterminaldef("uniDigit")$, $->$, $text("any Decimal Number (Nd), Letter Number (Nl) or Other Number (No)")$,
   // octit
   $nonterminaldef("octit")$, $->$, $terminal("0") | terminal("1") | dots | terminal("7")$,
   // hexit
@@ -123,10 +117,14 @@ lambda abstractions extend to the right as far as possible.
   columns: 3,
   align: (left, center, left),
   stroke: none,
+  // uniIdchar
+  $nonterminaldef("uniIdchar")$, $->$, $text("any Modifier Letter (Lm) or Non-Spacing Mark (Mn)")$,
+  // idchar
+  $nonterminaldef("idchar")$, $->$, $nonterminal("small") | nonterminal("large") | nonterminal("digit") | nonterminal("uniIdchar") | terminal("'")$,
   // varid
-  $nonterminaldef("varid")$, $->$, $(nonterminal("small") {nonterminal("small") | nonterminal("large") | nonterminal("digit") | terminal("'") med })_(chevron.l nonterminal("reservedid") chevron.r)$,
+  $nonterminaldef("varid")$, $->$, $(nonterminal("small") {nonterminal("idchar") med })_(chevron.l nonterminal("reservedid") chevron.r)$,
   // conid
-  $nonterminaldef("conid")$, $->$, $nonterminal("large") {nonterminal("small") | nonterminal("large") | nonterminal("digit") | terminal("'") med }$,
+  $nonterminaldef("conid")$, $->$, $nonterminal("large") {nonterminal("idchar") med }$,
   // reservedid
   $nonterminaldef("reservedid")$, $->$, $terminal("case") | terminal("class") | terminal("data") | terminal("default") | terminal("deriving") | terminal("do") | terminal("else")$,
   [], $|$, $terminal("forall") | terminal("foreign") | terminal("if") | terminal("import") | terminal("in") | terminal("infix") | terminal("infixl")$,
@@ -221,6 +219,8 @@ lambda abstractions extend to the right as far as possible.
   [], $|$, $terminal("BEL") | terminal("BS") | terminal("HT") | terminal("LF") | terminal("VT") | terminal("FF") | terminal("CR") | terminal("SO") | terminal("SI") | terminal("DLE")$,
   [], $|$, $terminal("DC1") | terminal("DC2") | terminal("DC3") | terminal("DC4") | terminal("NAK") | terminal("SYN") | terminal("ETB") | terminal("CAN")$,
   [], $|$, $terminal("EM") | terminal("SUB") | terminal("ESC") | terminal("FS") | terminal("GS") | terminal("RS") | terminal("US") | terminal("SP") | terminal("DEL")$,
+  // ascLarge
+  $nonterminaldef("ascLarge")$, $->$, $terminal("A") | terminal("B") | dots | terminal("Z")$,
   // cntrl
   $nonterminaldef("cntrl")$, $->$, $nonterminal("ascLarge") | terminal("@") | terminal("[") | terminal("\\") | terminal("]") | terminal("^") | terminal("_")$,
   // gap

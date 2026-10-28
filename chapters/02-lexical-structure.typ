@@ -36,10 +36,7 @@ and $[dots]$ from concrete terminal syntax (given in typewriter font)
 such as `|` and `[...]`, although usually the context makes the
 distinction clear.
 
-Haskell uses the Unicode @Unicode character set.
-However, source  programs are currently biased toward the ASCII character set used in earlier versions of Haskell.
-
-This syntax depends on properties of the Unicode characters as defined
+Haskell uses the Unicode @Unicode character set and depends on properties of the Unicode characters as defined
 by the Unicode consortium.
 Haskell compilers are expected to make use of new versions of Unicode as they are made available.
 
@@ -79,7 +76,7 @@ Haskell compilers are expected to make use of new versions of Unicode as they ar
   // tab
   $nonterminal("tab")$, $->$, $text("a horizontal tab")$,
   // uniWhite
-  $nonterminal("uniWhite")$, $->$, $text("any Unicode character defined as whitespace")$,
+  $nonterminal("uniWhite")$, $->$, $text("any Unicode character with the property White_Space=yes")$,
   // comment
   $nonterminal("comment")$, $->$, $nonterminal("dashes") [nonterminal("any")_(chevron.l nonterminal("symbol") chevron.r) { nonterminal("any") }] nonterminal("newline")$,
   // dashes
@@ -99,17 +96,11 @@ Haskell compilers are expected to make use of new versions of Unicode as they ar
   // graphic
   $nonterminal("graphic")$, $->$, $nonterminal("small") | nonterminal("large") | nonterminal("symbol") | nonterminal("digit") | nonterminal("special") | terminal("\"") | terminal("'")$,
   // small
-  $nonterminal("small")$, $->$, $nonterminal("ascSmall") | nonterminal("uniSmall") | terminal("_")$,
-  // ascSmall
-  $nonterminal("ascSmall")$, $->$, $terminal("a") | terminal("b") | dots | terminal("z")$,
+  $nonterminal("small")$, $->$, $nonterminal("uniSmall") | terminal("_")$,
   // uniSmall
-  $nonterminal("uniSmall")$, $->$, $text("any Unicode lowercase letter")$,
+  $nonterminal("uniSmall")$, $->$, $text("any letter in the Unicode categories Lowercase Letter (Ll) or Other Letter (Lo)")$,
   // large
-  $nonterminal("large")$, $->$, $nonterminal("ascLarge") | nonterminal("uniLarge")$,
-  // ascLarge
-  $nonterminal("ascLarge")$, $->$, $terminal("A") | terminal("B") | dots | terminal("Z")$,
-  // uniLarge
-  $nonterminal("uniLarge")$, $->$, $text("any uppercase or titlecase Unicode letter")$,
+  $nonterminal("large")$, $->$, $text("any letter in the Unicode categories Uppercase Letter (Lu) or Titlecase Letter (Lt)")$,
   // symbol
   $nonterminal("symbol")$, $->$, $nonterminal("ascSymbol") | nonterminal("uniSymbol")_(chevron.l nonterminal("special") | terminal("_") | terminal("\"") | terminal("'") chevron.r)$,
   // ascSymbol
@@ -122,7 +113,7 @@ Haskell compilers are expected to make use of new versions of Unicode as they ar
   // ascDigit
   $nonterminal("ascDigit")$, $->$, $terminal("0") | terminal("1") | dots | terminal("9")$,
   // uniDigit
-  $nonterminal("uniDigit")$, $->$, $text("any Unicode decimal digit")$,
+  $nonterminal("uniDigit")$, $->$, $text("any Decimal Number (Nd), Letter Number (Nl) or Other Number (No)")$,
   // octit
   $nonterminal("octit")$, $->$, $terminal("0") | terminal("1") | dots | terminal("7")$,
   // hexit
@@ -177,10 +168,14 @@ comment in that code will interfere with the nested comments.
   columns: 3,
   align: (left, center, left),
   stroke: none,
+  // uniIdchar
+  $nonterminal("uniIdchar")$, $->$, $text("any Modifier Letter (Lm) or Non-Spacing Mark (Mn)")$,
+  // idchar
+  $nonterminal("idchar")$, $->$, $nonterminal("small") | nonterminal("large") | nonterminal("digit") | nonterminal("uniIdchar") | terminal("'")$,
   // varid
-  $nonterminal("varid")$, $->$, $(nonterminal("small") {nonterminal("small") | nonterminal("large") | nonterminal("digit") | terminal("'") med })_(chevron.l nonterminal("reservedid") chevron.r)$,
+  $nonterminal("varid")$, $->$, $(nonterminal("small") {nonterminal("idchar") med })_(chevron.l nonterminal("reservedid") chevron.r)$,
   // conid
-  $nonterminal("conid")$, $->$, $nonterminal("large") {nonterminal("small") | nonterminal("large") | nonterminal("digit") | terminal("'") med }$,
+  $nonterminal("conid")$, $->$, $nonterminal("large") {nonterminal("idchar") med }$,
   // reservedid
   $nonterminal("reservedid")$, $->$, $terminal("case") | terminal("class") | terminal("data") | terminal("default") | terminal("deriving") | terminal("do") | terminal("else")$,
   [], $|$, $terminal("forall") | terminal("foreign") | terminal("if") | terminal("import") | terminal("in") | terminal("infix") | terminal("infixl")$,
@@ -365,6 +360,8 @@ is discussed in @sec:numeric-literals.
   [], $|$, $terminal("BEL") | terminal("BS") | terminal("HT") | terminal("LF") | terminal("VT") | terminal("FF") | terminal("CR") | terminal("SO") | terminal("SI") | terminal("DLE")$,
   [], $|$, $terminal("DC1") | terminal("DC2") | terminal("DC3") | terminal("DC4") | terminal("NAK") | terminal("SYN") | terminal("ETB") | terminal("CAN")$,
   [], $|$, $terminal("EM") | terminal("SUB") | terminal("ESC") | terminal("FS") | terminal("GS") | terminal("RS") | terminal("US") | terminal("SP") | terminal("DEL")$,
+  // ascLarge
+  $nonterminal("ascLarge")$, $->$, $terminal("A") | terminal("B") | dots | terminal("Z")$,
   // cntrl
   $nonterminal("cntrl")$, $->$, $nonterminal("ascLarge") | terminal("@") | terminal("[") | terminal("\\") | terminal("]") | terminal("^") | terminal("_")$,
   // gap
