@@ -79,7 +79,7 @@ Haskell compilers are expected to make use of new versions of Unicode as they ar
   // tab
   $nonterminal("tab")$, $->$, $text("a horizontal tab")$,
   // uniWhite
-  $nonterminal("uniWhite")$, $->$, $text("any Unicode character defined as whitespace")$,
+  $nonterminal("uniWhite")$, $->$, $text("any Unicode character with the property White_Space=yes")$,
   // comment
   $nonterminal("comment")$, $->$, $nonterminal("dashes") [nonterminal("any")_(chevron.l nonterminal("symbol") chevron.r) { nonterminal("any") }] nonterminal("newline")$,
   // dashes

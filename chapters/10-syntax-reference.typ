@@ -69,7 +69,7 @@ lambda abstractions extend to the right as far as possible.
   // tab
   $nonterminaldef("tab")$, $->$, $text("a horizontal tab")$,
   // uniWhite
-  $nonterminaldef("uniWhite")$, $->$, $text("any Unicode character defined as whitespace")$,
+  $nonterminaldef("uniWhite")$, $->$, $text("any Unicode character with the property White_Space=yes")$,
   // comment
   $nonterminaldef("comment")$, $->$, $nonterminal("dashes") [nonterminal("any")_(chevron.l nonterminal("symbol") chevron.r) { nonterminal("any") }] nonterminal("newline")$,
   // dashes
