@@ -601,13 +601,16 @@ Haskell provides several kinds of numbers; the numeric
 types and the operations upon them have been heavily influenced by Common Lisp and Scheme.
 Numeric function names and operators are usually overloaded, using
 several type classes with an inclusion relation shown in @fig:numeric-classes.
-`Num` has a subclass `Real`, which is also a subclass of `Ord`, since the other comparison operations
-apply to all but complex numbers (defined in the `Complex` library).
+
+The `Num` class is designed to provide some freedom in representation:
+In particular, the comparison operators may not work on all types that behave like numbers, such as `Complex` type (in library `Data.Complex`), or syntactic representations of algebraic expressions (not present in standard).
+For such "linearly ordered" numeric types, `Num` has a subclass `Real`, which is also a subclass of `Ord`.
 The class `Integral` contains integers of both
 limited and unlimited range; the class
 `Fractional` contains all non-integral types; and
 the class `Floating` contains all floating-point
 types, both real and complex.
+Classes `RealFrac` and `RealFloat` contain, respectively, the `Fractional` and `Floating` types that also have the `Real` ordering-related properties, and can be truncated to and represented as `Integer`s.
 
 The Prelude defines only the most basic numeric types: fixed sized
 integers `Int`, arbitrary precision integers `Integer`, single
