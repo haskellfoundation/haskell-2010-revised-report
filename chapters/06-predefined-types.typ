@@ -576,6 +576,7 @@ The `Applicative` class is used for functors with application semantics.
 semantics to form the result.
 `(<*)` and `(*>)` provide one-sided versions of `(<*>)`, discarding values in
 right or left argument, respectively.
+Prelude provides instances of `Applicative` for lists, `IO`, and `Maybe`.
 
 A complete definition of `Applicative` instance must implement `pure` and at
 least one of `(<*>)` and `liftA2`.
