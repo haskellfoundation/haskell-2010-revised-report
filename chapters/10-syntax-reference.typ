@@ -91,7 +91,7 @@ lambda abstractions extend to the right as far as possible.
   // small
   $nonterminaldef("small")$, $->$, $nonterminal("uniSmall") | terminal("_")$,
   // uniSmall
-  $nonterminaldef("uniSmall")$, $->$, $text("any Unicode lowercase letter")$,
+  $nonterminaldef("uniSmall")$, $->$, $text("any letter in the Unicode categories Lowercase Letter (Ll) or Other Letter (Lo)")$,
   // large
   $nonterminaldef("large")$, $->$, $text("any uppercase or titlecase Unicode letter")$,
   // symbol

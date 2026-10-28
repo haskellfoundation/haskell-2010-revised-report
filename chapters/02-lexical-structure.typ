@@ -101,7 +101,7 @@ Haskell compilers are expected to make use of new versions of Unicode as they ar
   // small
   $nonterminal("small")$, $->$, $nonterminal("uniSmall") | terminal("_")$,
   // uniSmall
-  $nonterminal("uniSmall")$, $->$, $text("any Unicode lowercase letter")$,
+  $nonterminal("uniSmall")$, $->$, $text("any letter in the Unicode categories Lowercase Letter (Ll) or Other Letter (Lo)")$,
   // large
   $nonterminal("large")$, $->$, $text("any uppercase or titlecase Unicode letter")$,
   // symbol
