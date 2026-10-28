@@ -540,7 +540,7 @@ class  Functor f  where
     (<$)  = fmap . const
 ```
 The `Functor` class is used for types that can be mapped over.
-Lists, `IO`, and `Maybe` are in this class.
+Prelude provides instances of `Functor` for lists, `IO`, and `Maybe`.
 
 Instances of `Functor` should satisfy the following laws:
 $
