@@ -602,7 +602,7 @@ types and the operations upon them have been heavily influenced by Common Lisp a
 Numeric function names and operators are usually overloaded, using
 several type classes with an inclusion relation shown in @fig:numeric-classes.
 
-The `Num` class is designed to provide some freedom in representation:
+The `Num` class is designed to provide some freedom in representation by not requiring any superclasses for types that implement it.
 In particular, the comparison operators may not work on all types that behave like numbers, such as `Complex` type (in library `Data.Complex`), or syntactic representations of algebraic expressions (not present in standard).
 For such "linearly ordered" numeric types, `Num` has a subclass `Real`, which is also a subclass of `Ord`.
 The class `Integral` contains integers of both
