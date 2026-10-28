@@ -89,17 +89,15 @@ lambda abstractions extend to the right as far as possible.
   // graphic
   $nonterminaldef("graphic")$, $->$, $nonterminal("small") | nonterminal("large") | nonterminal("symbol") | nonterminal("digit") | nonterminal("special") | terminal("\"") | terminal("'")$,
   // small
-  $nonterminaldef("small")$, $->$, $nonterminal("ascSmall") | nonterminal("uniSmall") | terminal("_")$,
+  $nonterminaldef("small")$, $->$, $nonterminal("uniSmall") | terminal("_")$,
   // ascSmall
   $nonterminaldef("ascSmall")$, $->$, $terminal("a") | terminal("b") | dots | terminal("z")$,
   // uniSmall
   $nonterminaldef("uniSmall")$, $->$, $text("any Unicode lowercase letter")$,
   // large
-  $nonterminaldef("large")$, $->$, $nonterminal("ascLarge") | nonterminal("uniLarge")$,
+  $nonterminaldef("large")$, $->$, $text("any uppercase or titlecase Unicode letter")$,
   // ascLarge
   $nonterminaldef("ascLarge")$, $->$, $terminal("A") | terminal("B") | dots | terminal("Z")$,
-  // uniLarge
-  $nonterminaldef("uniLarge")$, $->$, $text("any uppercase or titlecase Unicode letter")$,
   // symbol
   $nonterminaldef("symbol")$, $->$, $nonterminal("ascSymbol") | nonterminal("uniSymbol")_(chevron.l nonterminal("special") | terminal("_") | terminal("\"") | terminal("'") chevron.r)$,
   // ascSymbol

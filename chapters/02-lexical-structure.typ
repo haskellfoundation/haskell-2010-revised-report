@@ -99,17 +99,15 @@ Haskell compilers are expected to make use of new versions of Unicode as they ar
   // graphic
   $nonterminal("graphic")$, $->$, $nonterminal("small") | nonterminal("large") | nonterminal("symbol") | nonterminal("digit") | nonterminal("special") | terminal("\"") | terminal("'")$,
   // small
-  $nonterminal("small")$, $->$, $nonterminal("ascSmall") | nonterminal("uniSmall") | terminal("_")$,
+  $nonterminal("small")$, $->$, $nonterminal("uniSmall") | terminal("_")$,
   // ascSmall
   $nonterminal("ascSmall")$, $->$, $terminal("a") | terminal("b") | dots | terminal("z")$,
   // uniSmall
   $nonterminal("uniSmall")$, $->$, $text("any Unicode lowercase letter")$,
   // large
-  $nonterminal("large")$, $->$, $nonterminal("ascLarge") | nonterminal("uniLarge")$,
+  $nonterminal("large")$, $->$, $text("any uppercase or titlecase Unicode letter")$,
   // ascLarge
   $nonterminal("ascLarge")$, $->$, $terminal("A") | terminal("B") | dots | terminal("Z")$,
-  // uniLarge
-  $nonterminal("uniLarge")$, $->$, $text("any uppercase or titlecase Unicode letter")$,
   // symbol
   $nonterminal("symbol")$, $->$, $nonterminal("ascSymbol") | nonterminal("uniSymbol")_(chevron.l nonterminal("special") | terminal("_") | terminal("\"") | terminal("'") chevron.r)$,
   // ascSymbol
