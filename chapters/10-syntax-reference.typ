@@ -106,7 +106,7 @@ lambda abstractions extend to the right as far as possible.
   // ascDigit
   $nonterminaldef("ascDigit")$, $->$, $terminal("0") | terminal("1") | dots | terminal("9")$,
   // uniDigit
-  $nonterminaldef("uniDigit")$, $->$, $text("any Unicode decimal digit")$,
+  $nonterminaldef("uniDigit")$, $->$, $text("any Decimal Number (Nd), Letter Number (Nl) or Other Number (No)")$,
   // octit
   $nonterminaldef("octit")$, $->$, $terminal("0") | terminal("1") | dots | terminal("7")$,
   // hexit

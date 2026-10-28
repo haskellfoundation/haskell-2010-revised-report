@@ -116,7 +116,7 @@ Haskell compilers are expected to make use of new versions of Unicode as they ar
   // ascDigit
   $nonterminal("ascDigit")$, $->$, $terminal("0") | terminal("1") | dots | terminal("9")$,
   // uniDigit
-  $nonterminal("uniDigit")$, $->$, $text("any Unicode decimal digit")$,
+  $nonterminal("uniDigit")$, $->$, $text("any Decimal Number (Nd), Letter Number (Nl) or Other Number (No)")$,
   // octit
   $nonterminal("octit")$, $->$, $terminal("0") | terminal("1") | dots | terminal("7")$,
   // hexit
