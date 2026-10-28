@@ -171,10 +171,14 @@ comment in that code will interfere with the nested comments.
   columns: 3,
   align: (left, center, left),
   stroke: none,
+  // uniIdchar
+  $nonterminal("uniIdchar")$, $->$, $text("any Modifier Letter (Lm) or Non-Spacing Mark (Mn)")$,
+  // idchar
+  $nonterminal("idchar")$, $->$, $nonterminal("small") | nonterminal("large") | nonterminal("digit") | nonterminal("uniIdchar") | terminal("'")$,
   // varid
-  $nonterminal("varid")$, $->$, $(nonterminal("small") {nonterminal("small") | nonterminal("large") | nonterminal("digit") | terminal("'") med })_(chevron.l nonterminal("reservedid") chevron.r)$,
+  $nonterminal("varid")$, $->$, $(nonterminal("small") {nonterminal("idchar") med })_(chevron.l nonterminal("reservedid") chevron.r)$,
   // conid
-  $nonterminal("conid")$, $->$, $nonterminal("large") {nonterminal("small") | nonterminal("large") | nonterminal("digit") | terminal("'") med }$,
+  $nonterminal("conid")$, $->$, $nonterminal("large") {nonterminal("idchar") med }$,
   // reservedid
   $nonterminal("reservedid")$, $->$, $terminal("case") | terminal("class") | terminal("data") | terminal("default") | terminal("deriving") | terminal("do") | terminal("else")$,
   [], $|$, $terminal("forall") | terminal("foreign") | terminal("if") | terminal("import") | terminal("in") | terminal("infix") | terminal("infixl")$,

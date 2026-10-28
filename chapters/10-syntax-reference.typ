@@ -117,10 +117,14 @@ lambda abstractions extend to the right as far as possible.
   columns: 3,
   align: (left, center, left),
   stroke: none,
+  // uniIdchar
+  $nonterminaldef("uniIdchar")$, $->$, $text("any Modifier Letter (Lm) or Non-Spacing Mark (Mn)")$,
+  // idchar
+  $nonterminaldef("idchar")$, $->$, $nonterminal("small") | nonterminal("large") | nonterminal("digit") | nonterminal("uniIdchar") | terminal("'")$,
   // varid
-  $nonterminaldef("varid")$, $->$, $(nonterminal("small") {nonterminal("small") | nonterminal("large") | nonterminal("digit") | terminal("'") med })_(chevron.l nonterminal("reservedid") chevron.r)$,
+  $nonterminaldef("varid")$, $->$, $(nonterminal("small") {nonterminal("idchar") med })_(chevron.l nonterminal("reservedid") chevron.r)$,
   // conid
-  $nonterminaldef("conid")$, $->$, $nonterminal("large") {nonterminal("small") | nonterminal("large") | nonterminal("digit") | terminal("'") med }$,
+  $nonterminaldef("conid")$, $->$, $nonterminal("large") {nonterminal("idchar") med }$,
   // reservedid
   $nonterminaldef("reservedid")$, $->$, $terminal("case") | terminal("class") | terminal("data") | terminal("default") | terminal("deriving") | terminal("do") | terminal("else")$,
   [], $|$, $terminal("forall") | terminal("foreign") | terminal("if") | terminal("import") | terminal("in") | terminal("infix") | terminal("infixl")$,
