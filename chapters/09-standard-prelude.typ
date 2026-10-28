@@ -497,7 +497,6 @@ instance  Applicative Maybe  where
 instance  Monad Maybe  where
     (Just x) >>= k   =  k x
     Nothing  >>= k   =  Nothing
-    return           =  Just
 
 instance  MonadFail Maybe  where
     fail s  =  Nothing
@@ -523,7 +522,6 @@ instance  Applicative IO  where
 
 instance  Monad IO  where
    (>>=)  = ...
-   return = pure
 
 instance  MonadFail IO  where
    fail s = ioError (userError s)
@@ -628,7 +626,6 @@ instance  Applicative []  where
 
 instance  Monad []  where
     m >>= k          = concat (map k m)
-    return x         = [x]
 
 instance  MonadFail []  where
     fail s           = []
