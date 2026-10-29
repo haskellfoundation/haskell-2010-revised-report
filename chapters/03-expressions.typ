@@ -1014,6 +1014,7 @@ The failure-free patterns are as follows:
 All other patterns are _failable_.
 
 Matching a failure-free pattern against a value can never _fail_ (cp. @sec:pattern-matching-outcomes).
+Every _irrefutable_ pattern is also _failure-free_, but not vice-versa: for example `(x, y)` is _failure-free_ but _refutable_.
 
 == Pattern Matching <sec:pattern-matching>
 
