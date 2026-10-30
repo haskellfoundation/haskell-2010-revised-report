@@ -1021,9 +1021,8 @@ Aside from the obvious static type constraints (for
 example, it is a static error to match a character against a
 boolean), the following static class constraints hold:
 
-- An integer literal pattern can only be matched against a value in the class `Num`.
-- A floating literal pattern can only be matched against a value
-  in the class `Fractional`.
+- An integer literal pattern can only be matched against a type that is an instance of classes `Num` and `Eq`.
+- A floating literal pattern can only be matched against a type that is an instance of classes `Fractional` and `Eq`.
 
 
 It is sometimes helpful to distinguish two kinds of
