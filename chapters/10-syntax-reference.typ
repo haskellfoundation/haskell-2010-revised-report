@@ -91,9 +91,9 @@ lambda abstractions extend to the right as far as possible.
   // small
   $nonterminaldef("small")$, $->$, $nonterminal("uniSmall") | terminal("_")$,
   // uniSmall
-  $nonterminaldef("uniSmall")$, $->$, $text("any letter in the Unicode categories Lowercase Letter (Ll) or Other Letter (Lo)")$,
+  $nonterminaldef("uniSmall")$, $->$, $text("any Unicode character in the categories Lowercase Letter (Ll) or Other Letter (Lo)")$,
   // large
-  $nonterminaldef("large")$, $->$, $text("any letter in the Unicode categories Uppercase Letter (Lu) or Titlecase Letter (Lt)")$,
+  $nonterminaldef("large")$, $->$, $text("any Unicode character in the categories Uppercase Letter (Lu) or Titlecase Letter (Lt)")$,
   // symbol
   $nonterminaldef("symbol")$, $->$, $nonterminal("ascSymbol") | nonterminal("uniSymbol")_(chevron.l nonterminal("special") | terminal("_") | terminal("\"") | terminal("'") chevron.r)$,
   // ascSymbol
@@ -106,7 +106,7 @@ lambda abstractions extend to the right as far as possible.
   // ascDigit
   $nonterminaldef("ascDigit")$, $->$, $terminal("0") | terminal("1") | dots | terminal("9")$,
   // uniDigit
-  $nonterminaldef("uniDigit")$, $->$, $text("any Decimal Number (Nd), Letter Number (Nl) or Other Number (No)")$,
+  $nonterminaldef("uniDigit")$, $->$, $text("any Unicode character in the categories Decimal Number (Nd), Letter Number (Nl) or Other Number (No)")$,
   // octit
   $nonterminaldef("octit")$, $->$, $terminal("0") | terminal("1") | dots | terminal("7")$,
   // hexit

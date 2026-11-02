@@ -98,9 +98,9 @@ Haskell compilers are expected to make use of new versions of Unicode as they ar
   // small
   $nonterminal("small")$, $->$, $nonterminal("uniSmall") | terminal("_")$,
   // uniSmall
-  $nonterminal("uniSmall")$, $->$, $text("any letter in the Unicode categories Lowercase Letter (Ll) or Other Letter (Lo)")$,
+  $nonterminal("uniSmall")$, $->$, $text("any Unicode character in the categories Lowercase Letter (Ll) or Other Letter (Lo)")$,
   // large
-  $nonterminal("large")$, $->$, $text("any letter in the Unicode categories Uppercase Letter (Lu) or Titlecase Letter (Lt)")$,
+  $nonterminal("large")$, $->$, $text("any Unicode character in the categories Uppercase Letter (Lu) or Titlecase Letter (Lt)")$,
   // symbol
   $nonterminal("symbol")$, $->$, $nonterminal("ascSymbol") | nonterminal("uniSymbol")_(chevron.l nonterminal("special") | terminal("_") | terminal("\"") | terminal("'") chevron.r)$,
   // ascSymbol
@@ -113,7 +113,7 @@ Haskell compilers are expected to make use of new versions of Unicode as they ar
   // ascDigit
   $nonterminal("ascDigit")$, $->$, $terminal("0") | terminal("1") | dots | terminal("9")$,
   // uniDigit
-  $nonterminal("uniDigit")$, $->$, $text("any Decimal Number (Nd), Letter Number (Nl) or Other Number (No)")$,
+  $nonterminal("uniDigit")$, $->$, $text("any Unicode character in the categories Decimal Number (Nd), Letter Number (Nl) or Other Number (No)")$,
   // octit
   $nonterminal("octit")$, $->$, $terminal("0") | terminal("1") | dots | terminal("7")$,
   // hexit
@@ -169,7 +169,7 @@ comment in that code will interfere with the nested comments.
   align: (left, center, left),
   stroke: none,
   // uniIdchar
-  $nonterminal("uniIdchar")$, $->$, $text("any Modifier Letter (Lm) or Non-Spacing Mark (Mn)")$,
+  $nonterminal("uniIdchar")$, $->$, $text("any Unicode character in the categories Modifier Letter (Lm) or Non-Spacing Mark (Mn)")$,
   // idchar
   $nonterminal("idchar")$, $->$, $nonterminal("small") | nonterminal("large") | nonterminal("digit") | nonterminal("uniIdchar") | terminal("'")$,
   // varid
