@@ -848,29 +848,31 @@ subject to these static restrictions:
 
 The following example illustrates the restrictions imposed by superclass instances:
 ```haskell
-  class Foo a => Bar a where ...
-  
-  instance (Eq a, Show a) => Foo [a] where ...
-  
-  instance Num a => Bar [a] where ...
+class (Num a, Ord a) => Real a where ...  -- as defined in Prelude
+
+class Foo a => Bar a where ...
+
+instance (Num a, Ord a) => Foo [a] where ...
+
+instance Real a => Bar [a] where ...
 ```
 This example is valid Haskell.  Since `Foo` is a superclass of `Bar`,
 the second instance declaration is only valid if `[a]` is an
-instance of `Foo` under the assumption `Num a`.  
+instance of `Foo` under the assumption `Real a`.
 The first instance declaration does indeed say that `[a]` is an instance
-of `Foo` under this assumption, because `Eq` and `Show` are superclasses
-of `Num`.
+of `Foo` under this assumption, because `Num` and `Ord` are superclasses
+of `Real`.
 
 If the two instance declarations instead read like this:
 ```haskell
-  instance Num a => Foo [a] where ...
-  
-  instance (Eq a, Show a) => Bar [a] where ...
+instance Real a => Foo [a] where ...
+
+instance (Num a, Ord a) => Bar [a] where ...
 ```
 then the program would be invalid.  The second instance declaration is
 valid only if `[a]` is an instance of `Foo` under the assumptions
-`(Eq a, Show a)`.  But this does not hold, since `[a]` is only an
-instance of `Foo` under the stronger assumption `Num a`.
+`(Num a, Ord a)`.  But this does not hold, since `[a]` is only an
+instance of `Foo` under the stronger assumption `Real a`.
 
 Further examples of `instance` declarations may be found in @chapter:standard-prelude.
 
