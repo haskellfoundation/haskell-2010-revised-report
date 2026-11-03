@@ -1030,7 +1030,7 @@ Patterns are matched against values, which can have one of three results:
 1. it may _fail_. For example, matching the pattern `True` against the value `False` fails.
 2. it may _succeed_, returning a binding for each variable in the pattern.
    For example, matching the pattern `[x,y]` against the value `[2,3]` succeeds and binds `x` to the value `2` and `y` to the value `3`.
-3. it may _diverge_. For example, matching the pattern `True` against the value `undefined` diverges.
+3. it may _diverge_. For example, matching the pattern `True` against the value $bot$ diverges. In that case the overall computation of which the pattern is a part also diverges (i.e. returns $bot$).
 
 === Informal Semantics of Pattern Matching
 
