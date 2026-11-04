@@ -1393,11 +1393,6 @@ $
 Notice that `g2` is overloaded in the same way as `g1` even though the
 occurrences of `>` and `show` are in the definition of `g1`.
 
-If the programmer supplies explicit type signatures for more than one variable
-in a declaration group, the contexts of these signatures must be 
-identical up to renaming of the type variables.
-
-
 === Context Reduction Errors
 
 As mentioned in @sec:type-semantics, the context of a type

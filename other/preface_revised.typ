@@ -35,3 +35,7 @@ Implementations are only required to support acyclic module import graphs.
 #heading(level: 3, numbering: none)[Derived Instances of Ix]
 
 The information that Haskell allows to derive instances of the `Ix` class from the module `Data.Ix`, and how those instances look like, has been moved from the library report to @chapter:derived-instances.
+
+#heading(level: 3, numbering: none)[Remove Restriction on Explicit Type Signatures in Binding Groups]
+
+The Haskell 2010 report required explicit typesignatures of multiple variables in the same mutually recursive binding group to have identical typeclass contexts. This requirement has been removed, following a suggestion in @Jones1999TypingHIH.
