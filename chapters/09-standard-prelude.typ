@@ -180,14 +180,14 @@ class  Bounded a  where
 
 -- Numeric classes
 
-class  (Eq a, Show a) => Num a  where
+class  Num a  where
     (+), (-), (*)    :: a -> a -> a
     negate           :: a -> a
     abs, signum      :: a -> a
     fromInteger      :: Integer -> a
 
         -- Minimal complete definition:
-        --      All, except negate or (-)
+        --      All, except one of negate and (-)
     x - y            =  x + negate y
     negate x         =  0 - x
 

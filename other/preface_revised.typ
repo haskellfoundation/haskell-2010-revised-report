@@ -32,6 +32,11 @@ datatype contexts themselves are not removed from the language.
 The requirement to support mutually recursive module imports has been lifted:
 Implementations are only required to support acyclic module import graphs.
 
+
 #heading(level: 3, numbering: none)[Derived Instances of Ix]
 
 The information that Haskell allows to derive instances of the `Ix` class from the module `Data.Ix`, and how those instances look like, has been moved from the library report to @chapter:derived-instances.
+
+#heading(level: 3, numbering: none)[Updates to the Num typeclass]
+
+`Show` and `Eq` are no longer required as superclasses of `Num`.

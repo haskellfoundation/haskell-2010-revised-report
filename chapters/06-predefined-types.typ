@@ -212,10 +212,6 @@ and miscellaneous classes `Show`, `Read` (@subsec:read-show) and `Bounded` (@sub
       let eq_pos = (0,0)
       draw_circ(eq_pos, "eq")
       content(eq_pos, [#set align(center); *Eq*\ All except IO, (->)])
-      // Show
-      let show_pos = (5,0)
-      draw_circ(show_pos, "show")
-      content(show_pos, [#set align(center);*Show*\ All except IO, (->)])
       // Ord
       let ord_pos = (0,-4)
       draw_circ(ord_pos, "ord")
@@ -256,8 +252,6 @@ and miscellaneous classes `Show`, `Read` (@subsec:read-show) and `Bounded` (@sub
       // Superclasses
       set-style(mark: (end: ">", fill: black))
       line("eq", "ord")
-      line("eq", "num")
-      line("show", "num")
       line("ord", "real")
       line("num", "real")
       line("num", "fractional")
@@ -607,14 +601,16 @@ Haskell provides several kinds of numbers; the numeric
 types and the operations upon them have been heavily influenced by Common Lisp and Scheme.
 Numeric function names and operators are usually overloaded, using
 several type classes with an inclusion relation shown in @fig:numeric-classes.
-The class `Num` of numeric
-types is a subclass of `Eq`, since all numbers may be compared for equality; its subclass `Real` is also a subclass of `Ord`, since the other comparison operations
-apply to all but complex numbers (defined in the `Complex` library).
+
+The `Num` class is designed to provide some freedom in representation by not requiring any superclasses for types that implement it.
+In particular, the comparison operators of the `Ord` class may not work on all types that behave like numbers, such as the `Complex` type (in module `Data.Complex` from the standard library), or syntactic representations of algebraic expressions.
+For such "linearly ordered" numeric types, `Num` has a subclass `Real`, which is also a subclass of `Ord`.
 The class `Integral` contains integers of both
 limited and unlimited range; the class
 `Fractional` contains all non-integral types; and
 the class `Floating` contains all floating-point
 types, both real and complex.
+Classes `RealFrac` and `RealFloat` contain, respectively, the `Fractional` and `Floating` types that also have the ordering-related properties of the typeclass `Real`, and can be truncated to and represented as `Integer`s.
 
 The Prelude defines only the most basic numeric types: fixed sized
 integers `Int`, arbitrary precision integers `Integer`, single
@@ -677,7 +673,7 @@ built-in types that are instances of the numeric classes.
 #figure(
   caption: "Standard Numeric Classes and Related Operations, Part 1",
   ```haskell
-class  (Eq a, Show a) => Num a  where
+class  Num a  where
     (+), (-), (*)  :: a -> a -> a
     negate         :: a -> a
     abs, signum    :: a -> a
