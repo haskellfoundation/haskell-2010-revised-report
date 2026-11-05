@@ -520,6 +520,8 @@ foreign import ccall "wrapper"
   which can call back into the Haskell context by invoking the referenced
   function.
 
+  Notably, use of a stub factory typically requires the Haskell implementation to generate C functions and C function pointers dynamically at run-time.
+  Such functionality is not provided by any current C standard, Haskell implementations are therefore expected to provide platform-dependent solutions.
 *Specification of Header Files*
 A C header specified in an import declaration is always included by
 $mono("#include \"") nonterminal("chname") mono("\"")$.  There is no explicit support for
