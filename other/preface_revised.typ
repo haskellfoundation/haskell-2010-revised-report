@@ -38,4 +38,4 @@ The information that Haskell allows to derive instances of the `Ix` class from t
 
 #heading(level: 3, numbering: none)[Remove Restriction on Explicit Type Signatures in Binding Groups]
 
-The Haskell 2010 report required explicit typesignatures of multiple variables in the same mutually recursive binding group to have identical typeclass contexts. This requirement has been removed, following a suggestion in @Jones1999TypingHIH.
+The Haskell 2010 report required explicit type signatures of multiple variables in the same mutually recursive binding group to have identical typeclass contexts. This requirement has been removed, following a suggestion in @Jones1999TypingHIH.
