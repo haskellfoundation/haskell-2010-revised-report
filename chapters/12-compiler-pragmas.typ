@@ -16,10 +16,13 @@ syntax is `{-# #-}`.
 
 == Inlining
 
-$
-  nonterminal("decl") &-> mono("{-# INLINE ") varname("qvars")dots mono("#-}") \
-  nonterminal("decl") &-> mono("{-# NOINLINE ") varname("qvars")dots mono("#-}")
-$
+#table(
+  columns: 3,
+  align: (left, center, left),
+  stroke: none,
+  $nonterminal("decl")$, $->$, $terminal("{-# INLINE ") varname("qvars") terminal("#-}")$,
+  $nonterminal("decl")$, $->$, $terminal("{-# NOINLINE ") varname("qvars") terminal("#-}")$
+)
 
 
 The `INLINE` pragma instructs the compiler to inline the specified variables at their use sites.
@@ -27,10 +30,13 @@ Compilers will often automatically inline simple expressions.  This may be preve
 
 == Specialization
 
-$
-  nonterminal("decl") &-> mono("{-# SPECIALIZE ") nonterminal("spec")_1, dots, nonterminal("spec")_k mono("#-}") (k >= 1)\
-  nonterminaldef("spec") &-> nonterminal("vars") mono("::") nonterminal("type")
-$
+#table(
+  columns: 4,
+  align: (left, center, left, left),
+  stroke: none,
+  $nonterminal("decl")$, $->$, $terminal("{-# SPECIALIZE ") nonterminal("spec")_1 terminal(",") dots terminal(",") nonterminal("spec")_k terminal("#-}")$, $(k >= 1)$,
+  $nonterminaldef("spec")$, $->$, $nonterminal("vars") terminal("::") nonterminal("type")$, $$,
+)
 
 Specialization is used to avoid inefficiencies involved in dispatching
 overloaded functions.  For example, in
