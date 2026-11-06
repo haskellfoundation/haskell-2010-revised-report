@@ -1,4 +1,5 @@
-{-# OPTIONS_HADDOCK hide #-}
+-- |
+-- Module: Data.Bool
 module Data.Bool where
 
 infixr 3 &&
