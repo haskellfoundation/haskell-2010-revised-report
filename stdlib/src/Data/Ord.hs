@@ -1,4 +1,5 @@
-{-# OPTIONS_HADDOCK hide #-}
+-- |
+-- Module: Data.Ord
 module Data.Ord where
 
 import Data.Bool
