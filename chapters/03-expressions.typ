@@ -993,6 +993,8 @@ The irrefutable patterns are as follows:
 - $terminal("~")nonterminal("apat")$ (whether or not $nonterminal("apat")$ is irrefutable).
 All other patterns are _refutable_.
 
+Refutability is a syntactic property that can be checked by inspecting the syntax of the pattern and consulting type declarations in the program.
+However, it is motivated by the following semantic property:
 Matching an _irrefutable pattern_
 is non-strict: the pattern matches even if the value to be matched is $bot$.
 Matching an irrefutable pattern against a value can therefore never _diverge_ or _fail_ (cp. @sec:pattern-matching-outcomes).
@@ -1012,8 +1014,11 @@ The failure-free patterns are as follows:
 - $terminal("~")nonterminal("apat")$ (whether or not $nonterminal("apat")$ is failure-free).
 All other patterns are _failable_.
 
-Matching a failure-free pattern against a value can never _fail_ (cp. @sec:pattern-matching-outcomes).
 Every _irrefutable_ pattern is also _failure-free_, but not vice-versa: for example `(x, y)` is _failure-free_ but _refutable_.
+
+Failability is a syntactic property that can be checked by inspecting the syntax of the pattern and consulting type declarations in the program.
+However, it is motivated by the following semantic property:
+Matching a failure-free pattern against a value can never _fail_ (cp. @sec:pattern-matching-outcomes).
 
 == Pattern Matching <sec:pattern-matching>
 
