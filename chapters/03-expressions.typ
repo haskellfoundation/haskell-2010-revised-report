@@ -904,6 +904,7 @@ the principal type derivable from $nonterminal("exp")$, but it is an error to gi
 
 This section introduces the syntax of patterns (@sec:pattern-syntax) and some of their important properties:
 Linearity (@sec:linear-patterns), refutability (@sec:irrefutable-patterns) and failability (@sec:failable-patterns).
+The semantics of patterns in the context of case expressions, and how to evaluate them, is discussed in @sec:pattern-matching.
 
 
 === Syntax <sec:pattern-syntax>
