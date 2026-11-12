@@ -1,4 +1,5 @@
-{-# OPTIONS_HADDOCK hide #-}
+-- |
+-- Module: Data.Eq
 module Data.Eq where
 
 import Data.Bool
