@@ -708,7 +708,7 @@ to be written in a more traditional way as:
     $mono("do") {p mono("<-") e; nonterminal("stmts")}$, $=$,$mono("let ok") p = mono("do") { nonterminal("stmts")}$,
     $$,$$,$mono("      ok") \_ = mono("fail \"...\"")$,
     $$,$$,$mono("in") e mono(">>=") mono("ok")$,
-    $mono("do") {q mono("<-") e; nonterminal("stmts")}$, $=$,$mono("let ok") p = mono("do") { nonterminal("stmts")}$,
+    $mono("do") {q mono("<-") e; nonterminal("stmts")}$, $=$,$mono("let ok") q = mono("do") { nonterminal("stmts")}$,
     $$,$$,$mono("in") e mono(">>=") mono("ok")$,
     $mono("do") {mono("let") nonterminal("decls"); nonterminal("stmts")}$, $=$,$mono("let") nonterminal("decls") mono("in do") { nonterminal("stmts")}$
   )
