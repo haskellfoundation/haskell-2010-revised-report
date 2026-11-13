@@ -663,9 +663,10 @@ $
 
 All instances of `MonadFail` in the Prelude satisfy this law.
 
-Instances for `IO`, lists and `Maybe` exist in Prelude: The `fail` method for
-lists returns the empty list `[]`, for `Maybe` returns `Nothing`, and for `IO`
-raises a user exception in the IO monad (see @sec:io-exceptions).
+Instances of `MonadFail` for `IO`, lists and `Maybe` exist in Prelude: The
+`fail` method for lists returns the empty list `[]`, for `Maybe` returns
+`Nothing`, and for `IO` raises a user exception in the IO monad (see
+@sec:io-exceptions).
 
 === The Bounded Class <subsec:bounded>
 
