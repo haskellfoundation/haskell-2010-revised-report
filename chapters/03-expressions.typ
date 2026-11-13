@@ -696,7 +696,7 @@ to be written in a more traditional way as:
 ```
 
 #translation-box([
-  Do expressions satisfy the identities below. After eliminating empty
+  All $mono("do")$ expressions satisfy the identities below. After eliminating empty
   $nonterminal("stmts")$, these may be used as a translation into the kernel.
 
   #table(
