@@ -656,6 +656,13 @@ class  (Monad m) => MonadFail m  where
 semantics. In particular, the `fail` method is invoked on pattern-match
 failure in a `do` expression.
 
+Instances of `MonadFail` should satisfy the following law:
+$
+  mono("fail") s mono(">>=") f  =  mono("fail") s
+$
+
+All instances of `MonadFail` in the Prelude satisfy this law.
+
 Instances for `IO`, lists and `Maybe` exist in Prelude: The `fail` method for
 lists returns the empty list `[]`, for `Maybe` returns `Nothing`, and for `IO`
 raises a user exception in the IO monad (see @sec:io-exceptions).
