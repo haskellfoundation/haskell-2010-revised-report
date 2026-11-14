@@ -350,6 +350,7 @@ class  Functor f  where
         --      fmap
     (<$)  = fmap . const
 
+(<$>) :: Functor f => (a -> b) -> f a -> f b
 f <$> a = fmap f a
 
 class  (Functor f) => Applicative f  where
