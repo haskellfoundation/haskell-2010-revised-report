@@ -566,8 +566,7 @@ class  (Functor f) => Applicative f  where
 ```
 The `Applicative` class is used for functors with application semantics.
 `pure` embeds a pure expression.
-`(<*>)` and `liftA2` apply a function within functors, combining the functor
-semantics to form the result.
+`(<*>)` and `liftA2` apply a function within functors --- informally, these are used to combine the values in the two functors together with the semantics given by the functors.
 `(<*)` and `(*>)` provide one-sided versions of `(<*>)`, discarding values in
 right or left argument, respectively.
 Prelude provides instances of `Applicative` for lists, `IO`, and `Maybe`.
