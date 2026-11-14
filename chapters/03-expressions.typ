@@ -696,8 +696,9 @@ to be written in a more traditional way as:
 ```
 
 #translation-box([
-  Do expressions satisfy these identities, which may be
-  used as a translation into the kernel, after eliminating empty $nonterminal("stmts")$:
+  All $mono("do")$ expressions satisfy the identities below. After eliminating empty
+  $nonterminal("stmts")$, these may be used as a translation into the kernel.
+
   #table(
     columns: 3,
     align: (left, center, left),
@@ -707,17 +708,31 @@ to be written in a more traditional way as:
     $mono("do") {p mono("<-") e; nonterminal("stmts")}$, $=$,$mono("let ok") p = mono("do") { nonterminal("stmts")}$,
     $$,$$,$mono("      ok") \_ = mono("fail \"...\"")$,
     $$,$$,$mono("in") e mono(">>=") mono("ok")$,
+    $mono("do") {q mono("<-") e; nonterminal("stmts")}$, $=$,$mono("let ok") q = mono("do") { nonterminal("stmts")}$,
+    $$,$$,$mono("in") e mono(">>=") mono("ok")$,
     $mono("do") {mono("let") nonterminal("decls"); nonterminal("stmts")}$, $=$,$mono("let") nonterminal("decls") mono("in do") { nonterminal("stmts")}$
   )
 
-  The ellipsis "`...`" stands for a compiler-generated error message,
-  passed to `fail`, preferably giving some indication of the location
-  of the pattern-match failure;
-  the functions `>>`, `>>=`, and `fail` are operations in the class `Monad`,
-  as defined in the Prelude; and `ok` is a fresh identifier.
+  - $p$ stands for a _failable_ pattern (@sec:failable-patterns),
+  - $q$ stands for a _failure-free_ pattern (compared to the case with $p$,
+    this case prevents generation of the alternative with `fail`),
+  - ellipsis "`...`" stands for a compiler-generated error message that is
+    passed to `fail`, which may be used to give some indication of the location
+    and reason of the pattern-match failure,
+  - `>>` and `>>=` are methods of the class `Monad` defined in the standard
+    Prelude,
+  - `fail` is a method of the class `MonadFail` also defined in the standard
+    Prelude,
+  - `ok` is a fresh identifier.
 ])
 
 As indicated by the translation of `do`, variables bound by `let` have fully polymorphic types while those defined by `<-` are lambda bound and are thus monomorphic.
+
+Further, a translation of a do expression that binds to a failable pattern
+will imply at least a `MonadFail` constraint for the type that
+carries the monadic operations. Conversely, a do expression where all patterns
+are failure-free may be inferred a more generic `Monad` constraint, or no
+constraint at all in case of a trivial expression $mono("do") {e}$.
 
 == Datatypes with Field Labels <sec:field-ops>
 
