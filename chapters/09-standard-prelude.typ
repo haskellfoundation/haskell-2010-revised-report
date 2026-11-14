@@ -360,7 +360,7 @@ class  (Functor f) => Applicative f  where
     (*>)    :: f a -> f b -> f b
 
         -- Minimal complete definition:
-        --      pure, and one of <*> and liftA2
+        --      pure, and one of <*> or liftA2
     (<*>)         = liftA2 id
     liftA2 f x y  = f <$> x <*> y
     u *> v        = (id <$ u) <*> v
