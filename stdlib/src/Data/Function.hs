@@ -1,4 +1,5 @@
-{-# OPTIONS_HADDOCK hide #-}
+-- |
+-- Module: Data.Function
 module Data.Function
   ( id,
     const,

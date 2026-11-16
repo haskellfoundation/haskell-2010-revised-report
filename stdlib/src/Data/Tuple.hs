@@ -1,4 +1,5 @@
-{-# OPTIONS_HADDOCK hide #-}
+-- |
+-- Module: Data.Tuple
 module Data.Tuple
   ( fst,
     snd,

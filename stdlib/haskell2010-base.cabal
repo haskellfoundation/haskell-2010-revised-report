@@ -16,13 +16,21 @@ library
       Control.Monad
       Data.Array
       Data.Bits
+      Data.Bool
       Data.Char
       Data.Complex
+      Data.Either
+      Data.Enum
+      Data.Eq
+      Data.Function
       Data.Int
       Data.Ix
       Data.List
       Data.Maybe
+      Data.Ord
       Data.Ratio
+      Data.String
+      Data.Tuple
       Data.Word
       Foreign
       Foreign.C
@@ -44,19 +52,11 @@ library
       System.Exit
       System.IO
       System.IO.Error
+      Text.Read
+      Text.Show
     other-modules:
       Prim
       NumHierarchy
-      Data.Bool
-      Data.String
-      Data.Eq
-      Data.Ord
-      Data.Enum
-      Data.Function
-      Data.Tuple
-      Data.Either
-      Text.Read
-      Text.Show
     default-extensions: NoImplicitPrelude
     ghc-options: -Wno-missing-methods -Werror=orphans
     build-depends:

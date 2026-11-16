@@ -32,6 +32,20 @@ datatype contexts themselves are not removed from the language.
 The requirement to support mutually recursive module imports has been lifted:
 Implementations are only required to support acyclic module import graphs.
 
+#heading(level: 3, numbering: none)[Expose Additional Modules from Standard Libraries]
+
+The following additional modules are exposed from the standard libraries.
+
+- `Data.Bool`
+- `Data.String`
+- `Data.Eq`
+- `Data.Ord`
+- `Data.Enum`
+- `Data.Function`
+- `Data.Tuple`
+- `Data.Either`
+- `Text.Read`
+- `Text.Show`
 
 #heading(level: 3, numbering: none)[Derived Instances of Ix]
 

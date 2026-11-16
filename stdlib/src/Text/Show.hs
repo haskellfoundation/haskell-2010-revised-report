@@ -1,4 +1,5 @@
-{-# OPTIONS_HADDOCK hide #-}
+-- |
+-- Module: Text.Show
 module Text.Show where
 
 import Data.Bool

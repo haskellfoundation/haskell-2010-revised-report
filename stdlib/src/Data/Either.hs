@@ -1,4 +1,3 @@
-{-# OPTIONS_HADDOCK hide #-}
 -- |
 -- Module: Data.Either
 module Data.Either (Either (Left, Right), either) where
