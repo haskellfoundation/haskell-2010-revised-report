@@ -650,7 +650,7 @@ class  (Monad m) => MonadFail m  where
     fail    :: String -> m a
 ```
 
-`MonadFail` typeclass describes `Monad`s equipped with `error`-like failure
+The `MonadFail` class describes `Monad`s equipped with `error`-like failure
 semantics. In particular, the `fail` method is invoked on pattern-match
 failure in a `do` expression.
 
