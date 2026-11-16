@@ -21,6 +21,15 @@ The definition of the nonterminal $nonterminal("reservedid")$ has been changed t
 
 The definitions of the nonterminals $nonterminal("decimal")$ and $nonterminal("hexit")$ have been changed to exclude Unicode decimal digits other than $terminal("0")$ to $terminal("9")$.
 
+#heading(level: 3, numbering: none)[Lexical Syntax of Identifiers]
+
+The lexical syntax of Unicode identifiers was changed:
+
+- The nonterminal $nonterminal("uniSmall")$ now also includes characters in the category Other Letter (Lo).
+- The nonterminal $nonterminal("uniDigit")$ now also includes characters in the categories Letter Number (Nl) and Other Number (No).
+  Note that this has no influence on the syntax of numeric literals, which are only allowed to contain ASCII characters.
+- Both lowercase identifiers $nonterminal("varid")$ and uppercase identifiers $nonterminal("conid")$ may now contain characters in the categories Modifier Letter (Lm) or Non-Spacing Mark (Mn) after the first character.
+
 #heading(level: 3, numbering: none)[Removal of datatype contexts from the standard libraries]
 
 The datatype contexts have been removed from the standard libraries. Note that
