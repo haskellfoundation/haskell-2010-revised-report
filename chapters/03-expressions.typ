@@ -728,12 +728,11 @@ to be written in a more traditional way as:
 
 As indicated by the translation of `do`, variables bound by `let` have fully polymorphic types while those defined by `<-` are lambda bound and are thus monomorphic.
 
-Further, a translation of a do expression that binds to a failable pattern
-will imply at least a `MonadFail` constraint for the type that
-carries the monadic operations. Conversely, a do expression where all patterns
-are failure-free may be inferred a more generic `Monad` constraint, or no
+A translation of a do expression that binds to a failable pattern
+will imply a `MonadFail` constraint for the type that
+carries the monadic operations. Conversely, for a do expression where all patterns
+are failure-free a more generic `Monad` constraint can be inferred, or no
 constraint at all in case of a trivial expression $mono("do") {e}$.
-
 == Datatypes with Field Labels <sec:field-ops>
 
 A datatype declaration may optionally define field labels
