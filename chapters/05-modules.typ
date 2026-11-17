@@ -76,7 +76,7 @@ and not part of the language definition; in this report a $nonterminal("modid")$
 treated as a single identifier occupying a flat namespace.
 
 There is one distinguished module, `Prelude`, which is imported into
-all modules by default (see @chapter:standard-prelude), plus a
+all modules by default (see @section:prelude), plus a
 set of standard library modules that may be imported as required.
 
 == Module Structure
@@ -576,24 +576,10 @@ with an explicit `import` declaration. This provision for explicit
 import allows entities defined in the Prelude to be selectively imported,
 just like those from any other module.
 
-The semantics of the entities in `Prelude` is specified by a reference
-implementation of `Prelude` written in Haskell, given in
-@chapter:standard-prelude.  Some datatypes (such as `Int`) and
-functions (such as `Int` addition) cannot be specified directly in
-Haskell.  Since the treatment of such entities depends on the
-implementation, they are not formally defined in @chapter:standard-prelude.
-The implementation of
-`Prelude` is also incomplete in its treatment of tuples: there should
-be an infinite family of tuples and their instance declarations, but the
-implementation only gives a scheme.
+The semantics of the entities in `Prelude` is specified by the library report (@section:prelude).
+Some datatypes (such as `Int`) and functions (such as `Int` addition) cannot be specified directly in Haskell.
+Since the treatment of such entities depends on the implementation, they are not formally defined in the library report.
 
-@chapter:standard-prelude defines the module `Prelude` using
-several other modules: `PreludeList`, `PreludeIO`, and so on.
-These modules are _not_ part of Haskell, and they cannot be imported
-separately.  They are simply 
-there to help explain the structure of the `Prelude` module; they
-should be considered part of its implementation, not part of the language
-definition.
 
 === Shadowing Prelude Names
 

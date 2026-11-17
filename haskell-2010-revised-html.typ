@@ -194,22 +194,22 @@
 
 #report-page(path: "ffi.html",
              prev: label("page:basic-input-output"),
-             next: label("page:standard-prelude"),
+             next: label("page:standard-libraries"),
              title: [Foreign Function Interface])[
   = Foreign Function Interface <chapter:ffi>
   #include "chapters/08-ffi.typ"
 ]<page:ffi>
 
-#report-page(path: "prelude.html",
+#report-page(path: "standard-libraries.html",
              prev: label("page:ffi"),
              next: label("page:syntax-reference"),
-             title: [Standard Prelude])[
-  = Standard Prelude <chapter:standard-prelude>
-  #include "chapters/09-standard-prelude.typ"
-]<page:standard-prelude>
+             title: [Standard Libraries])[
+  = Standard Libraries <chapter:standard-libraries>
+  #include "chapters/09-standard-libraries.typ"
+]<page:standard-libraries>
 
 #report-page(path: "syntax-reference.html",
-             prev: label("page:standard-prelude"),
+             prev: label("page:standard-libraries"),
              next: label("page:derived-instances"),
              title: [Syntax Reference])[
   = Syntax Reference <chapter:syntax-reference>

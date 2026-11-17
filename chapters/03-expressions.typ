@@ -368,7 +368,7 @@ value of $e_1$ is `True`, $e_3$ if $e_1$ is `False`, and $bot$ otherwise.
 _Lists_ are written $[e_1, dots, e_k]$, where $k >= 1$.
 The list constructor is `:`, and the empty list is denoted `[]`.
 Standard operations on lists are given in the Prelude (see @subsec:basic-lists, and
-@chapter:standard-prelude notably @sec:preludelist).
+@chapter:standard-libraries).
 
 #translation-box([
   The following identity holds:
@@ -399,7 +399,7 @@ of arbitrary length $k >= 2$.
 The constructor for an $n$-tuple is denoted by $(, dots ,)$, where there are $n-1$ commas.
 Thus `(a,b,c)` and `(,,) a b c` denote the same value.
 Standard operations on tuples are given
-in the Prelude (see @subsec:basic-tuples and @chapter:standard-prelude).
+in the Prelude (see @subsec:basic-tuples and @section:prelude).
 
 #translation-box([
   $(e_1, dots, e_k)$ for $k >= 2$ is an instance of a $k$-tuple as defined in the Prelude, and requires no translation.
