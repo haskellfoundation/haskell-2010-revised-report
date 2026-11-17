@@ -104,12 +104,6 @@ module Prelude
     sequence,
     sequence_,
     (=<<),
-    maybe,
-    either,
-    (&&),
-    (||),
-    not,
-    otherwise,
     -- ** Miscellaneous functions
     id,
     const,
