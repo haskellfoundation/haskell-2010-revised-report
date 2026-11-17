@@ -7,6 +7,7 @@ import Data.Array
 import Data.Maybe
 import System.IO
 
+infixl 4 <$
 -- | The Functor class is used for types that can be mapped over. Instances of Functor should satisfy the
 -- following laws:
 --

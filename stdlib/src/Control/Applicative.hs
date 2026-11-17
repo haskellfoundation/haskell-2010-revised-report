@@ -8,6 +8,7 @@ import Data.Functor
 import Data.Maybe
 import System.IO
 
+infixl 4 <*>, <*, *>
 class (Functor f) => Applicative f where
   pure :: a -> f a
 
