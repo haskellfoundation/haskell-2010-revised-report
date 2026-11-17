@@ -568,7 +568,7 @@ This means, for example, that a compiler may optimize calls to
 functions in the Prelude without consulting the source code
 of the Prelude.
 
-=== The Prelude Module
+=== The Prelude Module <section:prelude-import>
 
 The `Prelude` module is imported automatically into all modules as if
 by the statement `import Prelude`, if and only if it is not imported
