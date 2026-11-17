@@ -714,8 +714,7 @@ to be written in a more traditional way as:
   )
 
   - $p$ stands for a _failable_ pattern (@sec:failable-patterns),
-  - $q$ stands for a _failure-free_ pattern (compared to the case with $p$,
-    this case prevents generation of the alternative with `fail`),
+  - $q$ stands for a _failure-free_ pattern for which we don't have to generate an alternative with `fail` and incur a `MonadFail` constraint in the translation,
   - ellipsis "`...`" stands for a compiler-generated error message that is
     passed to `fail`, which may be used to give some indication of the location
     and reason of the pattern-match failure,
