@@ -13,6 +13,7 @@ extra-doc-files:
 
 library
     exposed-modules:
+      Control.Applicative
       Control.Monad
       Data.Array
       Data.Bits
@@ -23,6 +24,7 @@ library
       Data.Enum
       Data.Eq
       Data.Function
+      Data.Functor
       Data.Int
       Data.Ix
       Data.List
