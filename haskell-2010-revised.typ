@@ -96,9 +96,9 @@
 
 #include "chapters/08-ffi.typ"
 
-= Standard Prelude <chapter:standard-prelude>
+= Standard Libraries <chapter:standard-libraries>
 
-#include "chapters/09-standard-prelude.typ"
+#include "chapters/09-standard-libraries.typ"
 
 = Syntax Reference <chapter:syntax-reference>
 

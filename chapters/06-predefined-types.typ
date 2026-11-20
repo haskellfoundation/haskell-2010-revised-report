@@ -6,7 +6,7 @@ and functions that are implicitly imported into every Haskell
 program.  In this chapter, we describe the types and classes found in
 the Prelude.
 Most functions are not described in detail here as they
-can easily be understood from their definitions as given in @chapter:standard-prelude.
+can easily be understood from their definitions as given in the Prelude.
 Other predefined types such as arrays, complex numbers, and rationals
 are defined in the library report.
 
@@ -68,8 +68,7 @@ Lists are an algebraic datatype of two constructors, although
 with special syntax, as described in @sec:lists.
 The first constructor is the null list, written `'[]'` ("nil"),
 and the second is `':'` ("cons").
-The module `PreludeList` (see @sec:preludelist)
-defines many standard list functions.
+The module `Data.List` defines many standard list functions.
 Arithmetic sequences
 and list comprehensions,
 two convenient
@@ -127,8 +126,7 @@ classes.  @chapter:basic-input-output describes I/O operations.
 operations.  It is an instance of `Show` and `Eq`.  Values of this type
 are constructed by the various I/O functions and are not presented in
 any further detail in this report.  The Prelude contains a few
-I/O functions (defined in @sec:preludeio), and part:libraries[Part]
-contains many more.
+I/O functions, and the standard library contains many more.
 
 === Other Types
 
@@ -287,13 +285,11 @@ and miscellaneous classes `Show`, `Read` (@subsec:read-show) and `Bounded` (@sub
 
 Default class method declarations (@sec:type-classes) are provided
 for many of the methods in standard classes.  A comment with each
-`class` declaration in @chapter:standard-prelude specifies the
+`class` declaration in the standard library specifies the
 smallest collection of method definitions that, together with the
 default declarations, provide a reasonable definition for all the
 class methods.  If there is no such comment, then all class methods
 must be given to fully specify an instance.
-
-
 
 === The Eq Class <subsec:eq-class>
 
@@ -472,7 +468,7 @@ The following `Prelude` types are instances of `Enum`:
 - Enumeration types: `()`, `Bool`, and `Ordering`. The
   semantics of these instances is given by @chapter:derived-instances.
   For example, `[LT ..]` is the list `[LT,EQ,GT]`.
-- `Char`: the instance is given in @chapter:standard-prelude,   based
+- `Char`: the instance is given in the Prelude, based
   on the primitive functions that convert between a `Char` and an `Int`.
   For example, `enumFromTo 'a' 'z'` denotes
   the list of lowercase letters in alphabetical order.
