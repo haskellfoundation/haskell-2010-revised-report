@@ -14,6 +14,12 @@ These behavioural specifications are given in the form of documentation comments
 Many of these reference implementations are written with clarity rather than efficiency in mind,
 and it is not required that the specification be implemented as shown.
 
+Implementations must have the same strictness behaviour as the reference implementation.
+That is, they are neither allowed to be more strict or less strict than the reference implementation.
+
+The behavioural specifications do not constrain memory usage or algorithmic complexity.
+Implementations are encouraged to document the time and memory behaviour of the concrete implementation method that they have chosen.
+
 The default method definitions, given with `class` declarations, constitute
 a specification _only_ of the default method.  They do not constitute a
 specification of the meaning of the method in all instances.  To take
