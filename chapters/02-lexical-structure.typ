@@ -42,94 +42,270 @@ Haskell compilers are expected to make use of new versions of Unicode as they ar
 
 == Lexical Program Structure
 
+This section contains the complete specification of all nonterminals used in the definition of the lexical syntax.
+Lexemes are defined in @sec:lexemes.
+
 #table(
   columns: 3,
   align: (left, center, left),
   stroke: none,
-  // program
-  $nonterminal("program")$, $->$, ${ med nonterminal("lexeme") | nonterminal("whitespace") med }$,
-  // lexeme
-  $nonterminal("lexeme")$, $->$, $nonterminal("qvarid") | nonterminal("qconid") | nonterminal("qvarsym") | nonterminal("qconsym")$,
-  [], $|$, $nonterminal("literal") | nonterminal("special") | nonterminal("reservedop") | nonterminal("reservedid")$,
-  // literal
-  $nonterminal("literal")$, $->$, $nonterminal("integer") | nonterminal("float") | nonterminal("char") | nonterminal("string")$,
   // special
-  $nonterminal("special")$, $->$, $terminal("(") | terminal(")") | terminal(",") | terminal(";") | terminal("[") | terminal("]") | terminal("`") | terminal("{") | terminal("}")$,
+  $nonterminaldef("special")$, $->$, $terminal("(") | terminal(")") | terminal(",") | terminal(";") | terminal("[") | terminal("]") | terminal("`") | terminal("{") | terminal("}")$,
   // whitespace
-  $nonterminal("whitespace")$, $->$, $nonterminal("whitestuff") { nonterminal("whitestuff") }$,
+  $nonterminaldef("whitespace")$, $->$, $nonterminal("whitestuff") { nonterminal("whitestuff") }$,
   // whitestuff
-  $nonterminal("whitestuff")$, $->$, $nonterminal("whitechar") | nonterminal("comment") | nonterminal("ncomment")$,
+  $nonterminaldef("whitestuff")$, $->$, $nonterminal("whitechar") | nonterminal("comment") | nonterminal("ncomment")$,
   // whitechar
-  $nonterminal("whitechar")$, $->$, $nonterminal("newline") | nonterminal("vertab") | nonterminal("space") | nonterminal("tab") | nonterminal("uniWhite")$,
+  $nonterminaldef("whitechar")$, $->$, $nonterminal("newline") | nonterminal("vertab") | nonterminal("space") | nonterminal("tab") | nonterminal("uniWhite")$,
   // newline
-  $nonterminal("newline")$, $->$, $nonterminal("return") nonterminal("linefeed") | nonterminal("return") | nonterminal("linefeed") | nonterminal("formfeed")$,
+  $nonterminaldef("newline")$, $->$, $nonterminal("return") nonterminal("linefeed") | nonterminal("return") | nonterminal("linefeed") | nonterminal("formfeed")$,
   // return
-  $nonterminal("return")$, $->$, $text("a carriage return")$,
+  $nonterminaldef("return")$, $->$, $text("a carriage return")$,
   // linefeed
-  $nonterminal("linefeed")$, $->$, $text("a line feed")$,
+  $nonterminaldef("linefeed")$, $->$, $text("a line feed")$,
   // vertab
-  $nonterminal("vertab")$, $->$, $text("a vertical tab")$,
+  $nonterminaldef("vertab")$, $->$, $text("a vertical tab")$,
   // formfeed
-  $nonterminal("formfeed")$, $->$, $text("a form feed")$,
+  $nonterminaldef("formfeed")$, $->$, $text("a form feed")$,
   // space
-  $nonterminal("space")$, $->$, $text("a space")$,
+  $nonterminaldef("space")$, $->$, $text("a space")$,
   // tab
-  $nonterminal("tab")$, $->$, $text("a horizontal tab")$,
+  $nonterminaldef("tab")$, $->$, $text("a horizontal tab")$,
   // uniWhite
-  $nonterminal("uniWhite")$, $->$, $text("any Unicode character with the property White_Space=yes")$,
+  $nonterminaldef("uniWhite")$, $->$, $text("any Unicode character with the property White_Space=yes")$,
   // comment
-  $nonterminal("comment")$, $->$, $nonterminal("dashes") [nonterminal("any")_(chevron.l nonterminal("symbol") chevron.r) { nonterminal("any") }] nonterminal("newline")$,
+  $nonterminaldef("comment")$, $->$, $nonterminal("dashes") [nonterminal("any")_(chevron.l nonterminal("symbol") chevron.r) { nonterminal("any") }] nonterminal("newline")$,
   // dashes
-  $nonterminal("dashes")$, $->$, $terminal("--") { terminal("-") }$,
+  $nonterminaldef("dashes")$, $->$, $terminal("--") { terminal("-") }$,
   // opencom
-  $nonterminal("opencom")$, $->$, $terminal("{-")$,
+  $nonterminaldef("opencom")$, $->$, $terminal("{-")$,
   // closecom
-  $nonterminal("closecom")$, $->$, $terminal("-}")$,
+  $nonterminaldef("closecom")$, $->$, $terminal("-}")$,
   // ncomment
-  $nonterminal("ncomment")$, $->$, $nonterminal("opencom") nonterminal("ANYseq") { nonterminal("ncomment") nonterminal("ANYseq") } nonterminal("closecom")$,
+  $nonterminaldef("ncomment")$, $->$, $nonterminal("opencom") nonterminal("ANYseq") { nonterminal("ncomment") nonterminal("ANYseq") } nonterminal("closecom")$,
   // ANYseq
-  $nonterminal("ANYseq")$, $->$, ${ med nonterminal("ANY") med }_(chevron.l { med nonterminal("ANY") med } ( nonterminal("opencom") | nonterminal("closecom") ) { med nonterminal("ANY") med } chevron.r)$,
+  $nonterminaldef("ANYseq")$, $->$, ${ med nonterminal("ANY") med }_(chevron.l { med nonterminal("ANY") med } ( nonterminal("opencom") | nonterminal("closecom") ) { med nonterminal("ANY") med } chevron.r)$,
   // ANY
-  $nonterminal("ANY")$, $->$, $nonterminal("graphic") | nonterminal("whitechar")$,
+  $nonterminaldef("ANY")$, $->$, $nonterminal("graphic") | nonterminal("whitechar")$,
   // any
-  $nonterminal("any")$, $->$, $nonterminal("graphic") | nonterminal("space") | nonterminal("tab")$,
+  $nonterminaldef("any")$, $->$, $nonterminal("graphic") | nonterminal("space") | nonterminal("tab")$,
   // graphic
-  $nonterminal("graphic")$, $->$, $nonterminal("small") | nonterminal("large") | nonterminal("symbol") | nonterminal("digit") | nonterminal("special") | terminal("\"") | terminal("'")$,
+  $nonterminaldef("graphic")$, $->$, $nonterminal("small") | nonterminal("large") | nonterminal("symbol") | nonterminal("digit") | nonterminal("special") | terminal("\"") | terminal("'")$,
   // small
-  $nonterminal("small")$, $->$, $nonterminal("uniSmall") | terminal("_")$,
+  $nonterminaldef("small")$, $->$, $nonterminal("uniSmall") | terminal("_")$,
   // uniSmall
-  $nonterminal("uniSmall")$, $->$, $text("any Unicode character in the categories Lowercase Letter (Ll) or Other Letter (Lo)")$,
+  $nonterminaldef("uniSmall")$, $->$, $text("any Unicode character in the categories Lowercase Letter (Ll) or Other Letter (Lo)")$,
   // large
-  $nonterminal("large")$, $->$, $text("any Unicode character in the categories Uppercase Letter (Lu) or Titlecase Letter (Lt)")$,
+  $nonterminaldef("large")$, $->$, $text("any Unicode character in the categories Uppercase Letter (Lu) or Titlecase Letter (Lt)")$,
   // symbol
-  $nonterminal("symbol")$, $->$, $nonterminal("ascSymbol") | nonterminal("uniSymbol")_(chevron.l nonterminal("special") | terminal("_") | terminal("\"") | terminal("'") chevron.r)$,
+  $nonterminaldef("symbol")$, $->$, $nonterminal("ascSymbol") | nonterminal("uniSymbol")_(chevron.l nonterminal("special") | terminal("_") | terminal("\"") | terminal("'") chevron.r)$,
   // ascSymbol
-  $nonterminal("ascSymbol")$, $->$, $terminal("!") | terminal("#") | terminal("$") | terminal("%") | terminal("&") | terminal("*") | terminal("+") | terminal(".")  | terminal("/") | terminal("<") | terminal("=") | terminal(">") | terminal("?") | terminal("@")$,
+  $nonterminaldef("ascSymbol")$, $->$, $terminal("!") | terminal("#") | terminal("$") | terminal("%") | terminal("&") | terminal("*") | terminal("+") | terminal(".")  | terminal("/") | terminal("<") | terminal("=") | terminal(">") | terminal("?") | terminal("@")$,
   [], $|$, $terminal("\\") | terminal("^") | terminal("|") | terminal("-") | terminal("~") | terminal(":")$,
   // uniSymbol
-  $nonterminal("uniSymbol")$, $->$, $text("any Unicode symbol or punctuation")$,
+  $nonterminaldef("uniSymbol")$, $->$, $text("any Unicode symbol or punctuation")$,
   // digit
-  $nonterminal("digit")$, $->$, $nonterminal("ascDigit") | nonterminal("uniDigit")$,
+  $nonterminaldef("digit")$, $->$, $nonterminal("ascDigit") | nonterminal("uniDigit")$,
   // ascDigit
-  $nonterminal("ascDigit")$, $->$, $terminal("0") | terminal("1") | dots | terminal("9")$,
+  $nonterminaldef("ascDigit")$, $->$, $terminal("0") | terminal("1") | dots | terminal("9")$,
   // uniDigit
-  $nonterminal("uniDigit")$, $->$, $text("any Unicode character in the categories Decimal Number (Nd), Letter Number (Nl) or Other Number (No)")$,
+  $nonterminaldef("uniDigit")$, $->$, $text("any Unicode character in the categories Decimal Number (Nd), Letter Number (Nl) or Other Number (No)")$,
   // octit
-  $nonterminal("octit")$, $->$, $terminal("0") | terminal("1") | dots | terminal("7")$,
+  $nonterminaldef("octit")$, $->$, $terminal("0") | terminal("1") | dots | terminal("7")$,
   // hexit
-  $nonterminal("hexit")$, $->$, $nonterminal("ascDigit") | terminal("A") | dots | terminal("F") | terminal("a") | dots | terminal("f")$,
+  $nonterminaldef("hexit")$, $->$, $nonterminal("ascDigit") | terminal("A") | dots | terminal("F") | terminal("a") | dots | terminal("f")$,
 )
 
-Lexical analysis should use the ``maximal munch'' rule:
-at each point, the longest possible lexeme
-satisfying the $nonterminal("lexeme")$ production is read.
-So, although `case` is a reserved word, `cases` is not.
-Similarly, although `=` is reserved, `==` and `~=` are not.
+#table(
+  columns: 3,
+  align: (left, center, left),
+  stroke: none,
+  // uniIdchar
+  $nonterminaldef("uniIdchar")$, $->$, $text("any Modifier Letter (Lm) or Non-Spacing Mark (Mn)")$,
+  // idchar
+  $nonterminaldef("idchar")$, $->$, $nonterminal("small") | nonterminal("large") | nonterminal("digit") | nonterminal("uniIdchar") | terminal("'")$,
+  // varid
+  $nonterminaldef("varid")$, $->$, $(nonterminal("small") {nonterminal("idchar") med })_(chevron.l nonterminal("reservedid") chevron.r)$,
+  // conid
+  $nonterminaldef("conid")$, $->$, $nonterminal("large") {nonterminal("idchar") med }$,
+  // reservedid
+  $nonterminaldef("reservedid")$, $->$, $terminal("case") | terminal("class") | terminal("data") | terminal("default") | terminal("deriving") | terminal("do") | terminal("else")$,
+  [], $|$, $terminal("forall") | terminal("foreign") | terminal("if") | terminal("import") | terminal("in") | terminal("infix") | terminal("infixl")$,
+  [], $|$, $terminal("infixr") | terminal("instance") | terminal("let") | terminal("module") | terminal("newtype") | terminal("of")$,
+  [], $|$, $terminal("then") | terminal("type") | terminal("where") | terminal("_")$,
+)
+
+#table(
+  columns: 3,
+  align: (left, center, left),
+  stroke: none,
+  // varsym
+  $nonterminaldef("varsym")$, $->$, $( nonterminal("symbol")_(chevron.l terminal(":") chevron.r) { nonterminal("symbol")})_(chevron.l nonterminal("reservedop") | nonterminal("dashes") chevron.r)$,
+  // consym
+  $nonterminaldef("consym")$, $->$, $(terminal(":") { nonterminal("symbol") })_(chevron.l nonterminal("reservedop") chevron.r)$,
+  // reservedop
+  $nonterminaldef("reservedop")$, $->$, $terminal("..") | terminal(":") | terminal("::") | terminal("=") | terminal("\\") | terminal("|") | terminal("<-") | terminal("->") | terminal("@") | terminal("~") | terminal("=>")$,
+)
+
+#table(
+  columns: 4,
+  align: (left, center, left, left),
+  stroke: none,
+  // varid
+  $nonterminal("varid")$,[], [], [(variables)],
+  // conid
+  $nonterminal("conid")$,[],[],[(constructors)],
+  // tyvar
+  $nonterminaldef("tyvar")$, $->$, $nonterminal("varid")$, [(type variables)],
+  // tycon
+  $nonterminaldef("tycon")$, $->$, $nonterminal("conid")$, [(type constructors)],
+  // tycls
+  $nonterminaldef("tycls")$, $->$, $nonterminal("conid")$, [(type classes)],
+  // modid
+  $nonterminaldef("modid")$, $->$, ${ nonterminal("conid") terminal(".")} nonterminal("conid")$, [(modules)],
+)
+
+#table(
+  columns: 3,
+  align: (left, center, left),
+  stroke: none,
+  // qvarid
+  $nonterminaldef("qvarid")$, $->$, $[nonterminal("modid") terminal(".")] nonterminal("varid")$,
+  // qconid
+  $nonterminaldef("qconid")$, $->$, $[nonterminal("modid") terminal(".")] nonterminal("conid")$,
+  // qtycon
+  $nonterminaldef("qtycon")$, $->$, $[nonterminal("modid") terminal(".")] nonterminal("tycon")$,
+  // qtycls
+  $nonterminaldef("qtycls")$, $->$, $[nonterminal("modid") terminal(".")] nonterminal("tycls")$,
+  // qvarysm
+  $nonterminaldef("qvarsym")$, $->$, $[nonterminal("modid") terminal(".")] nonterminal("varsym")$,
+  // qconsym
+  $nonterminaldef("qconsym")$, $->$, $[nonterminal("modid") terminal(".")] nonterminal("consym")$,
+
+)
+
+#table(
+  columns: 3,
+  align: (left, center, left),
+  stroke: none,
+  // decimal
+  $nonterminaldef("decimal")$, $->$, $nonterminal("ascDigit"){nonterminal("ascDigit")}$,
+  // octal
+  $nonterminaldef("octal")$, $->$, $nonterminal("octit"){nonterminal("octit")}$,
+  // hexadecimal
+  $nonterminaldef("hexadecimal")$, $->$, $nonterminal("hexit"){nonterminal("hexit")}$,
+  // integer
+  $nonterminaldef("integer")$, $->$, $nonterminal("decimal")$,
+  [], $|$, $terminal("0o") nonterminal("octal") | terminal("0O") nonterminal("octal")$,
+  [], $|$, $terminal("0x") nonterminal("hexadecimal") | terminal("0X") nonterminal("hexadecimal")$,
+  // float
+  $nonterminaldef("float")$, $->$, $nonterminal("decimal") terminal(".") nonterminal("decimal") [ nonterminal("exponent")]$,
+  [], $|$, $nonterminal("decimal") nonterminal("exponent")$,
+  // exponent
+  $nonterminaldef("exponent")$, $->$, $(terminal("e") | terminal("E")) [terminal("+") | terminal("-")] nonterminal("decimal")$,
+)
+
+#table(
+  columns: 3,
+  align: (left, center, left),
+  stroke: none,
+  // char
+  $nonterminaldef("char")$, $->$, $terminal("'") (nonterminal("graphic")_(chevron.l terminal("'") | terminal("\\") chevron.r) | nonterminal("space") | nonterminal("escape")_(chevron.l terminal("\&") chevron.r)) terminal("'")$,
+  // string
+  $nonterminaldef("string")$, $->$, $terminal("\"") {nonterminal("graphic")_(chevron.l terminal("\"") | terminal("\\") chevron.r) | nonterminal("space") | nonterminal("escape") | nonterminal("gap") } terminal("\"")$,
+  // escape
+  $nonterminaldef("escape")$, $->$, $terminal("\\") (nonterminal("charesc") | nonterminal("ascii") | nonterminal("decimal") | terminal("o") nonterminal("octal") | terminal("x") nonterminal("hexadecimal"))$,
+  // charesc
+  $nonterminaldef("charesc")$, $->$, $terminal("a") | terminal("b") | terminal("f") | terminal("n") | terminal("r") | terminal("t") | terminal("v") | terminal("\\") | terminal("\"") | terminal("'") | terminal("&")$,
+  // ascii
+  $nonterminaldef("ascii")$, $->$, $terminal("^") nonterminal("cntrl") | terminal("NUL") | terminal("SOH") | terminal("STX") | terminal("ETX") | terminal("EOT") | terminal("ENQ") | terminal("ACK")$,
+  [], $|$, $terminal("BEL") | terminal("BS") | terminal("HT") | terminal("LF") | terminal("VT") | terminal("FF") | terminal("CR") | terminal("SO") | terminal("SI") | terminal("DLE")$,
+  [], $|$, $terminal("DC1") | terminal("DC2") | terminal("DC3") | terminal("DC4") | terminal("NAK") | terminal("SYN") | terminal("ETB") | terminal("CAN")$,
+  [], $|$, $terminal("EM") | terminal("SUB") | terminal("ESC") | terminal("FS") | terminal("GS") | terminal("RS") | terminal("US") | terminal("SP") | terminal("DEL")$,
+  // ascLarge
+  $nonterminaldef("ascLarge")$, $->$, $terminal("A") | terminal("B") | dots | terminal("Z")$,
+  // cntrl
+  $nonterminaldef("cntrl")$, $->$, $nonterminal("ascLarge") | terminal("@") | terminal("[") | terminal("\\") | terminal("]") | terminal("^") | terminal("_")$,
+  // gap
+  $nonterminaldef("gap")$, $->$, $terminal("\\") nonterminal("whitechar") { med nonterminal("whitechar") med } terminal("\\")$,
+)
 
 Any kind of $nonterminal("whitespace")$ is also a proper delimiter for lexemes.
 
 Characters not in the category $nonterminal("ANY")$ are not valid
 in Haskell programs and should result in a lexing error.
+
+== Lexemes <sec:lexemes>
+
+Lexical analysis should use the "maximal munch" rule:
+at each point, the longest possible lexeme from @table:lexemes is read.
+So, although `case` is a reserved word, `cases` is not.
+Similarly, although `=` is reserved, `==` and `~=` are not.
+
+#[
+  #show figure: set block(breakable: true)
+  #figure()[
+    #table(
+      columns: 4,
+      stroke: none,
+      align: (left, left, left, left),
+      table.hline(),
+      table.header([Lexeme], [Category], [Definition],[Properties]),
+      table.hline(),
+      [#token("qvarid")],[Identifier],$nonterminal("qvarid")$,[Opening, Closing],
+      [#token("qconid")],[Identifier],$nonterminal("qconid")$,[Opening, Closing],
+      [#token("qvarsym")],[Identifier],$nonterminal("qvarsym")$,[Opening, Closing],
+      [#token("qconsym")],[Identifier],$nonterminal("qconsym")$,[Opening, Closing],
+      [#token("integer")],[Literal],$nonterminal("integer")$,[Opening, Closing],
+      [#token("float")],[Literal],$nonterminal("float")$,[Opening, Closing],
+      [#token("char")],[Literal],$nonterminal("char")$,[Opening, Closing],
+      [#token("string")],[Literal],$nonterminal("string")$,[Opening, Closing],
+      [#token("(")],[Special],$terminal("(")$,[Opening],
+      [#token(")")],[Special],$terminal(")")$,[Closing],
+      [#token(",")],[Special],$terminal(",")$,[],
+      [#token(";")],[Special],$terminal(";")$,[],
+      [#token("[")],[Special],$terminal("[")$,[Opening],
+      [#token("]")],[Special],$terminal("]")$,[Closing],
+      [#token("`")],[Special],$terminal("`")$,[],
+      [#token("{")],[Special],$terminal("{")$,[Opening],
+      [#token("}")],[Special],$terminal("}")$,[Closing],
+      [#token("..")], [Reserved operator], $terminal("..")$,[],
+      [#token(":")], [Reserved operator], $terminal(":")$,[],
+      [#token("::")], [Reserved operator], $terminal("::")$,[],
+      [#token("=")], [Reserved operator], $terminal("=")$,[],
+      [#token("\\")], [Reserved operator], $terminal("\\")$,[],
+      [#token("|")], [Reserved operator], $terminal("|")$,[],
+      [#token("<-")], [Reserved operator], $terminal("<-")$,[],
+      [#token("->")], [Reserved operator], $terminal("->")$,[],
+      [#token("@")], [Reserved operator], $terminal("@")$,[],
+      [#token("~")], [Reserved operator], $terminal("~")$,[],
+      [#token("=>")], [Reserved operator], $terminal("=>")$,[],
+      [#token("case")], [Reserved identifier], $terminal("case")$, [Opening, Closing],
+      [#token("class")], [Reserved identifier], $terminal("class")$, [Opening, Closing],
+      [#token("data")], [Reserved identifier], $terminal("data")$, [Opening, Closing],
+      [#token("default")], [Reserved identifier], $terminal("default")$, [Opening, Closing],
+      [#token("deriving")], [Reserved identifier], $terminal("deriving")$, [Opening, Closing],
+      [#token("do")], [Reserved identifier], $terminal("do")$, [Opening, Closing],
+      [#token("else")], [Reserved identifier], $terminal("else")$, [Opening, Closing],
+      [#token("forall")], [Reserved identifier], $terminal("forall")$, [Opening, Closing],
+      [#token("foreign")], [Reserved identifier], $terminal("foreign")$, [Opening, Closing],
+      [#token("if")], [Reserved identifier], $terminal("if")$, [Opening, Closing],
+      [#token("import")], [Reserved identifier], $terminal("import")$, [Opening, Closing],
+      [#token("in")], [Reserved identifier], $terminal("in")$, [Opening, Closing],
+      [#token("infix")], [Reserved identifier], $terminal("infix")$, [Opening, Closing],
+      [#token("infixl")], [Reserved identifier], $terminal("infixl")$, [Opening, Closing],
+      [#token("infixr")], [Reserved identifier], $terminal("infixr")$, [Opening, Closing],
+      [#token("instance")], [Reserved identifier], $terminal("instance")$, [Opening, Closing],
+      [#token("let")], [Reserved identifier], $terminal("let")$, [Opening, Closing],
+      [#token("module")], [Reserved identifier], $terminal("module")$, [Opening, Closing],
+      [#token("newtype")], [Reserved identifier], $terminal("newtype")$, [Opening, Closing],
+      [#token("of")], [Reserved identifier], $terminal("of")$, [Opening, Closing],
+      [#token("then")], [Reserved identifier], $terminal("then")$, [Opening, Closing],
+      [#token("type")], [Reserved identifier], $terminal("type")$, [Opening, Closing],
+      [#token("where")], [Reserved identifier], $terminal("where")$, [Opening, Closing],
+      [#token("_")], [Reserved identifier], $terminal("_")$, [Opening, Closing],
+  )] <table:lexemes>
+]
 
 == Comments
 

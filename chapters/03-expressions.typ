@@ -35,7 +35,10 @@ what it is bound to.
   // aexp
   $nonterminal("aexp")$, $->$, $nonterminal("qvar")$, [(variable)],
   [], $|$, $nonterminal("gcon")$, [(general constructor)],
-  [], $|$, $nonterminal("literal")$, [],
+  [], $|$, $nonterminal("integer")$, [],
+  [], $|$, $nonterminal("float")$, [],
+  [], $|$, $nonterminal("char")$, [],
+  [], $|$, $nonterminal("string")$, [],
   [], $|$, $terminal("(") nonterminal("exp") terminal(")")$, [(parenthesized expression)],
   [], $|$, $terminal("(") nonterminal("exp")_1 terminal(",") dots terminal(",") nonterminal("exp")_k terminal(")")$, [(tuple, $k>=2$)],
   [], $|$, $terminal("[") nonterminal("exp")_1 terminal(",") dots terminal(",") nonterminal("exp")_k terminal("]")$, [(list, $k>=1$)],
@@ -123,7 +126,10 @@ information when an error occurs.
   // aexp
   $nonterminal("aexp")$, $->$, $nonterminal("qvar")$, [(variable)],
   $$,$|$,$nonterminal("gcon")$,[(general constructor)],
-  $$,$|$,$nonterminal("literal")$,[],
+  [], $|$, $nonterminal("integer")$, [],
+  [], $|$, $nonterminal("float")$, [],
+  [], $|$, $nonterminal("char")$, [],
+  [], $|$, $nonterminal("string")$, [],
   // gcon
   $nonterminal("gcon")$, $->$, $terminal("()")$, [],
   $$,$|$,$terminal("[]")$,[],
@@ -172,8 +178,8 @@ to `x + y`, and `foldr (*) 1 xs` is equivalent to `foldr (\x y -> x*y) xs`.
 
 Special syntax is used to name some constructors for some of the
 built-in types, as found
-in the production for $nonterminal("gcon")$ and $nonterminal("literal")$.  These are described
-in @sec:standard-haskell-types.
+in the production for $nonterminal("gcon")$, $nonterminal("integer")$, $nonterminal("float")$, $nonterminal("char")$ and $nonterminal("string")$.
+These are described in @sec:standard-haskell-types.
 
 An integer literal represents the
 application of the function `fromInteger` to the
@@ -925,7 +931,10 @@ Patterns have this syntax:
   $nonterminal("apat")$,$->$,$nonterminal("var") [terminal("@") nonterminal("apat")]$,[(as pattern)],
   $$,$|$,$nonterminal("gcon")$,[(arity $nonterminal("gcon") = 0$)],
   $$,$|$,$nonterminal("qcon") terminal("{") nonterminal("fpat")_1 terminal(",") dots terminal(",") nonterminal("fpat")_k terminal("}")$,[(labeled pattern, $k >= 0$)],
-  $$,$|$,$nonterminal("literal")$,[],
+  $$,$|$,$nonterminal("integer")$,[],
+  $$,$|$,$nonterminal("float")$,[],
+  $$,$|$,$nonterminal("char")$,[],
+  $$,$|$,$nonterminal("string")$,[],
   $$,$|$,$terminal("_")$,[(wildcard)],
   $$,$|$,$terminal("(") nonterminal("pat") terminal(")")$,[(parenthesized pattern)],
   $$,$|$,$terminal("(") nonterminal("pat")_1 terminal(",") dots terminal(",") nonterminal("pat") terminal(")")$, [(tuple pattern, $k >= 2$)],
