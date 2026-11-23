@@ -237,7 +237,7 @@ in Haskell programs and should result in a lexing error.
 
 == Lexemes <sec:lexemes>
 
-Lexical analysis should use the ``maximal munch'' rule:
+Lexical analysis should use the "maximal munch" rule:
 at each point, the longest possible lexeme from @table:lexemes is read.
 So, although `case` is a reserved word, `cases` is not.
 Similarly, although `=` is reserved, `==` and `~=` are not.
