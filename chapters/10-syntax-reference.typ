@@ -39,8 +39,6 @@ lambda abstractions extend to the right as far as possible.
   columns: 3,
   align: (left, center, left),
   stroke: none,
-  // literal
-  $nonterminaldef("literal")$, $->$, $nonterminal("integer") | nonterminal("float") | nonterminal("char") | nonterminal("string")$,
   // special
   $nonterminaldef("special")$, $->$, $terminal("(") | terminal(")") | terminal(",") | terminal(";") | terminal("[") | terminal("]") | terminal("`") | terminal("{") | terminal("}")$,
   // whitespace
@@ -607,7 +605,10 @@ these two styles in the same file.
   // aexp
   $nonterminaldef("aexp")$, $->$, $nonterminal("qvar")$, [(variable)],
   [], $|$, $nonterminal("gcon")$, [(general constructor)],
-  [], $|$, $nonterminal("literal")$, [],
+  [], $|$,$nonterminal("integer")$, [],
+  [], $|$,$nonterminal("float")$, [],
+  [], $|$,$nonterminal("char")$, [],
+  [], $|$,$nonterminal("string")$, [],
   [], $|$, $terminal("(") nonterminal("exp") terminal(")")$, [(parenthesized expression)],
   [], $|$, $terminal("(") nonterminal("exp")_1 terminal(",") dots terminal(",") nonterminal("exp")_k terminal(")")$, [(tuple, $k>=2$)],
   [], $|$, $terminal("[") nonterminal("exp")_1 terminal(",") dots terminal(",") nonterminal("exp")_k terminal("]")$, [(list, $k>=1$)],
@@ -649,7 +650,10 @@ these two styles in the same file.
   $nonterminaldef("apat")$,$->$,$nonterminal("var") [terminal("@") nonterminal("apat")]$,[(as pattern)],
   $$,$|$,$nonterminal("gcon")$,[(arity $nonterminal("gcon") = 0$)],
   $$,$|$,$nonterminal("qcon") terminal("{") nonterminal("fpat")_1 terminal(",") dots terminal(",") nonterminal("fpat")_k terminal("}")$,[(labeled pattern, $k >= 0$)],
-  $$,$|$,$nonterminal("literal")$,[],
+  $$,$|$,$nonterminal("integer")$,[],
+  $$,$|$,$nonterminal("float")$,[],
+  $$,$|$,$nonterminal("char")$,[],
+  $$,$|$,$nonterminal("string")$,[],
   $$,$|$,$terminal("_")$,[(wildcard)],
   $$,$|$,$terminal("(") nonterminal("pat") terminal(")")$,[(parenthesized pattern)],
   $$,$|$,$terminal("(") nonterminal("pat")_1 terminal(",") dots terminal(",") nonterminal("pat") terminal(")")$, [(tuple pattern, $k >= 2$)],
