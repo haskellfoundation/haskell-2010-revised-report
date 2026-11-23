@@ -874,8 +874,6 @@ valid only if `[a]` is an instance of `Foo` under the assumptions
 `(Num a, Ord a)`.  But this does not hold, since `[a]` is only an
 instance of `Foo` under the stronger assumption `Real a`.
 
-Further examples of `instance` declarations may be found in @chapter:standard-prelude.
-
 === Derived Instances <sec:derived-decls>
 
 As mentioned in @sec:datatype-decls, `data` and `newtype`
@@ -961,7 +959,7 @@ which disambiguates the type.
 Occasionally, an otherwise ambiguous expression needs to be made
 the same type as some variable, rather than being given a fixed
 type with an expression type-signature.  This is the purpose
-of the function `asTypeOf` (@chapter:standard-prelude):
+of the function `asTypeOf` from the Prelude:
 #raw("x `asTypeOf` y") has the value of $x$, but $x$ and $y$ are
 forced to have the same type.  For example,
 ```haskell

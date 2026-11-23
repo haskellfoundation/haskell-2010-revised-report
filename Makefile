@@ -28,7 +28,7 @@ DEPENDENCY=bibliography.bib\
  chapters/06-predefined-types.typ\
  chapters/07-basic-input-output.typ\
  chapters/08-ffi.typ\
- chapters/09-standard-prelude.typ\
+ chapters/09-standard-libraries.typ\
  chapters/10-syntax-reference.typ\
  chapters/11-derived-instances.typ\
  chapters/12-compiler-pragmas.typ\
